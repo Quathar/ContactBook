@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Agenda_Ejecutable" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="main.Agenda_Ejecutable" />
+    <module name="ContactBook" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
