@@ -4,18 +4,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.quathar.app.classes.Contact;
-import com.quathar.app.classes.Hobby;
-import com.quathar.app.classes.Mail;
-import com.quathar.app.classes.Telephone;
+import com.quathar.app.model.Contact;
+import com.quathar.app.model.Hobby;
+import com.quathar.app.model.Mail;
+import com.quathar.app.model.Telephone;
 
-import com.quathar.app.database.Database;
+import com.quathar.app.database.DB;
 
-import com.quathar.app.gui.AddContact;
-import com.quathar.app.gui.ContactInfo;
-import com.quathar.app.gui.models.HobbyModel;
-import com.quathar.app.gui.models.MailModel;
-import com.quathar.app.gui.models.TelephoneModel;
+import com.quathar.app.gui.frame.Add;
+import com.quathar.app.gui.frame.Info;
+import com.quathar.app.gui.model.HobbyModel;
+import com.quathar.app.gui.model.MailModel;
+import com.quathar.app.gui.model.TelephoneModel;
 
 import com.quathar.app.io.RegexFilter;
 
@@ -31,9 +31,9 @@ import com.quathar.app.io.RegexFilter;
  * DAO = Data Acces Object.
  *
  * @since 2022-05-04
- * @see Database
- * @see AddContact
- * @see ContactInfo
+ * @see DB
+ * @see Add
+ * @see Info
  * @author Q
  */
 public class DAO { // CLASE FINALIZADA
@@ -42,7 +42,7 @@ public class DAO { // CLASE FINALIZADA
 	/**
 	 * Clase con conexi�n a la BBDD.
 	 */
-	private Database db;
+	private DB db;
 	/**
 	 * Contact Object.
 	 */
@@ -53,7 +53,7 @@ public class DAO { // CLASE FINALIZADA
 	 * Constructor.
 	 */
 	public DAO() {
-		db = new Database();
+		db = new DB();
 		c = new Contact();
 	}
 	
@@ -64,18 +64,18 @@ public class DAO { // CLASE FINALIZADA
 	 * 
 	 * @param frame the AddContact frame
 	 */
-	public void register(AddContact frame) {
+	public void register(Add frame) {
 		c = new Contact();
 		
 		// CAMPOS COMUNES
 		String type = (String) (frame.getContactType().getSelectedItem() + "s").toLowerCase();
 		c.setType(type);
 		String name = frame.getNameTextField().getText();
-		c.setName(name.equals(AddContact.PlaceHoldersTitles[1]) ? "" : RegexFilter.checkSpaces(name));
+		c.setName(name.equals(Add.PlaceHoldersTitles[1]) ? "" : RegexFilter.checkSpaces(name));
 		String address = frame.getAddressTextField().getText();
-		c.setAddress(address.equals(AddContact.PlaceHoldersTitles[3]) ? "" : RegexFilter.checkSpaces(address));
+		c.setAddress(address.equals(Add.PlaceHoldersTitles[3]) ? "" : RegexFilter.checkSpaces(address));
 		String notes = frame.getNotesTextField().getText();
-		c.setNotes(notes.equals(AddContact.PlaceHoldersTitles[4]) ? "" : RegexFilter.checkSpaces(notes));
+		c.setNotes(notes.equals(Add.PlaceHoldersTitles[4]) ? "" : RegexFilter.checkSpaces(notes));
 		
 		// AFICIONES
 		HobbyModel hModel = frame.getHobbyTable().getModel();
@@ -92,7 +92,7 @@ public class DAO { // CLASE FINALIZADA
 		if (!type.equals(Contact.Type[1])) {
 			if (type.equals(Contact.Type[0])) {
 				String surnames = frame.getSurnamesTextField().getText();
-				c.setSurnames(surnames.equals(AddContact.PlaceHoldersTitles[2]) ? "" : RegexFilter.checkSpaces(surnames));
+				c.setSurnames(surnames.equals(Add.PlaceHoldersTitles[2]) ? "" : RegexFilter.checkSpaces(surnames));
 				String birthDate = frame.getBirthDateText();
 				c.setBirthDate(birthDate);
 				String gender = (String) frame.getGenderComboBox().getSelectedItem();
@@ -229,8 +229,8 @@ public class DAO { // CLASE FINALIZADA
 	 */
 	public Object[][] getTelephoneContactData(int columnCount) {
 		try {
-			Object[][] data = new Object[db.countRows(Database.TelephonesTitle)][columnCount];
-			ResultSet rs = db.selectAllTelephonesOrMailsFrom(Database.TelephonesTitle);
+			Object[][] data = new Object[db.countRows(DB.TelephonesTitle)][columnCount];
+			ResultSet rs = db.selectAllTelephonesOrMailsFrom(DB.TelephonesTitle);
 			return fill(data, rs, columnCount);
 		} catch (SQLException sqlE) { return null; }
 	}
@@ -243,8 +243,8 @@ public class DAO { // CLASE FINALIZADA
 	 */
 	public Object[][] getMailContactData(int columnCount) {
 		try {
-			Object[][] data = new Object[db.countRows(Database.MailsTitle)][columnCount];
-			ResultSet rs = db.selectAllTelephonesOrMailsFrom(Database.MailsTitle);
+			Object[][] data = new Object[db.countRows(DB.MailsTitle)][columnCount];
+			ResultSet rs = db.selectAllTelephonesOrMailsFrom(DB.MailsTitle);
 			return fill(data, rs, columnCount);
 		} catch (SQLException sqlE) { return null; }
 	}
@@ -336,7 +336,7 @@ public class DAO { // CLASE FINALIZADA
 	 * @param frame the ContactInfo frame
 	 * @param id_c the contact ID
 	 */
-	public void modify(ContactInfo frame, int id_c) {
+	public void modify(Info frame, int id_c) {
 		c = new Contact(id_c);
 		
 		// CAMPOS COMUNES
@@ -453,9 +453,9 @@ public class DAO { // CLASE FINALIZADA
 	 */
 	public void unregisterRow(String table, int id) {
 		try {
-			if (table.equals(Database.HobbiesTitle))
+			if (table.equals(DB.HobbiesTitle))
 				db.deleteFromHobbiesWhereIdH(id);
-			else if (table.equals(Database.TelephonesTitle))
+			else if (table.equals(DB.TelephonesTitle))
 				db.deleteFromTelephonesWhereIdT(id);
 			else
 				db.deleteFromMailsWhereIdM(id);

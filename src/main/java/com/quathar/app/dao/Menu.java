@@ -2,18 +2,17 @@ package com.quathar.app.dao;
 
 import java.util.ArrayList;
 
-import com.quathar.app.classes.Contact;
-import com.quathar.app.classes.Mail;
-import com.quathar.app.classes.Telephone;
+import com.quathar.app.Application;
+import com.quathar.app.model.Contact;
+import com.quathar.app.model.Mail;
+import com.quathar.app.model.Telephone;
 
-import com.quathar.app.database.Database;
+import com.quathar.app.database.DB;
 
-import com.quathar.app.gui.GUI;
+import com.quathar.app.gui.frame.ContactBook;
 
 import com.quathar.app.io.IO;
 import com.quathar.app.io.RegexFilter;
-
-import com.quathar.app.Agenda_Ejecutable;
 
 /**
  * Menu.<br><br>
@@ -22,7 +21,7 @@ import com.quathar.app.Agenda_Ejecutable;
  * S�lo permite los aspectos m�s b�sicos, NO se pueden agregar ni a�adir (a un contacto) aficiones.
  *
  * @since 2022-04-05
- * @see Database
+ * @see DB
  * @see IO
  * @author Q
  */
@@ -32,7 +31,7 @@ public class Menu { // CLASE FINALZIADA
 	/**
 	 * Clase con conexi�n a la BBDD.
 	 */
-	private Database db;
+	private DB db;
 	/**
 	 * Contact object.
 	 */
@@ -44,7 +43,7 @@ public class Menu { // CLASE FINALZIADA
 	 * 
 	 * @param db agenda a la que se implementa este men�
 	 */
-	public Menu(Database db) {
+	public Menu(DB db) {
 		this.db = db;
 		c = new Contact();
 		while (menu());
@@ -352,11 +351,11 @@ public class Menu { // CLASE FINALZIADA
 			case 'G':
 				db.close();
 				IO.println("Accediendo a la GUI... bye.");
-				new GUI().setVisible(true);
+				new ContactBook().setVisible(true);
 				return false;
 			case 'F':
 				IO.println("Formateando :( bye.");
-				Agenda_Ejecutable.format();
+				Application.format();
 				return false;
 			case 'S':
 				db.close();
