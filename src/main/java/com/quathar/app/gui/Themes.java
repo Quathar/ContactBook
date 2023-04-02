@@ -13,53 +13,72 @@ import java.nio.file.Path;
  * @since 07-04-2022
  * @author Q
  */
-public class Themes { // CLASE FINALIZADA
+public class Themes {
 
 	// <<-CONSTANTS->>
 	/** Themes PATH */
 	private static final String PATH = Path.of(System.getProperty("user.dir"),
 			"themes", "json", "%s").toString();
+	/** Light type. */
+	public static final String LIGHT = "Light";
+	/** Dark type. */
+	public static final String DARK = "Dark";
 
-	/**
-	 * Nombre de todos los temas.
-	 */
-	public static final String[] ThemesNames = {
-			"Carbon", "Cyan", "Dark Purple",
-			"Dracula", "Dracula Constrast", "Github",
-			"Gruvbox Dark Hard", "Gradianto Deep Ocean", "High Contrast",
-			"Material", "Material Deep Ocean", "Material Deep Ocean Contrast",
-			"Material Lighter", "Material Lighter Contrast", "Material Pale Night",
-			"Moonlight", "Moonlight Contrast", "Nigth Owl Contrast",
-			"Nord", "Solarized Light Blue", "Solarized Light Red",
-			"Solarized Light Red Contrast", "Vuesion"
-		};
-	/**
-	 * Nombre de los temas claros.
-	 */
-	public static final String[] LightThemesNames = {
-			"Cyan", "Github", "Material Lighter",
-			"Material Lighter Contrast", "Solarized Light Blue", "Solarized Light Red",
+	/** Themes names by alphabetical order. */
+	public static final String[] THEMES = {
+			"Carbon",
+			"Cyan",
+			"Dark Purple",
+			"Dracula",
+			"Dracula Constrast",
+			"Github",
+			"Gruvbox Dark Hard",
+			"Gradianto Deep Ocean",
+			"High Contrast",
+			"Material",
+			"Material Deep Ocean",
+			"Material Deep Ocean Contrast",
+			"Material Lighter",
+			"Material Lighter Contrast",
+			"Material Pale Night",
+			"Moonlight",
+			"Moonlight Contrast",
+			"Nigth Owl Contrast",
+			"Nord",
+			"Solarized Light Blue",
+			"Solarized Light Red",
 			"Solarized Light Red Contrast",
-		};
-	/**
-	 * Nombre de los temas oscuros.
-	 */
-	public static final String[] DarkThemesNames = {
-			"Carbon", "Dark Purple", "Dracula",
-			"Dracula Constrast", "Gruvbox Dark Hard", "Gradianto Deep Ocean",
-			"High Contrast", "Material", "Material Deep Ocean",
-			"Material Deep Ocean Contrast", "Material Pale Night", "Moonlight",
-			"Moonlight Contrast", "Nigth Owl Contrast", "Nord",
 			"Vuesion"
-		};
-	/**
-	 * Light type.
-	 */
-	public static final String Light = "Light";
-	/**
-	 * Dark type.
-	 */
-	public static final String Dark = "Dark";
+	};
+	/** Light Themes names. */
+	public static final String[] LIGHT_THEMES = {
+			"Cyan",
+			"Github",
+			"Material Lighter",
+			"Material Lighter Contrast",
+			"Solarized Light Blue",
+			"Solarized Light Red",
+			"Solarized Light Red Contrast"
+	};
+	/** Dark Themes names. */
+	public static final String[] DARK_THEMES = {
+			"Carbon",
+			"Dark Purple",
+			"Dracula",
+			"Dracula Constrast",
+			"Gruvbox Dark Hard",
+			"Gradianto Deep Ocean",
+			"High Contrast",
+			"Material",
+			"Material Deep Ocean",
+			"Material Deep Ocean Contrast",
+			"Material Pale Night",
+			"Moonlight",
+			"Moonlight Contrast",
+			"Nigth Owl Contrast",
+			"Nord",
+			"Vuesion"
+	};
 	
 	/**
 	 * Devuelve un InputStream a partir de un ID.<br><br>
@@ -70,65 +89,60 @@ public class Themes { // CLASE FINALIZADA
 	 * @return InputStream
 	 */
 	public static InputStream getTheme(int id, String type) {
-			if (type.equals(Light))
-				return getLightTheme(id);
-			else
-				return getDarkTheme(id);
-	}
-	
-	/**
-	 * Devuelve un tema claro a partir de un ID.<br><br>
-	 * 
-	 * Los temas se entregan por orden alfab�tico.
-	 * 
-	 * @param id theme ID
-	 * @return InputStream
-	 */
-	public static InputStream getLightTheme(int id) {
 		try {
-			switch (id) {
-				case 0: return cyan();
-				case 1: return github();
-				case 2: return materialLighter();
-				case 3: return materialLighterContrast();
-				case 4: return solarizedLightBlue();
-				case 5: return solarizedLightRed();
-				case 6: return solarizedLightRedContrast();
-				default: return null;
-			}
+			return switch (type) {
+				case LIGHT -> getLightTheme(id);
+				case DARK  -> getDarkTheme(id);
+				default    -> null;
+			};
 		} catch (FileNotFoundException fnfE) { return null; }
 	}
-	
+
 	/**
-	 * Devuelve un tema oscuro a partir de un ID.<br><br>
-	 * 
-	 * Los temas se entregan por orden alfab�tico.
-	 * 
-	 * @param id theme ID
-	 * @return InputStream
+	 * Returns an InputStream from a light theme ID.
+	 *
+	 * @param id the theme ID
+	 * @return the specified light theme stream
 	 */
-	public static InputStream getDarkTheme(int id) {
-		try {
-			switch (id) {
-				case 0: return carbon();
-				case 1: return darkPurple();
-				case 2: return dracula();
-				case 3: return draculaContrast();
-				case 4: return gruvboxDarkHard();
-				case 5: return gradiantoDeepOcean();
-				case 6: return highContrast();
-				case 7: return material();
-				case 8: return materialDeepOcean();
-				case 9: return materialDeepOceanContrast();
-				case 10: return materialPaleNightContrast();
-				case 11: return moonlight();
-				case 12: return moonlightContrast();
-				case 13: return nightOwlContrast();
-				case 14: return nord();
-				case 15: return vuesion();
-				default: return null;
-			}
-		} catch (FileNotFoundException fnfE) { return null; }
+	public static InputStream getLightTheme(int id) throws FileNotFoundException {
+		return switch (id) {
+			case 0  -> cyan();
+			case 1  -> github();
+			case 2  -> materialLighter();
+			case 3  -> materialLighterContrast();
+			case 4  -> solarizedLightBlue();
+			case 5  -> solarizedLightRed();
+			case 6  -> solarizedLightRedContrast();
+			default -> null;
+		};
+	}
+
+	/**
+	 * Returns an InputStream from a dark theme ID.
+	 *
+	 * @param id the theme ID
+	 * @return the specified dark theme stream
+	 */
+	public static InputStream getDarkTheme(int id) throws FileNotFoundException {
+		return switch (id) {
+			case 0  -> carbon();
+			case 1  -> darkPurple();
+			case 2  -> dracula();
+			case 3  -> draculaContrast();
+			case 4  -> gruvboxDarkHard();
+			case 5  -> gradiantoDeepOcean();
+			case 6  -> highContrast();
+			case 7  -> material();
+			case 8  -> materialDeepOcean();
+			case 9  -> materialDeepOceanContrast();
+			case 10 -> materialPaleNightContrast();
+			case 11 -> moonlight();
+			case 12 -> moonlightContrast();
+			case 13 -> nightOwlContrast();
+			case 14 -> nord();
+			case 15 -> vuesion();
+			default -> null;
+		};
 	}
 
 	public static InputStream carbon() throws FileNotFoundException {

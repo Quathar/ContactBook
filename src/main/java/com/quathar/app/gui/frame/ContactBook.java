@@ -231,7 +231,7 @@ public class ContactBook extends JFrame implements ActionListener, DocumentListe
 	public ContactBook() {
 		super(FrameTitle);
 		dao = new DAO();
-		setTheme(0, Themes.Light);
+		setTheme(0, Themes.LIGHT);
 		initComponents();
 	}
 	
@@ -256,7 +256,7 @@ public class ContactBook extends JFrame implements ActionListener, DocumentListe
 	 */
 	private void setTheme(int themeIndex, String themeType) {
 		this.themeIndex = themeIndex;
-		if (themeType.equals(Themes.Light))
+		if (themeType.equals(Themes.LIGHT))
 			btnThemeTitle = "\uE28C";
 		else
 			btnThemeTitle = "\uE284";
@@ -567,9 +567,9 @@ public class ContactBook extends JFrame implements ActionListener, DocumentListe
 		
 		String[] items;
 		if (btnThemeTitle.equals("\uE28C"))
-			items = Themes.LightThemesNames;
+			items = Themes.LIGHT_THEMES;
 		else
-			items = Themes.DarkThemesNames;
+			items = Themes.DARK_THEMES;
 		themesComboBox = new ChangerComboBox(items);
 		themesComboBox.setSelectedIndex(themeIndex);
 		themesComboBox.addActionListener(this);
@@ -781,10 +781,10 @@ public class ContactBook extends JFrame implements ActionListener, DocumentListe
 	 * @return the theme type (light or dark)
 	 */
 	private String checkThemeType(String themeName) {
-		for (String name : Themes.LightThemesNames)
+		for (String name : Themes.LIGHT_THEMES)
 			if (name.equals(themeName))
-				return Themes.Light;
-		return Themes.Dark;
+				return Themes.LIGHT;
+		return Themes.DARK;
 	}
 	
 	/**
@@ -798,11 +798,11 @@ public class ContactBook extends JFrame implements ActionListener, DocumentListe
 			String icon = themesButton.getText();
 			if (icon.equals("\uE28C")) {
 				themesButton.setText("\uE284");
-				themesComboBox.changeList(Themes.DarkThemesNames);
+				themesComboBox.changeList(Themes.DARK_THEMES);
 				return true;
 			} else if (icon.equals("\uE284")) {
 				themesButton.setText("\uE28C");
-				themesComboBox.changeList(Themes.LightThemesNames);
+				themesComboBox.changeList(Themes.LIGHT_THEMES);
 				return true;
 			}
 		}

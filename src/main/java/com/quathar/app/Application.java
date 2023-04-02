@@ -57,7 +57,7 @@ public class Application { // CLASE FINALIZADA
 		String[] options = {"Console", "Graphic User Interface"};
 		
 		// Siempre inicia con el primer tema Claro (Cyan)
-		IntelliJTheme.setup(Themes.getTheme(0, Themes.Light));
+		IntelliJTheme.setup(Themes.getTheme(0, Themes.LIGHT));
 		return JOptionPane.showOptionDialog
 				(null, msg, "ACCESO", 0, JOptionPane.QUESTION_MESSAGE, null, options, "Graphic User Interface"); 
 	}
@@ -91,7 +91,7 @@ public class Application { // CLASE FINALIZADA
 	// DESCOMENTAR EL M�TODO PARA INICIAR SIN PANEL DE OPCIONES
 	
 	private static void fastInit() {
-		IntelliJTheme.setup(Themes.getTheme(0, Themes.Light));
+		IntelliJTheme.setup(Themes.getTheme(0, Themes.LIGHT));
 		new ContactBook().setVisible(true);
 //		new menu(new com.quathar.app.database());
 	}
