@@ -1,7 +1,7 @@
 package com.quathar.contactbook.ui.model;
 
 import com.quathar.contactbook.data.entity.Contact;
-import com.quathar.contactbook.data.repository.impl.ContactRepositoryImpl;
+import com.quathar.contactbook.data.dao.impl.ContactDaoImpl;
 import com.quathar.contactbook.data.service.ContactService;
 import com.quathar.contactbook.data.service.impl.ContactServiceImpl;
 
@@ -34,7 +34,7 @@ public class ContactModel extends DefaultTableModel {
 
 	// <<-CONSTRUCTORS->>
 	public ContactModel() {
-		_contactService = new ContactServiceImpl(new ContactRepositoryImpl());
+		_contactService = new ContactServiceImpl(new ContactDaoImpl());
 		setColumnIdentifiers(COLUMN_NAMES);
 		createModel(COLUMNS);
 	}

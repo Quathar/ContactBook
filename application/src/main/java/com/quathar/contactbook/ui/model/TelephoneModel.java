@@ -1,8 +1,5 @@
 package com.quathar.contactbook.ui.model;
 
-import com.quathar.app.dao.DAO;
-import com.quathar.app.database.DB;
-
 /**
  * MailModel.<br><br>
  * 
@@ -12,78 +9,47 @@ import com.quathar.app.database.DB;
  * @see GeneralModel
  * @author Q
  */
-public class TelephoneModel extends GeneralModel { // CLASE FINALIZADA
+public class TelephoneModel {
+//public class TelephoneModel extends GeneralModel {
 	
 	// CONSTANTES
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Nombres de las columnas.
-	 */
-	private final String[] ColumnNames = {"ID_T", "TEL�FONO", "TIPO"};
-	
-	// CAMPOS
-	/**
-	 * N�mero de columnas.
-	 */
-	private final int COLUMNAS = 3;
-	/**
-	 * Nombre de la tabla en la BBDD.
-	 */
-	private final String TABLE = DB.TelephonesTitle;
-	
-	// CONSTRUCTORES
-	/**
-	 * Constructor.<br><br>
-	 * 
-	 * Crea un modelo vac�o.
-	 * 
-	 * @param dao the data access object
-	 */
-	public TelephoneModel(DAO dao) {
-		super(dao);
-		setColumnIdentifiers(ColumnNames);
-	}
-	
-	/**
-	 * Constructor.<br><br>
-	 * 
-	 * Crea el modelo con los tel�fonos de un contacto.
-	 * 
-	 * @param dao the data access object
-	 * @param id the contact ID
-	 */
-	public TelephoneModel(DAO dao, int id) {
-		super(dao);
-		setColumnIdentifiers(ColumnNames);
-		createModelWhereIdC(TABLE, COLUMNAS, id);
-	}
-	
-	// M�TODOS
-	/**
-	 * Elimina las filas seleccionadas en el modelo o en el modelo y la BBDD, dependiendo de su ID.
-	 * 
-	 * @param selectedRows the selected rows
-	 */
-	public void deleteSelectedRows(int[] selectedRows) {
-		if (selectedRows.length > 1)
-			flip(selectedRows);
-		
-		int id_t;
-		for (int i = 0; i < selectedRows.length; i++) {
-			id_t = Integer.parseInt(getValueAt(selectedRows[i], 0).toString());
-			if (id_t != 0) {
-	 			dao.unregisterRow(TABLE, id_t);
-	 			removeRow(selectedRows[i]);
-			} else
-				removeRow(selectedRows[i]);
-		}
-	}
-	
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		if (getColumnName(columnIndex) == ColumnNames[2])
-			return false;
-		else
-			return true;
-	}
+//	private static final long serialVersionUID = 1L;
+//	private final String[] ColumnNames = {"ID_T", "TEL�FONO", "TIPO"};
+//
+//	// CAMPOS
+//	private final int COLUMNAS = 3;
+//	private final String TABLE = DB.TelephonesTitle;
+//
+//	// CONSTRUCTORES
+//	public TelephoneModel(DAO dao) {
+//		super(dao);
+//		setColumnIdentifiers(ColumnNames);
+//	}
+//
+//	public TelephoneModel(DAO dao, int id) {
+//		super(dao);
+//		setColumnIdentifiers(ColumnNames);
+//		createModelWhereIdC(TABLE, COLUMNAS, id);
+//	}
+//
+//	// M�TODOS
+//	public void deleteSelectedRows(int[] selectedRows) {
+//		if (selectedRows.length > 1)
+//			flip(selectedRows);
+//
+//		int id_t;
+//		for (int i = 0; i < selectedRows.length; i++) {
+//			id_t = Integer.parseInt(getValueAt(selectedRows[i], 0).toString());
+//			if (id_t != 0) {
+//	 			dao.unregisterRow(TABLE, id_t);
+//	 			removeRow(selectedRows[i]);
+//			} else
+//				removeRow(selectedRows[i]);
+//		}
+//	}
+//
+//	public boolean isCellEditable(int rowIndex, int columnIndex) {
+//		return !getColumnName(columnIndex).equals(ColumnNames[2]);
+//	}
 	
 }

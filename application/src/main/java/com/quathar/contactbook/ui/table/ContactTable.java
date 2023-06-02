@@ -2,6 +2,7 @@ package com.quathar.contactbook.ui.table;
 
 import com.quathar.contactbook.ui.model.ContactModel;
 
+import javax.swing.*;
 import java.io.Serial;
 
 /**
@@ -11,7 +12,7 @@ import java.io.Serial;
  * @version 2.0
  * @author Q
  */
-public class ContactTable extends GeneralTable {
+public class ContactTable extends JTable {
 
 	// <<-CONSTANTS->>
 	@Serial
@@ -24,13 +25,13 @@ public class ContactTable extends GeneralTable {
 	public ContactTable() {
 		contactModel = new ContactModel();
 		setModel(contactModel);
-		removeColumn(0);
+		removeColumn(columnModel.getColumn(0));
 	}
 
 	// <<-METHODS->>
 	public void place() {
-		center(new int[] {0});
-		resize(new int[] {1, 2, 3}, 225);
+//		center(new int[] {0});
+//		resize(new int[] {1, 2, 3}, 225);
 	}
 
 	public void update() {
@@ -41,18 +42,20 @@ public class ContactTable extends GeneralTable {
 		contactType = contactType.equalsIgnoreCase("all") ?
 						null : contactType;
 		contactModel.createModelWithType(contactType);
-		removeColumn(0);
+		removeColumn(columnModel.getColumn(0));
 	}
 	
 	public void update(String contactType, String word) {
 		contactType = contactType.equalsIgnoreCase("all") ?
 						null : contactType;
 		contactModel.createModelWithParams(contactType, word);
-		removeColumn(0);
+//		removeColumn(0);
+		removeColumn(columnModel.getColumn(0));
 	}
 	
 	public void deleteRows() {
-		super.deleteRows(contactModel);
+//		super.deleteRows(contactModel);
+		contactModel.removeRow(getSelectedRows());
 	}
 	
 }

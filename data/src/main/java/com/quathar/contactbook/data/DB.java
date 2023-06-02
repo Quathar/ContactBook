@@ -1133,61 +1133,6 @@ public class DB { // CLASE FINALIZADA
 //	public void init() throws SQLException {
 //		String sql;
 //
-//		sql = "INSERT INTO contactos (nombre, direccion, notas) VALUES "						// ID:
-//				+ "('Alex', 'Calle A', 'Estudia en Clara del Rey'), "							// 1
-//				+ "('Wendy', 'Calle W', 'Psicolog�a'), "										// 2
-//				+ "('Daniel', 'Calle D', 'Estudia en Clara del Rey'), "							// 3
-//				+ "('Coca Cola', 'Calle de la Cola, 23', 'Lleva ingrediente secreto'), "		// 4
-//				+ "('Winnie', 'Avenida Mediterr�neo Central, 34', 'Lazy dog'), "				// 5
-//				+ "('Pedro', 'Calle de 420', 'Le gusta el verde'), "							// 6
-//				+ "('7UP', 'V�a up, 67', 'Bubble drink'), "										// 7-
-//				+ "('Oddy', 'Avenida Mediterr�neo Central, 192', 'Grumpy dog'), "				// 8
-//				+ "('Pacheco', 'Calle Toledo, 3', 'Se volvi� a meter a Cryptomines'), "			// 9
-//				+ "('TRUHKO MakeUp', 'Calle Atocha, 94', 'Escuela de maquillaje'), "			// 10
-//				+ "('Mil�', 'Avenida Glasgow, 45', 'Happy dog'), "								// 11-
-//				+ "('Tony', 'New York, 5�', 'Iron-Man'), "										// 12
-//				+ "('Steve', 'Calle Queens, 3', 'Captain America'), "							// 13
-//				+ "('Harry', 'Boulevar Spade, 2', 'Green Goblin'), "							// 14
-//				+ "('Rocket Raccoon', 'His spaceship', 'Groot best friend'), "					// 15
-//				+ "('Al', 'The Hell', 'Spawn'), "												// 16
-//				+ "('James', 'Calle mutant, XMen-House', 'Wolverine'), "						// 17
-//				+ "('Groot', 'Groot', 'Groot'), "												// 18
-//				+ "('Bruce', 'Mansi�n Wayne', 'Batman'), "										// 19
-//				+ "('Loki', 'Valaskj�lf, Asgard', 'El origen de todo fraude'), "				// 20
-//				+ "('Dick', 'Mansi�n Wayne', 'Nightwing'), "									// 21
-//				+ "('Stephen', 'Sancto Sanctorum, New York', 'Doctor Strange'), "				// 22
-//				+ "('J. A. R. V. I. S.', 'Internet', 'Vision'), "								// 23
-//				+ "('Peter', 'New York, 98�', 'Spider-man'), "									// 24
-//				+ "('Thor', 'Valaskj�lf, Asgard', 'Thunder God'), "								// 25
-//				+ "('Wanda', 'Su propia ilusi�n', 'Scarlet Witch'), "							// 26
-//				+ "('Alberto Marcos', 'Los Nogales', 'Compa de clase'), "						// 27
-//				+ "('Mario Carlos', 'Hacienda los Rosales', 'Actor de Telenovelas'), "			// 28
-//				+ "('Pearson-Hardman', 'Manhattan, 3', 'Firma de Abogados'), "					// 29
-//				+ "('Sam', 'La pradera', 'Pastor ovejero. Mejor amigo de Ralf.')";				// 30
-//		stmt.executeUpdate(sql);
-//
-//		sql = "INSERT INTO personas VALUES"
-//				+ "(1, 'R', 'M', 'Fri Jun 01 2345'), "
-//				+ "(2, 'Rodr�guez', 'F', 'Sat Jun 02 2345'), "
-//				+ "(3, 'M', 'M', 'Mon Apr 20 2910'), "
-//				+ "(6, 'Porro', 'M', 'Thu Oct 14 1999'), "
-//				+ "(9, 'Pacheco', 'M', 'Thu Oct 14 1999'), "
-//				+ "(12, 'Stark', 'M', 'Thu Oct 14 1999'), "
-//				+ "(13, 'Rogers', 'M', 'Thu Oct 14 1999'), "
-//				+ "(14, 'Osborn', 'M', 'Thu Oct 14 1999'), "
-//				+ "(16, 'Simmons', 'M', 'Thu Oct 14 1999'), "
-//				+ "(17, 'Logan', 'M', 'Thu Oct 14 1999'), "
-//				+ "(19, 'Wayne', 'M', 'Thu Oct 14 1999'), "
-//				+ "(20, 'Odinson', 'M', 'Thu Oct 14 1999'), "
-//				+ "(21, 'Grayson', 'M', 'Thu Oct 14 1999'), "
-//				+ "(22, 'Strange', 'M', 'Thu Oct 14 1999'), "
-//				+ "(23, 'Utron', 'O', 'Thu Oct 14 1999'), "
-//				+ "(24, 'Parker', 'F', 'Thu Oct 14 1999'), "
-//				+ "(25, 'Odinson', 'M', 'Thu Oct 14 1999'), "
-//				+ "(26, 'Maximoff', 'F', 'Mon Feb 14 1983'), "
-//				+ "(27, 'Mart�nez S.', 'M', 'Mon Feb 14 1983'), "
-//				+ "(28, 'Sandoval', 'M', 'Mon Feb 14 1983')";
-//		stmt.executeUpdate(sql);
 //
 //		sql = "INSERT INTO empresas VALUES"
 //				+ "(4), (7), (10), (29)";

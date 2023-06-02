@@ -47,26 +47,26 @@ public abstract class GeneralModel extends DefaultTableModel {
 		fillModel(data);
 	}
 	
-	protected void createModel(String table, int columnCount) {
-		Object[][] data = dao.getData(table, columnCount);
-		create(data, columnCount);
-	}
+//	protected void createModel(String table, int columnCount) {
+//		Object[][] data = dao.getData(table, columnCount);
+//		create(data, columnCount);
+//	}
 	
-	protected void createModelWhereIdC(String table, int columnCount, int id) {
-		table = table.toLowerCase().equals(DB.HobbiesTitle) ? DB.ContactsHobbiesTitle : table;
-		Object[][] data = dao.getDataWhereIdC(table, columnCount, id);
-		create(data, columnCount);
-	}
+//	protected void createModelWhereIdC(String table, int columnCount, int id) {
+//		table = table.toLowerCase().equals(DB.HobbiesTitle) ? DB.ContactsHobbiesTitle : table;
+//		Object[][] data = dao.getDataWhereIdC(table, columnCount, id);
+//		create(data, columnCount);
+//	}
 	
-	protected void changeView(String table, int columnCount) {
-		table = (table.equalsIgnoreCase("todos") ? "contactos" : table);
-		createModel(table, columnCount);
-	}
+//	protected void changeView(String table, int columnCount) {
+//		table = (table.equalsIgnoreCase("todos") ? "contactos" : table);
+//		createModel(table, columnCount);
+//	}
 	
-	public void searchWord(String table, String word, int columnCount) {
-		Object[][] data = dao.getDataWhereNombreOrAficionLike(table, word, columnCount);
-		create(data, columnCount);
-	}
+//	public void searchWord(String table, String word, int columnCount) {
+//		Object[][] data = dao.getDataWhereNombreOrAficionLike(table, word, columnCount);
+//		create(data, columnCount);
+//	}
 	
 	public static void flip(int[] selectedRows) {
 		for (int i = 0; i < selectedRows.length - 1; i++)

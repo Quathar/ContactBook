@@ -83,7 +83,7 @@ public class MainFrame extends JFrame implements ActionListener, DocumentListene
 	// <<ZONA FUNCIONAL>>
 	private int themeIndex;
 
-	// <<-CONSTRUCTOR->>
+	// <<-CONSTRUCTORS->>
 	public MainFrame() {
 		this(0, Themes.LIGHT);
 	}
@@ -342,7 +342,7 @@ public class MainFrame extends JFrame implements ActionListener, DocumentListene
 			}
 			case 2 -> {
 				setVisible(false);
-//				new AddFrame(this).setVisible(true);
+				new AddFrame(this).setVisible(true);
 			}
 		}
 	}

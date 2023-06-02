@@ -1,6 +1,7 @@
-package com.quathar.contactbook.data.repository;
+package com.quathar.contactbook.data.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -11,10 +12,10 @@ import java.util.List;
  * @version 1.0
  * @author Q
  */
-public interface GeneralRepository<T, ID> {
+public interface GeneralDao<T, ID> {
 
     List<T> findAll();
-    T findById(ID id);
+    Optional<T> findById(ID id);
     T save(T entity);
     void deleteAll();
     void deleteById(ID id);

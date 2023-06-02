@@ -1,21 +1,26 @@
 package com.quathar.contactbook.data.service.impl;
 
-import com.quathar.contactbook.data.repository.ContactRepository;
-import com.quathar.contactbook.data.repository.HobbyRepository;
+import com.quathar.contactbook.data.dao.ContactDao;
+import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.service.ContactBookService;
 
+/**
+ * @since 2023-05-30
+ * @version 1.0
+ * @author Q
+ */
 public class ContactBookServiceImpl implements ContactBookService {
 
     // <<-FIELDS->>
-    private final ContactRepository _contactRepository;
-    private final HobbyRepository _hobbyRepository;
+    private final ContactDao _contactDao;
+    private final HobbyDao _hobbyRepository;
 
     // <<-CONSTRUCTOR->>
     public ContactBookServiceImpl(
-            ContactRepository contactRepository,
-            HobbyRepository   hobbyRepository
+            ContactDao contactDao,
+            HobbyDao hobbyRepository
     ) {
-        _contactRepository = contactRepository;
+        _contactDao = contactDao;
         _hobbyRepository   = hobbyRepository;
     }
 

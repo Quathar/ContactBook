@@ -1,0 +1,240 @@
+[
+  {
+    "name": "Contact01",
+    "address": "Street 01",
+    "notes": "Studies at Harvard",
+    "surnames": "R",
+    "gender": "M",
+    "birth_date": "2345-06-01",
+    "type": "PERSON"
+  },
+  {
+    "name": "Contact02",
+    "address": "Street 02",
+    "notes": "Notes fot contact 02",
+    "surnames": "Amenábar",
+    "gender": "F",
+    "birth_date": "2345-06-02",
+    "type": "PERSON"
+  },
+  {
+    "name": "Contact03",
+    "address": "Street 03",
+    "notes": "Studies at Harvard",
+    "surnames": "M",
+    "gender": "M",
+    "birth_date": "2910-04-20",
+    "type": "PERSON"
+  },
+  {
+    "name": "Coca Cola",
+    "address": "Cola Street, 23",
+    "notes": "Carries a secret ingredient",
+    "type": "COMPANY"
+  },
+  {
+    "name": "Winnie",
+    "address": "Central Mediterranean Avenue, 34",
+    "notes": "Lazy dog",
+    "type": "PET"
+  },
+  {
+    "name": "Pedro",
+    "address": "420 Street",
+    "notes": "Likes green",
+    "surnames": "Porro",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "7UP",
+    "address": "Vía up, 67",
+    "notes": "Bubble drink",
+    "type": "COMPANY"
+  },
+  {
+    "name": "Oddy",
+    "address": "Central Mediterranean Avenue, 192",
+    "notes": "Grumpy dog"
+  },
+  {
+    "name": "Pacheco",
+    "address": "Toledo Street, 3",
+    "notes": "Went back to Cryptomines",
+    "surnames": "Pacheco",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "TRUHKO MakeUp",
+    "address": "Atocha Street, 94",
+    "notes": "Makeup school",
+    "type": "COMPANY"
+  },
+  {
+    "name": "Milú",
+    "address": "Glasgow Avenue, 45",
+    "notes": "Happy dog",
+    "type": "PET"
+  },
+  {
+    "name": "Tony",
+    "address": "New York, 5th",
+    "notes": "Iron-Man",
+    "surnames": "Stark",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Steve",
+    "address": "Queens Street, 3",
+    "notes": "Captain America",
+    "surnames": "Rogers",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Harry",
+    "address": "Spade Boulevard , 2",
+    "notes": "Green Goblin",
+    "surnames": "Osborn",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Rocket Raccoon",
+    "address": "His spaceship",
+    "notes": "Groot best friend"
+  },
+  {
+    "name": "Al",
+    "address": "The Hell",
+    "notes": "Spawn",
+    "surnames": "Simmons",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "James",
+    "address": "Mutant Street, XMen-House",
+    "notes": "Wolverine",
+    "surnames": "Logan",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Groot",
+    "address": "Groot",
+    "notes": "Groot",
+    "type": "PET"
+  },
+  {
+    "name": "Bruce",
+    "address": "Wayne Mansion",
+    "notes": "Batman",
+    "surnames": "Wayne",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Loki",
+    "address": "Valaskjölf, Asgard",
+    "notes": "The origin of all fraud",
+    "surnames": "Odinson",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Dick",
+    "address": "Wayne Mansion",
+    "notes": "Nightwing",
+    "surnames": "Grayson",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Stephen",
+    "address": "Sancto Sanctorum, New York",
+    "notes": "Doctor Strange",
+    "surnames": "Strange",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "J. A. R. V. I. S.",
+    "address": "Internet",
+    "notes": "Vision",
+    "surnames": "Utron",
+    "gender": "O",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Peter",
+    "address": "New York, 98th",
+    "notes": "Spider-man",
+    "surnames": "Parker",
+    "gender": "F",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Thor",
+    "address": "Valaskjölf, Asgard",
+    "notes": "Thunder God",
+    "surnames": "Odinson",
+    "gender": "M",
+    "birth_date": "1999-10-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Wanda",
+    "address": "Its own illusion",
+    "notes": "Scarlet Witch",
+    "surnames": "Maximoff",
+    "gender": "F",
+    "birth_date": "1983-02-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Alberto Marcos",
+    "address": "Los Nogales",
+    "notes": "Classmate",
+    "surnames": "Martínez S.",
+    "gender": "M",
+    "birth_date": "1983-02-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Mario Carlos",
+    "address": "Hacienda los Rosales",
+    "notes": "Soap opera actor",
+    "surnames": "Sandoval",
+    "gender": "M",
+    "birth_date": "1983-02-14",
+    "type": "PERSON"
+  },
+  {
+    "name": "Pearson-Hardman",
+    "address": "Manhattan, 3",
+    "notes": "Law firm",
+    "type": "COMPANY"
+  },
+  {
+    "name": "Sam",
+    "address": "La pradera",
+    "notes": "Shepherd. Ralf's best friend.",
+    "type": "PET"
+  }
+]

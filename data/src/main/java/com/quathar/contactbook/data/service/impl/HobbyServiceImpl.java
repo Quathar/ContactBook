@@ -1,19 +1,36 @@
 package com.quathar.contactbook.data.service.impl;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
-import com.quathar.contactbook.data.repository.HobbyRepository;
+import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.service.HobbyService;
 
+import java.util.List;
+
+/**
+ * @since 2023-05-30
+ * @version 1.0
+ * @author Q
+ */
+@Singleton
 public class HobbyServiceImpl extends GeneralServiceImpl<Hobby, Long> implements HobbyService {
 
     // <<-FIELDS->>
-    private final HobbyRepository _hobbyRepository;
+    private final HobbyDao _hobbyRepository;
 
     // <<-CONSTRUCTOR->>
-    public HobbyServiceImpl(HobbyRepository hobbyRepository) {
+    @Inject
+    public HobbyServiceImpl(HobbyDao hobbyRepository) {
         super(hobbyRepository);
         _hobbyRepository = hobbyRepository;
     }
 
     // <<-METHODS->>
+    @Override
+    public List<Hobby> getAllByParams(String name) {
+        return _hobbyRepository.findByParams(name);
+    }
+
 }

@@ -1,27 +1,11 @@
 package com.quathar.contactbook.data.entity;
 
-import com.quathar.contactbook.data.enumerator.ContactType;
-import com.quathar.contactbook.data.enumerator.Gender;
 import com.quathar.contactbook.data.embeddable.Mail;
 import com.quathar.contactbook.data.embeddable.Telephone;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.quathar.contactbook.data.enumerator.ContactType;
+import com.quathar.contactbook.data.enumerator.Gender;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -29,7 +13,7 @@ import java.util.Set;
 /**
  * <h1>Contact</h1>
  *
- * Clase utilizada para almacenar la informaci�n de un contacto.
+ * Class used to store the information of a contact.
  *
  * @since 2022-04-03
  * @version 2.1
@@ -57,12 +41,12 @@ public class Contact {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private String birthDate;
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "contacts_telephones",
 			joinColumns = @JoinColumn(name = "id"),
 			foreignKey  = @ForeignKey(name = "FK_contacts_telephones"))
 	private List<Telephone> telephones;
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "contacts_mails",
 			joinColumns = @JoinColumn(name = "id"),
 			foreignKey  = @ForeignKey(name = "FK_contacts_mails"))

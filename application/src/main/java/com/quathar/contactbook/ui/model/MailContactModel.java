@@ -1,7 +1,5 @@
 package com.quathar.contactbook.ui.model;
 
-import com.quathar.app.dao.DAO;
-
 /**
  * MailContactModel.<br><br>
  *
@@ -9,50 +7,34 @@ import com.quathar.app.dao.DAO;
  * @see GeneralModel
  * @author Q
  */
-public class MailContactModel extends GeneralModel { // CLASE FINALIZADA
-	
+public class MailContactModel {
+//public class MailContactModel extends GeneralModel {
+
 	// CONSTANTES
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Nombres de las columnas.
-	 */
-	private final String[] ColumnNames = {"NOMBRE", "CORREO"};
-	
-	// CAMPOS
-	/**
-	 * N�mero de columnas.
-	 */
-	private final int COLUMNS = 2;
+//	private static final long serialVersionUID = 1L;
+//	private final String[] ColumnNames = {"NOMBRE", "CORREO"};
+//
+//	// CAMPOS
+//	private final int COLUMNS = 2;
 	
 	// CONSTRUCTOR
-	/**
-	 * Constructor.
-	 * 
-	 * @param dao the data access object
-	 */
-	public MailContactModel(DAO dao) {
-		super(dao);
-		setColumnIdentifiers(ColumnNames);
-		createMailContactModel();
-	}
-	
-	/**
-	 * Extrae la informaci�n de la BBDD y la introduce en el modelo.
-	 */
-	private void createMailContactModel() {
-		Object[][] data = dao.getMailContactData(COLUMNS);
-		create(data, COLUMNS);
-	}
-	
-	/**
-	 * Actualiza la informaci�n del modelo.
-	 */
-	public void update() {
-		createMailContactModel();
-	}
-	
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
-	}
+//	public MailContactModel(DAO dao) {
+//		super(dao);
+//		setColumnIdentifiers(ColumnNames);
+//		createMailContactModel();
+//	}
+//
+//	private void createMailContactModel() {
+//		Object[][] data = dao.getMailContactData(COLUMNS);
+//		create(data, COLUMNS);
+//	}
+//
+//	public void update() {
+//		createMailContactModel();
+//	}
+//
+//	public boolean isCellEditable(int rowIndex, int columnIndex) {
+//		return false;
+//	}
 	
 }

@@ -1,6 +1,6 @@
 package com.quathar.contactbook.data.service.impl;
 
-import com.quathar.contactbook.data.repository.GeneralRepository;
+import com.quathar.contactbook.data.dao.GeneralDao;
 import com.quathar.contactbook.data.service.GeneralService;
 
 import java.util.List;
@@ -17,49 +17,49 @@ import java.util.List;
 public class GeneralServiceImpl<T, ID> implements GeneralService<T, ID> {
 
     // <<-FIELDS->>
-    private final GeneralRepository<T, ID> _generalRepository;
+    private final GeneralDao<T, ID> _generalDao;
 
     // <<-CONSTRUCTOR->>
-    public GeneralServiceImpl(GeneralRepository<T, ID> generalRepository) {
-        _generalRepository = generalRepository;
+    public GeneralServiceImpl(GeneralDao<T, ID> generalDao) {
+        _generalDao = generalDao;
     }
 
     // <<-METHODS->>
 
     @Override
     public List<T> getAll() {
-        return _generalRepository.findAll();
+        return _generalDao.findAll();
     }
 
     @Override
     public T getById(ID id) {
-        return _generalRepository.findById(id);
+        return _generalDao.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public T create(T entity) {
-        return _generalRepository.save(entity);
+        return _generalDao.save(entity);
     }
 
     @Override
     public T update(ID id, T updatedEntity) {
-        _generalRepository.findById(id);
+        _generalDao.findById(id);
 
         // TODO: CHANGE LATER
         // TODO: CHANGE LATER
         // TODO: CHANGE LATER
-        _generalRepository.save(updatedEntity);
+        _generalDao.save(updatedEntity);
         return null;
     }
 
     @Override
     public void deleteAll() {
-        _generalRepository.deleteAll();
+        _generalDao.deleteAll();
     }
 
     @Override
     public void deleteById(ID id) {
-        _generalRepository.deleteById(id);
+        _generalDao.deleteById(id);
     }
 
     @Override

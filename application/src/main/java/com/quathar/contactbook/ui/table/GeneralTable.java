@@ -1,7 +1,6 @@
 package com.quathar.contactbook.ui.table;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JTable;
 import java.io.Serial;
 
 /**
@@ -29,33 +28,33 @@ public abstract class GeneralTable extends JTable {
 	protected void removeColumn(int columnIndex) {
 		removeColumn(getColumnModel().getColumn(columnIndex));
 	}
-	
-	protected void center(int[] columnNumbers) {
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-		for (int columnNumber : columnNumbers)
-			getColumnModel()
-					.getColumn(columnNumber)
-					.setCellRenderer(centerRenderer);
-	}
-	
-	protected void resize(int[] columnNumbers, int width) {
-			for (int i = 0; i < columnNumbers.length; i++)
-				getColumnModel().getColumn(columnNumbers[i]).setPreferredWidth(width);
-	}
-	
-	protected void place(int[] centerColumnNumbers, int[] resizeColumnNumbers, int width) {
-		center(centerColumnNumbers);
-		resize(resizeColumnNumbers, width);
-	}
-	
-	protected void deleteRows(GeneralModel model) {
-		model.deleteRow(getSelectedRows());
-	}
-	
-	protected void clean(GeneralModel model) {
-		model.setRowCount(0);
-	}
+//
+//	protected void center(int[] columnNumbers) {
+//		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+//		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+//
+//		for (int columnNumber : columnNumbers)
+//			getColumnModel()
+//					.getColumn(columnNumber)
+//					.setCellRenderer(centerRenderer);
+//	}
+//
+//	protected void resize(int[] columnNumbers, int width) {
+//			for (int i = 0; i < columnNumbers.length; i++)
+//				getColumnModel().getColumn(columnNumbers[i]).setPreferredWidth(width);
+//	}
+//
+//	protected void place(int[] centerColumnNumbers, int[] resizeColumnNumbers, int width) {
+//		center(centerColumnNumbers);
+//		resize(resizeColumnNumbers, width);
+//	}
+//
+//	protected void deleteRows(GeneralModel model) {
+//		model.deleteRow(getSelectedRows());
+//	}
+//
+//	protected void clean(GeneralModel model) {
+//		model.setRowCount(0);
+//	}
 	
 }

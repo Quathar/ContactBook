@@ -1,222 +1,247 @@
 package com.quathar.contactbook.ui.frame;
 
-//import com.quathar.contactbook.dao.DAO;
-//import com.quathar.contactbook.ui.table.HobbyTable;
-//import com.quathar.contactbook.ui.table.MailTable;
-//import com.quathar.contactbook.ui.table.TelephoneTable;
-//import com.quathar.contactbook.io.MSG;
-//import com.quathar.contactbook.io.RegexFilter;
-//import com.quathar.contactbook.data.embeddable.Telephone;
-//import com.quathar.contactbook.data.entity.Contact;
-//import com.toedter.calendar.JDateChooser;
+import com.quathar.contactbook.data.enumerator.ContactType;
+import com.quathar.contactbook.data.service.ContactService;
+import com.quathar.contactbook.io.MSG;
+import com.quathar.contactbook.model.ContactDTO;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-//
-///**
-// * AddContact.<br><br>
-// *
-// * Clase utilizada para a�adir contactos gr�ficamente.
-// *
-// * @since 2022-04-13
-// * @see MainFrame
-// * @see DAO
-// * @see HobbyTable
-// * @see TelephoneTable
-// * @see MailTable
-// * @author Q
-// */
+import java.io.Serial;
+
+/**
+ * <h1>AddContact</h1>
+ *
+ * Clase utilizada para a�adir contactos gr�ficamente.
+ *
+ * @since 2022-04-13
+ * @version 2.0
+ * @author Q
+ */
 public class AddFrame extends JFrame implements ActionListener, FocusListener { // CLASE FINALIZADA
-//
-//	// CONSTANTES
-//	private static final long serialVersionUID = 1L;
-//	/**
-//	 * T�tulo de los items del desplegable contactType.
-//	 */
-//	private final String[] ContactTypeTitle = {"PERSONA", "EMPRESA", "MASCOTA"};
-//	/**
-//	 * Placeholders de los componentes JTextField.
-//	 */
-//	public static final String[] PlaceHoldersTitles = {"", "Nombre...", "Apellidos...", "Direcci�n...", "Notas...", "Tel�fono...", "Correo..."};
-//	/**
-//	 * T�tulo de los botones AD (Add - Delete).
-//	 */
+
+	// <<-CONSTANTS->>
+	@Serial
+	private static final long serialVersionUID = 1L;
+	private static final String FRAME_TITLE = "Add a new contact";
+	public static final String[] PLACE_HOLDERS_TITLES = {
+			"",
+			"Name...",
+			"Surnames...",
+			"Address...",
+			"Notes...",
+			"Telephone...",
+			"Mail..."
+	};
 //	private final String[] ADTitle = {"\uE109", "\uE108"};
-//	/**
-//	 * T�tulo de los botones del VA (btnVA).
-//	 */
-//	private final String[] VATitle = {"VOLVER", "A�ADIR"};
-//
-//	// CAMPOS
-//	// <<ZONA DE DISE�O>>
-//	/**
-//	 * ContentPane del JFrame.
-//	 */
+
+	// <<-FIELDS->>
+
+	private ContactService contactService;
+
+	// <<ZONA DE DISE�O>>
 //	private JPanel contentPane;
 //
 //	// -NORTH
-//	/**
-//	 * Desplegable para seleccionar el tipo de contacto.
-//	 */
-//	private JComboBox<String> cTypeComboBox;
+	private JComboBox<ContactType> contactTypeComboBox;
 //
 //	// -CENTER
-//	/**
-//	 * Panel contenedor de datos.
-//	 */
 //	private JPanel dataPanel;
 //
 //	// --CAMPOS de FORMULARIO
-//	/**
-//	 * Componente JTextField para el nombre.
-//	 */
+	private ContactDTO contactDTO;
 //	private JTextField nameTextField;
-//	/**
-//	 * Componente JTextField para los apellidos.
-//	 */
 //	private JTextField surnamesTextField;
-//	/**
-//	 * Componente JTextField para la direcci�n.
-//	 */
 //	private JTextField addressTextField;
-//	/**
-//	 * Componente JDateChooser para la fecha de nacimiento.
-//	 */
 //	private JDateChooser birthDateChooser;
-//	/**
-//	 * Componente JComboBox para seleccionar el g�nero.
-//	 */
 //	private JComboBox<String> genderComboBox;
-//	/**
-//	 * Componente JTextArea para las notas.
-//	 */
 //	private JTextArea notesTextArea;
 //
 //	// --CAMPOS de AFICIONES
-//	/**
-//	 * Tabla de las aficiones.
-//	 */
 //	private HobbyTable hTable;
-//	/**
-//	 * Desplegable para seleccionar aficiones.
-//	 */
 //	private JComboBox<String> hobbiesComboBox;
-//	/**
-//	 * Botones para a�adir (add) y borrar (delete) aficiones.
-//	 */
 //	private JButton[] btnADaficiones = new JButton[2];
 //
 //	// --CAMPOS TEL�FONOS Y CORREOS
-//	/**
-//	 * Tabla de los tel�fonos.
-//	 */
 //	private TelephoneTable tTable;
-//	/**
-//	 * Componente JTextArea para los tel�fonos.
-//	 */
 //	private JTextField telephoneTextField;
-//	/**
-//	 * Componente JComboBox para seleccionar el tipo de tel�fono.
-//	 */
 //	private JComboBox<String> tType;
-//	/**
-//	 * Botones para a�adir (add) y borrar (delete) telefonos.
-//	 */
 //	private JButton[] btnADtelefonos = new JButton[2];
-//	/**
-//	 * Tabla de los correos.
-//	 */
 //	private MailTable mTable;
-//	/**
-//	 * Componente JTextArea para los correos.
-//	 */
 //	private JTextField mailTextField;
-//	/**
-//	 * Botones para a�adir (add) y borrar (delete) correos.
-//	 */
 //	private JButton[] btnADcorreos = new JButton[2];
 //
 //	// -SOUTH
-//	/**
-//	 * Botones Volver y A�adir.
-//	 */
-//	private JButton[] btnVA = new JButton[2];
+	private final JButton[] btnVA = new JButton[2];
 //
 //	// --LAYOUTS
-//	/**
-//	 * Grid Bag Layout.
-//	 */
 //	private GridBagLayout gbl;
-//	/**
-//	 * Grid Bag Constraints.
-//	 */
 //	private GridBagConstraints gbc;
 //
 //	// <<ZONA FUNCIONAL>>
-//	/**
-//	 * Ventana principal.
-//	 */
-//	private MainFrame mainFrame;
-//	/**
-//	 * Data Acces Object.
-//	 */
-//	private DAO dao;
-//
-//	// CONSTRUCTOR
-//	/**
-//	 * Constructor.
-//	 *
-//	 * @param mainFrame main window
-//	 */
-//	public AddFrame(MainFrame mainFrame, DAO dao) {
-//		super("A�adir un nuevo contacto");
-//		this.mainFrame = mainFrame;
-//		this.dao = dao;
-//		initComponents();
-//	}
-//
-//	// ZONA DE DISE�O
-//	/**
-//	 * Dise�a y crea los componentes del frame.
-//	 */
-//	private void initComponents() {
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		setBounds(	(int) (MainFrame.ScreenSize.width * 0.3),
-//					(int) (MainFrame.ScreenSize.height * 0.25),
-//					(int) (MainFrame.ScreenSize.width * 0.4),
-//					(int) (MainFrame.ScreenSize.height * 0.5));
-//		setResizable(false);
-//
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
-//
-//		gbl = MainFrame.createGridBagLayout(1, 3, new int[] {0}, new int[] {1});
-//		contentPane.setLayout(gbl);
-//
-//		createNORTH();
+	private final MainFrame mainFrame;
+
+	// <<-CONSTRUCTORS->>
+	public AddFrame(MainFrame mainFrame) {
+		super(FRAME_TITLE);
+		this.mainFrame = mainFrame;
+		initComponents();
+	}
+
+	// ========================
+	// = = = Design Zone = = =
+	// = = = Design Zone = = =
+	// = = = Design Zone = = =
+	// ========================
+	private void initComponents() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds((int) (MainFrame.ScreenSize.width  * 0.30),
+				  (int) (MainFrame.ScreenSize.height * 0.25),
+				  (int) (MainFrame.ScreenSize.width  * 0.40),
+				  (int) (MainFrame.ScreenSize.height * 0.50));
+		setResizable(false);
+
+		GridBagLayout 	   gridBagLayout;
+		GridBagConstraints gridBagConstraints;
+
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+
+		gridBagLayout = MainFrame.createGridBagLayout(1, 3, new int[] {0}, new int[] {1});
+		contentPane.setLayout(gridBagLayout);
+
+		// NORTH ::
+		String[] contactTypeTitle = {
+				"PERSON",
+				"COMPANY",
+				"PET"
+		};
+		contactTypeComboBox = new JComboBox<>(ContactType.values());
+		contactTypeComboBox.addActionListener(e -> {
+			ContactType type = (ContactType) contactTypeComboBox.getSelectedItem();
+
+			if (type == ContactType.PERSON) {
+				contactDTO.getSurnamesTextField()
+						.setText(PLACE_HOLDERS_TITLES[2]);
+				contactDTO.getSurnamesTextField()
+						.setEnabled(true);
+				contactDTO.getBirthDateChooser()
+						.setEnabled(true);
+				contactDTO.getGenderComboBox()
+						.setEnabled(true);
+
+				contactDTO.getTelephoneTable()
+						.setEnabled(true);
+//				telephoneTextField.setText(PLACE_HOLDERS_TITLES[5]);
+//				telephoneTextField.setEnabled(true);
+//				tType.setEnabled(true);
+//				for (int i = 0; i < btnADtelefonos.length; i++)
+//					btnADtelefonos[i].setEnabled(true);
+//				mTable.setEnabled(true);
+//				mailTextField.setText(PLACE_HOLDERS_TITLES[6]);
+//				mailTextField.setEnabled(true);
+//				for (int i = 0; i < btnADcorreos.length; i++)
+//					btnADcorreos[i].setEnabled(true);
+			} else if (type == ContactType.COMPANY) {
+				contactDTO.getSurnamesTextField()
+						.setText(PLACE_HOLDERS_TITLES[0]);
+				contactDTO.getSurnamesTextField()
+						.setEnabled(false);
+				contactDTO.getBirthDateChooser()
+						.cleanup();
+				contactDTO.getBirthDateChooser()
+						.setEnabled(false);
+				contactDTO.getGenderComboBox()
+						.setSelectedIndex(0);
+				contactDTO.getGenderComboBox()
+						.setEnabled(false);
+
+//				tTable.setEnabled(true);
+//				telephoneTextField.setText(PLACE_HOLDERS_TITLES[5]);
+//				telephoneTextField.setEnabled(true);
+//				tType.setEnabled(true);
+//				for (int i = 0; i < btnADtelefonos.length; i++)
+//					btnADtelefonos[i].setEnabled(true);
+//				mTable.setEnabled(true);
+//				mailTextField.setText(PLACE_HOLDERS_TITLES[6]);
+//				mailTextField.setEnabled(true);
+//				for (int i = 0; i < btnADcorreos.length; i++)
+//					btnADcorreos[i].setEnabled(true);
+			} else if (type == ContactType.PET) {
+				contactDTO.getSurnamesTextField()
+						.setText(PLACE_HOLDERS_TITLES[0]);
+				contactDTO.getSurnamesTextField()
+						.setEnabled(false);
+				contactDTO.getBirthDateChooser()
+						.setEnabled(true);
+				contactDTO.getGenderComboBox()
+						.setSelectedIndex(0);
+				contactDTO.getGenderComboBox()
+						.setEnabled(false);
+
+//				tTable.clean();
+//				tTable.setEnabled(false);
+//				telephoneTextField.setText(PLACE_HOLDERS_TITLES[0]);
+//				telephoneTextField.setEnabled(false);
+//				tType.setEnabled(false);
+//				for (int i = 0; i < btnADtelefonos.length; i++)
+//					btnADtelefonos[i].setEnabled(false);
+//				mTable.clean();
+//				mTable.setEnabled(false);
+//				mailTextField.setText(PLACE_HOLDERS_TITLES[0]);
+//				mailTextField.setEnabled(false);
+//				for (int i = 0; i < btnADcorreos.length; i++)
+//					btnADcorreos[i].setEnabled(false);
+			}
+		});
+		gridBagConstraints = MainFrame.createGridBagConstraints(0, 0);
+		gridBagConstraints.anchor = GridBagConstraints.EAST;
+		gridBagConstraints.insets = new Insets(0, 0, 3, 5);
+		contentPane.add(contactTypeComboBox, gridBagConstraints);
 //		createCENTER();
-//		createSOUTH();
-//	}
-//
-//	/**
-//	 *  Dise�a y crea los componentes la zona NORTH.
-//	 */
-//	private void createNORTH() {
-//		cTypeComboBox = new JComboBox<String>(ContactTypeTitle);
-//		cTypeComboBox.addActionListener(this);
-//		gbc = MainFrame.createGridBagConstraints(0, 0);
-//		gbc.anchor = GridBagConstraints.EAST;
-//		gbc.insets = new Insets(0, 0, 3, 5);
-//		contentPane.add(cTypeComboBox, gbc);
-//	}
-//
-//	/**
-//	 * Dise�a y crea los componentes la zona CENTER.
-//	 */
+
+		JPanel buttons = new JPanel();
+		gridBagConstraints = MainFrame.createGridBagConstraints(0, 2);
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		contentPane.add(buttons, gridBagConstraints);
+		buttons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+		String[] raTitle = { "RETURN", "ADD" };
+		for (int i = 0; i < btnVA.length; i++) {
+			btnVA[i] = new JButton(raTitle[i]);
+			btnVA[i].addActionListener(e -> {
+				Object event = e.getSource();
+				if (btnVA[0] == event) {
+					mainFrame.setVisible(true);
+					dispose();
+				}
+
+				if (btnVA[1] == event) {
+					String text = contactDTO.getNameTextField()
+										    .getText();
+					if (!text.equals(PLACE_HOLDERS_TITLES[1]) || text.isBlank()) {
+//						contactService.create(contactDTO);
+						cleanFields();
+//						mainFrame.updateTables();
+					} else MSG.warningMessage("YOU NEED TO ADD A NAME");
+				}
+			});
+			buttons.add(btnVA[i]);
+		}
+	}
+
 //	private void createCENTER() {
 //		dataPanel = new JPanel();
 //		gbc = MainFrame.createGridBagConstraints(0, 1);
@@ -228,10 +253,7 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 //		createAficiones();
 //		createTables();
 //	}
-//
-//	/**
-//	 * Dise�a y crea los componentes del formulario.
-//	 */
+
 //	private void createFormulario() {
 //		JPanel form = new JPanel();
 //		gbc = MainFrame.createGridBagConstraints(0, 0);
@@ -299,10 +321,7 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 //		gbc.fill = GridBagConstraints.BOTH;
 //		form.add(sNotas, gbc);
 //	}
-//
-//	/**
-//	 * Dise�a y crea los componentes de la tabla aficiones.
-//	 */
+
 //	private void createAficiones() {
 //		JPanel hobbies = new JPanel();
 //		gbc = MainFrame.createGridBagConstraints(0, 1);
@@ -336,10 +355,7 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 //			hobbies.add(btnADaficiones[i], gbc);
 //		}
 //	}
-//
-//	/**
-//	 * Dise�a y crea los componentes de las tablas tel�fonos y aficiones.
-//	 */
+
 //	private void createTables() {
 //		JPanel tables = new JPanel();
 //		gbc = MainFrame.createGridBagConstraints(1, 0);
@@ -419,25 +435,12 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 //			iCorreos.add(btnADcorreos[i], gbc);
 //		}
 //	}
-//
-//	/**
-//	 * Dise�a y crea los componentes la zona SOUTH.
-//	 */
-//	private void createSOUTH() {
-//		JPanel buttons = new JPanel();
-//		gbc = MainFrame.createGridBagConstraints(0, 2);
-//		gbc.fill = GridBagConstraints.BOTH;
-//		contentPane.add(buttons, gbc);
-//		buttons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-//
-//		for (int i = 0; i < btnVA.length; i++) {
-//			btnVA[i] = new JButton(VATitle[i]);
-//			btnVA[i].addActionListener(this);
-//			buttons.add(btnVA[i]);
-//		}
-//	}
-//
-	// <<ZONA DE LISTENERS>>
+
+	// ===========================
+	// = = = Listeners Zone = = =
+	// = = = Listeners Zone = = =
+	// = = = Listeners Zone = = =
+	// ===========================
 	// ACTION LISTENER
 	@Override
 	public void actionPerformed(ActionEvent e) {
