@@ -23,6 +23,10 @@ subprojects {
         annotationProcessor("org.projectlombok:lombok")
         testCompileOnly("org.projectlombok:lombok")
         testAnnotationProcessor("org.projectlombok:lombok")
+
+        // Google Guice :: Dependency Injection
+        // https://mvnrepository.com/artifact/com.google.inject/guice
+        implementation("com.google.inject:guice:5.1.0")
     }
 
 }

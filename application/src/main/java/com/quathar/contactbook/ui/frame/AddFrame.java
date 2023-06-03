@@ -1,9 +1,11 @@
 package com.quathar.contactbook.ui.frame;
 
+import com.quathar.contactbook.Application;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.service.ContactService;
 import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.model.ContactDTO;
+import com.quathar.contactbook.ui.frame.helper.GBL;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -106,10 +108,10 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 	// ========================
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds((int) (MainFrame.ScreenSize.width  * 0.30),
-				  (int) (MainFrame.ScreenSize.height * 0.25),
-				  (int) (MainFrame.ScreenSize.width  * 0.40),
-				  (int) (MainFrame.ScreenSize.height * 0.50));
+		setBounds((int) (Application.SCREEN_SIZE.width  * 0.30),
+				  (int) (Application.SCREEN_SIZE.height * 0.25),
+				  (int) (Application.SCREEN_SIZE.width  * 0.40),
+				  (int) (Application.SCREEN_SIZE.height * 0.50));
 		setResizable(false);
 
 		GridBagLayout 	   gridBagLayout;
@@ -119,7 +121,7 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		gridBagLayout = MainFrame.createGridBagLayout(1, 3, new int[] {0}, new int[] {1});
+		gridBagLayout = GBL.createGridBagLayout(1, 3, new int[] {0}, new int[] {1});
 		contentPane.setLayout(gridBagLayout);
 
 		// NORTH ::
@@ -206,14 +208,14 @@ public class AddFrame extends JFrame implements ActionListener, FocusListener { 
 //					btnADcorreos[i].setEnabled(false);
 			}
 		});
-		gridBagConstraints = MainFrame.createGridBagConstraints(0, 0);
+		gridBagConstraints = GBL.createGridBagConstraints(0, 0);
 		gridBagConstraints.anchor = GridBagConstraints.EAST;
 		gridBagConstraints.insets = new Insets(0, 0, 3, 5);
 		contentPane.add(contactTypeComboBox, gridBagConstraints);
 //		createCENTER();
 
 		JPanel buttons = new JPanel();
-		gridBagConstraints = MainFrame.createGridBagConstraints(0, 2);
+		gridBagConstraints = GBL.createGridBagConstraints(0, 2);
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		contentPane.add(buttons, gridBagConstraints);
 		buttons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));

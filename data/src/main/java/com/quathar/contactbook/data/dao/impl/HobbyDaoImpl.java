@@ -1,7 +1,6 @@
 package com.quathar.contactbook.data.dao.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.entity.Hobby;
 import jakarta.persistence.RollbackException;
@@ -19,7 +18,6 @@ import java.util.Optional;
  * @version 1.0
  * @author Q
  */
-@Singleton
 public class HobbyDaoImpl implements HobbyDao {
 
     // <<-FIELDS->>

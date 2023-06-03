@@ -1,7 +1,12 @@
 package com.quathar.contactbook.ui.table;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.ui.model.ContactModel;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.io.Serial;
 
@@ -17,14 +22,16 @@ public class ContactTable extends JTable {
 	// <<-CONSTANTS->>
 	@Serial
 	private static final long serialVersionUID = 1L;
+	private static final String ALL = "all";
 
 	// <<-FIELDS->>
-	private final ContactModel contactModel;
+	private final ContactModel _contactModel;
 
 	// <<-CONSTRUCTORS->>
 	public ContactTable() {
-		contactModel = new ContactModel();
-		setModel(contactModel);
+		Injector injector = Guice.createInjector(new AppConfiguration());
+		_contactModel = injector.getInstance(ContactModel.class);
+		setModel(_contactModel);
 		removeColumn(columnModel.getColumn(0));
 	}
 
@@ -35,27 +42,26 @@ public class ContactTable extends JTable {
 	}
 
 	public void update() {
-		update("all");
+		update(ALL);
 	}
-	
-	public void update(String contactType) {
-		contactType = contactType.equalsIgnoreCase("all") ?
-						null : contactType;
-		contactModel.createModelWithType(contactType);
+
+	public void update(@Nullable String contactType) {
+		ContactType type = null;
+		if (contactType != null && !contactType.equalsIgnoreCase(ALL))
+			type = ContactType.valueOf(contactType);
+		_contactModel.createModelWithType(type);
 		removeColumn(columnModel.getColumn(0));
 	}
-	
+
 	public void update(String contactType, String word) {
-		contactType = contactType.equalsIgnoreCase("all") ?
-						null : contactType;
-		contactModel.createModelWithParams(contactType, word);
-//		removeColumn(0);
+		ContactType type = contactType.equalsIgnoreCase(ALL) ?
+							null : ContactType.valueOf(contactType);
+		_contactModel.createModelWithParams(type, word);
 		removeColumn(columnModel.getColumn(0));
 	}
-	
+
 	public void deleteRows() {
-//		super.deleteRows(contactModel);
-		contactModel.removeRow(getSelectedRows());
+		_contactModel.removeRow(getSelectedRows());
 	}
-	
+
 }

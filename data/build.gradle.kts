@@ -6,10 +6,6 @@ dependencies {
     implementation("com.h2database:h2:2.1.214")
     testImplementation("com.h2database:h2:2.1.214")
 
-    // Google Guice :: Dependency Injection
-    // https://mvnrepository.com/artifact/com.google.inject/guice
-    implementation("com.google.inject:guice:5.1.0")
-
     // Google Gson :: JSON to Java and vice versa
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation("com.google.code.gson:gson:2.10.1")

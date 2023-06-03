@@ -1,9 +1,10 @@
 package com.quathar.contactbook.ui.model;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.quathar.contactbook.data.entity.Contact;
-import com.quathar.contactbook.data.dao.impl.ContactDaoImpl;
+import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.service.ContactService;
-import com.quathar.contactbook.data.service.impl.ContactServiceImpl;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
@@ -16,11 +17,13 @@ import java.util.List;
  * @version 2.0
  * @author Q
  */
+@Singleton
 public class ContactModel extends DefaultTableModel {
 
 	// <<-CONSTANTS->>
 	@Serial
 	private static final long serialVersionUID = 1L;
+
 	private static final int COLUMNS = 4;
 	private static final String[] COLUMN_NAMES = {
 			"ID",
@@ -32,9 +35,10 @@ public class ContactModel extends DefaultTableModel {
 	// <<-FIELDS->>
 	private final ContactService _contactService;
 
-	// <<-CONSTRUCTORS->>
-	public ContactModel() {
-		_contactService = new ContactServiceImpl(new ContactDaoImpl());
+	// <<-CONSTRUCTOR->>
+	@Inject
+	public ContactModel(ContactService contactService) {
+		_contactService = contactService;
 		setColumnIdentifiers(COLUMN_NAMES);
 		createModel(COLUMNS);
 	}
@@ -61,17 +65,20 @@ public class ContactModel extends DefaultTableModel {
 		create(contacts, columnCount);
 	}
 
-	public void createModelWithType(String contactType) {
+	public void createModelWithType(ContactType contactType) {
 		List<Contact> contacts = _contactService.getAllByParams(contactType, null);
 		create(contacts, COLUMNS);
 	}
 
-	public void createModelWithParams(String contactType, String name) {
+	public void createModelWithParams(ContactType contactType, String name) {
 		List<Contact> contacts = _contactService.getAllByParams(contactType, name);
 		create(contacts, COLUMNS);
 	}
 
 	public void removeRow(int[] selectedRows) {
+		// We change the order of the selected rows
+		// so that they are deleted from highest to lowest index
+		// so that there is no error.
 		GeneralModel.flip(selectedRows);
 		for (int selectedRow : selectedRows) {
 			super.removeRow(selectedRow);

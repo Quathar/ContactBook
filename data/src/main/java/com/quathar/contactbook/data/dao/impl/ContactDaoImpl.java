@@ -1,9 +1,8 @@
 package com.quathar.contactbook.data.dao.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.dao.ContactDao;
+import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import jakarta.persistence.RollbackException;
 import org.hibernate.Session;
@@ -20,7 +19,6 @@ import java.util.Optional;
  * @version 1.0
  * @author Q
  */
-@Singleton
 public class ContactDaoImpl implements ContactDao {
 
     // <<-FIELDS->>

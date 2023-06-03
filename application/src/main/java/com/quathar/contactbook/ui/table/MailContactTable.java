@@ -1,32 +1,43 @@
 package com.quathar.contactbook.ui.table;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.quathar.contactbook.Application;
+import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.ui.model.MailContactModel;
+
+import java.io.Serial;
+
 /**
- * MailContactTable.<br><br>
- * 
+ * <h1>MailContactTable</h1>
+ *
  * Componente JTable para visualizar a TODOS los contactos con sus correos.
  *
  * @since 2022-05-15
+ * @version 1.0
  * @author Q
  */
-public class MailContactTable {
-//public class MailContactTable extends GeneralTable {
-	
-//	private static final long serialVersionUID = 1L;
-//
-//	// CAMPOS
-//	private MailContactModel mcModel;
-//
-//	// CONSTRUCTOR
-//	public MailContactTable(DAO dao) {
-//		mcModel = new MailContactModel(dao);
-//		setModel(mcModel);
-//		resize(new int[] {1}, (int) (ContactBook.ScreenSize.width * 0.1));
-//	}
-//
-//	// M�TODOS
-//	public void update() {
-//		mcModel.update();
-//		resize(new int[] {1}, (int) (ContactBook.ScreenSize.width * 0.1));
-//	}
+public class MailContactTable extends GeneralTable {
+
+    // <<-CONSTANTS->>
+    @Serial
+	private static final long serialVersionUID = 1L;
+
+    // <<-FIELDS->>
+	private final MailContactModel mailContactModel;
+
+    // <<-CONSTRUCTOR->>
+	public MailContactTable() {
+        Injector injector = Guice.createInjector(new AppConfiguration());
+		mailContactModel = injector.getInstance(MailContactModel.class);
+		setModel(mailContactModel);
+		resize(new int[] {1}, (int) (Application.SCREEN_SIZE.width * 0.1));
+	}
+
+    // <<-METHODS->>
+	public void update() {
+		mailContactModel.update();
+		resize(new int[] {1}, (int) (Application.SCREEN_SIZE.width * 0.1));
+	}
 	
 }

@@ -6,25 +6,33 @@ import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
- * Themes.<br><br>
+ * <h1>Themes</h1>
+ * <br>
+ * Themes to choose from in the Agenda's graphic user interface (GUI).
  * 
- * Temas para escoger en la Graphic User Interface de la Agenda.
- * 
- * @since 07-04-2022
+ * @since 2022-04-07
+ * @version 2.0
  * @author Q
  */
 public class Themes {
 
 	// <<-CONSTANTS->>
-	/** Themes PATH */
-	private static final String PATH = Path.of(System.getProperty("user.dir"),
-			"themes", "json", "%s").toString();
-	/** Light type. */
+	/**
+	 * Themes PATH
+	 * */
+	private static final String PATH = Path.of(System.getProperty("user.dir"), "themes", "json", "%s").toString();
+	/**
+	 * Light type.
+	 * */
 	public static final String LIGHT = "Light";
-	/** Dark type. */
+	/**
+	 * Dark type.
+	 * */
 	public static final String DARK = "Dark";
 
-	/** Themes names by alphabetical order. */
+	/**
+	 * Themes names by alphabetical order.
+	 * */
 	public static final String[] THEMES = {
 			"Carbon",
 			"Cyan",
@@ -50,7 +58,9 @@ public class Themes {
 			"Solarized Light Red Contrast",
 			"Vuesion"
 	};
-	/** Light Themes names. */
+	/**
+	 * Light Themes names.
+	 * */
 	public static final String[] LIGHT_THEMES = {
 			"Cyan",
 			"Github",
@@ -60,7 +70,9 @@ public class Themes {
 			"Solarized Light Red",
 			"Solarized Light Red Contrast"
 	};
-	/** Dark Themes names. */
+	/**
+	 * Dark Themes names.
+	 * */
 	public static final String[] DARK_THEMES = {
 			"Carbon",
 			"Dark Purple",
@@ -82,12 +94,13 @@ public class Themes {
 
 	// <<-METHODS->>
 	/**
-	 * Devuelve un InputStream a partir de un ID.<br><br>
-	 * 
-	 * Los temas se entregan por orden alfab�tico.
+	 * Returns an InputStream from the ID and a theme type.<br>
+	 * <br>
+	 * Themes are delivered in alphabetical order.
 	 * 
 	 * @param id theme ID
-	 * @return InputStream
+	 *
+	 * @return the specified theme stream
 	 */
 	public static InputStream getTheme(int id, String type) {
 		try {
@@ -96,13 +109,16 @@ public class Themes {
 				case DARK  -> getDarkTheme(id);
 				default    -> null;
 			};
-		} catch (FileNotFoundException fnfE) { return null; }
+		} catch (FileNotFoundException fnfE) {
+			return null;
+		}
 	}
 
 	/**
 	 * Returns an InputStream from a light theme ID.
 	 *
 	 * @param id the theme ID
+	 *
 	 * @return the specified light theme stream
 	 */
 	public static InputStream getLightTheme(int id) throws FileNotFoundException {
@@ -122,6 +138,7 @@ public class Themes {
 	 * Returns an InputStream from a dark theme ID.
 	 *
 	 * @param id the theme ID
+	 *
 	 * @return the specified dark theme stream
 	 */
 	public static InputStream getDarkTheme(int id) throws FileNotFoundException {

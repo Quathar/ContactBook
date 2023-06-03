@@ -1,6 +1,7 @@
 package com.quathar.contactbook.ui.model;
 
 import com.quathar.contactbook.dao.DAO;
+import com.quathar.contactbook.data.service.GeneralService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
@@ -20,7 +21,7 @@ import java.io.Serial;
  * @since 2022-04-14
  * @author Q
  */
-public abstract class GeneralModel extends DefaultTableModel {
+public abstract class GeneralModel<T, ID> extends DefaultTableModel {
 
 	// <<-CONSTANTS->>
 	@Serial
@@ -28,10 +29,16 @@ public abstract class GeneralModel extends DefaultTableModel {
 
 	// <<-FIELDS->>
 	protected DAO dao;
+	private GeneralService<T, ID> _generalService;
+//	private final GeneralService<T, ID> _generalService;
 
 	// <<-CONSTRUCTORS->>
 	public GeneralModel(DAO dao) {
 		this.dao = dao;
+	}
+
+	public GeneralModel(GeneralService<T, ID> generalService) {
+		_generalService = generalService;
 	}
 
 	// <<-METHODS->>
@@ -78,7 +85,16 @@ public abstract class GeneralModel extends DefaultTableModel {
 				}
 	}
 	
-	public void deleteRow(int[] selectedRows) {
+	public void removeRow(int[] selectedRows) {
+		// We change the order of the selected rows
+		// so that they are deleted from highest to lowest index
+		// so that there is no error.
+		flip(selectedRows);
+		for (int selectedRow : selectedRows) {
+			super.removeRow(selectedRow);
+			ID id = (ID) getValueAt(selectedRow, 0);
+			_generalService.deleteById(id);
+		}
 		flip(selectedRows);
  		for (int row : selectedRows)
  			removeRow(row);

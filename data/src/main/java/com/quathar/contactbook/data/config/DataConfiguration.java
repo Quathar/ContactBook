@@ -20,6 +20,8 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 /**
+ * <h1>DataConfiguration</h1>
+ *
  * @since 2023-06-01
  * @version 1.0
  * @author Q

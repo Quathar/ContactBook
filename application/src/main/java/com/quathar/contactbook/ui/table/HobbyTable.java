@@ -1,20 +1,46 @@
 package com.quathar.contactbook.ui.table;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.ui.model.HobbyModel;
+
+import java.io.Serial;
+
 /**
- * HobbyTable.<br><br>
- * 
+ * <h1>HobbyTable</h1>
+ *
  * Componente JTable de la tabla <b>'aficiones'</b> en la BBDD.
  *
  * @since 2022-05-04
  * @author Q
  */
-public class HobbyTable {
-//public class HobbyTable extends GeneralTable {
+public class HobbyTable extends GeneralTable {
 
-//	private static final long serialVersionUID = 1L;
-//
-//	// CAMPOS
-//	private HobbyModel hModel;
+    // <<-CONSTANTS->>
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    // <<-FIELDS->>
+	private final HobbyModel _hobbyModel;
+
+    // <<-CONSTRUCTORS->>
+    public HobbyTable() {
+        Injector injector = Guice.createInjector(new AppConfiguration());
+        _hobbyModel = injector.getInstance(HobbyModel.class);
+        setModel(_hobbyModel);
+        removeColumn(columnModel.getColumn(0));
+    }
+
+    // <<-METHODS->>
+	public void addHobby(String hobby) {
+        _hobbyModel.addHobby(hobby);
+        removeColumn(columnModel.getColumn(0));
+	}
+
+    public void deleteRows() {
+        _hobbyModel.removeRow(getSelectedRows());
+    }
 	
 	// CONSTRUCTORES
 //	public HobbyTable(ContactBook frame, DAO dao) {
@@ -36,12 +62,6 @@ public class HobbyTable {
 //		removeColumn(0);
 //	}
 
-	// M�TODOS
-//	public void insertHobby(String hobby) {
-//		hModel.insertHobby(hobby);
-//		place(new int[] {0}, new int[] {1}, 300);
-//	}
-	
 //	public void addHobby(String hobby) {
 //		hModel.addHobby(hobby);
 //	}

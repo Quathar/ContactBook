@@ -55,8 +55,7 @@ public class DataApplication {
             List<Contact> contacts = gson.fromJson(reader, listType);
 
             Transaction transaction = session.beginTransaction();
-            for (Contact contact : contacts)
-                session.persist(contact);
+            contacts.forEach(session::persist);
             transaction.commit();
         } catch (IOException ioE) {
             System.err.println("ERROR: IOException");
@@ -110,12 +109,24 @@ public class DataApplication {
         Injector injector = Guice.createInjector(new DataConfiguration());
         ContactService contactService = injector.getInstance(ContactService.class);
 
+        int num = 25;
         // GET ALL
+        System.out.println("=".repeat(num));
+        System.out.println("ALL CONTACTS");
+        System.out.println("=".repeat(num));
         contactService.getAll()
                       .forEach(System.out::println);
+
         // GET BY ID
+        System.out.println("=".repeat(num));
+        System.out.println("CONTACT WITH ID 4");
+        System.out.println("=".repeat(num));
         System.out.println(contactService.getById(4L));
+
         // GET ALL BY PARAMS (type, name)
+        System.out.println("=".repeat(num));
+        System.out.println("ALL PET CONTACTS");
+        System.out.println("=".repeat(num));
         contactService.getAllByParams(ContactType.PET, null)
                       .forEach(System.out::println);
     }

@@ -1,5 +1,7 @@
 package com.quathar.contactbook.ui.table;
 
+import javax.swing.*;
+
 /**
  * ContactHobbyTable.<br><br>
  * 
@@ -8,7 +10,7 @@ package com.quathar.contactbook.ui.table;
  * @since 2022-05-04
  * @author Q
  */
-public class ContactHobbyTable {
+public class ContactHobbyTable extends JTable {
 //public class ContactHobbyTable extends GeneralTable {
 
 //	private static final long serialVersionUID = 1L;
