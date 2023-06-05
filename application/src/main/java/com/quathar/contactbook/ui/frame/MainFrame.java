@@ -1,6 +1,5 @@
 package com.quathar.contactbook.ui.frame;
 
-import com.quathar.contactbook.ui.game.TicTacToe;
 import com.quathar.contactbook.Application;
 import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.ui.Themes;
@@ -9,34 +8,15 @@ import com.quathar.contactbook.ui.component.RoundJTextField;
 import com.quathar.contactbook.ui.frame.helper.GBL;
 import com.quathar.contactbook.ui.frame.helper.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
-import com.quathar.contactbook.ui.frame.listener.BrowserFocusListener;
 import com.quathar.contactbook.ui.frame.listener.ContactsBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.HobbiesBrowserDocumentListener;
-import com.quathar.contactbook.ui.table.ContactHobbyTable;
-import com.quathar.contactbook.ui.table.ContactTable;
-import com.quathar.contactbook.ui.table.HobbyTable;
-import com.quathar.contactbook.ui.table.MailContactTable;
-import com.quathar.contactbook.ui.table.TelephoneContactTable;
+import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
+import com.quathar.contactbook.ui.game.TicTacToe;
+import com.quathar.contactbook.ui.table.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Menu;
+import java.awt.*;
 import java.io.Serial;
 
 /**
@@ -68,7 +48,7 @@ public class MainFrame extends JFrame {
     private int themeIndex;
     private JPanel viewsPanel;
     private CardLayout cardLayout;
-    private JComboBox<String> contactTypeComboBox;
+    private JComboBox<String> contactTypeCB;
     private ContactTable contactTable;
     private HobbyTable hobbyTable;
     private ContactHobbyTable contactHobbyTable;
@@ -201,16 +181,9 @@ public class MainFrame extends JFrame {
 
         JTextField contactsBrowserTF = new RoundJTextField(CONTACT_DEFAULT_TEXT);
         contactsBrowserTF.addFocusListener(
-                BrowserFocusListener.builder()
+                PlaceholderFocusListener.builder()
                         .defaultText(CONTACT_DEFAULT_TEXT)
-                        .browserTF(contactsBrowserTF)
-                        .build());
-        contactsBrowserTF.getDocument().addDocumentListener(
-                ContactsBrowserDocumentListener.builder()
-                        .defaultText(CONTACT_DEFAULT_TEXT)
-                        .contactBrowserTF(contactsBrowserTF)
-                        .contactTypeCB(contactTypeComboBox)
-                        .contactTable(contactTable)
+                        .inputTC(contactsBrowserTF)
                         .build());
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
         gridBagConstraints.insets = new Insets(0, 5, 0, 5);
@@ -223,12 +196,26 @@ public class MainFrame extends JFrame {
                 "COMPANIES",
                 "PETS"
         };
-        contactTypeComboBox = new JComboBox<>(contactTypeTitle);
-        contactTypeComboBox.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.0521), 30));
-        contactTypeComboBox.addActionListener(e -> contactTable.update((String) contactTypeComboBox.getSelectedItem()));
+        contactTypeCB = new JComboBox<>(contactTypeTitle);
+        contactTypeCB.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.0521), 30));
+        contactTypeCB.addActionListener(e -> contactTable.update(contactTypeCB.getSelectedIndex()));
         gridBagConstraints = GBL.createGridBagConstraints(2, 0);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
-        browserPanel.add(contactTypeComboBox, gridBagConstraints);
+        browserPanel.add(contactTypeCB, gridBagConstraints);
+
+        // ContactsBrowserDocumentListener needs:
+        // - JTextField        contactBrowserTF
+        // - String            defaultText
+        // - ContactTable      contactTable
+        // - JComboBox<String> contactTypeComboBox
+        contactTable = new ContactTable();
+        contactsBrowserTF.getDocument().addDocumentListener(
+                ContactsBrowserDocumentListener.builder()
+                        .defaultText(CONTACT_DEFAULT_TEXT)
+                        .contactBrowserTF(contactsBrowserTF)
+                        .contactTypeCB(contactTypeCB)
+                        .contactTable(contactTable)
+                        .build());
     }
 
     private void drawContactsViewCenter(JPanel contactsViewPanel) {
@@ -238,7 +225,8 @@ public class MainFrame extends JFrame {
         contactsViewPanel.add(tablePanel, BorderLayout.CENTER);
         tablePanel.setLayout(GBL.createGridBagLayoutFull(1, 1));
 
-        contactTable = new ContactTable();
+        // contactTable is pre-initialized for insertion in the
+        // ContactsBrowserDocumentListener
         JScrollPane contactScrollPane = new JScrollPane(contactTable);
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         gridBagConstraints.insets = new Insets(0, 0, 0, 1);
@@ -255,8 +243,10 @@ public class MainFrame extends JFrame {
         String CONSULT = "CONSULT";
         String ADD = "ADD";
 
+        Dimension dimension = new Dimension((int) (Application.SCREEN_SIZE.width * 0.078125), 30);
+
         JButton btnDelete = new JButton(REMOVE);
-        btnDelete.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.078125), 30));
+        btnDelete.setPreferredSize(dimension);
         btnDelete.addActionListener(e -> {
             int selectedRowCount = contactTable.getSelectedRowCount();
             if (selectedRowCount > 0) {
@@ -265,26 +255,26 @@ public class MainFrame extends JFrame {
                         String.format("Delete these %d contacts?", selectedRowCount);
                 if (MSG.questionMessage(msg) == 0) {
                     contactTable.deleteRows();
-//						updateTables();
+                    updateTables();
                 }
             }
         });
         buttonsPanel.add(btnDelete);
 
         JButton btnConsult = new JButton(CONSULT);
-        btnConsult.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.078125), 30));
+        btnConsult.setPreferredSize(dimension);
         btnConsult.addActionListener(e -> {
             int selectedRowCount = contactTable.getSelectedRowCount();
             if (selectedRowCount == 1) {
-                int id = (int) contactTable.getModel().getValueAt(contactTable.getSelectedRow(), 0);
-//					new InfoFrame(this, id).setVisible(true);
+                Long id = (Long) contactTable.getModel().getValueAt(contactTable.getSelectedRow(), 0);
+                new AddFrame(this, id).setVisible(true);
             } else if (selectedRowCount > 1)
                 MSG.warningMessage("It is not possible to consult more than 1 contact at a time.");
         });
         buttonsPanel.add(btnConsult);
 
         JButton btnAdd = new JButton(ADD);
-        btnAdd.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.078125), 30));
+        btnAdd.setPreferredSize(dimension);
         btnAdd.addActionListener(e -> {
             setVisible(false);
             new AddFrame(this).setVisible(true);
@@ -311,30 +301,38 @@ public class MainFrame extends JFrame {
         browserPanel.setLayout(gridBagLayout);
 
         // Labels Star Symbols
-        for (int i = 0; i < 3; i += 2) {
-            JLabel lblStars = new JLabel(UnicodeIcon.STAR.getCode().repeat(5));
-            lblStars.setFont(new Font(FONT_NAME, Font.PLAIN, 15));
-            gridBagConstraints = GBL.createGridBagConstraints(i, 0);
-            browserPanel.add(lblStars, gridBagConstraints);
-        }
+        Font font = new Font(FONT_NAME, Font.PLAIN, 20);
+
+        JLabel lblStarsLeft = new JLabel(UnicodeIcon.STAR.getCode().repeat(5));
+        lblStarsLeft.setFont(font);
+        gridBagConstraints = GBL.createGridBagConstraints(0, 0);
+        browserPanel.add(lblStarsLeft, gridBagConstraints);
+
+        JLabel lblStarsRight = new JLabel(UnicodeIcon.STAR.getCode().repeat(5));
+        lblStarsRight.setFont(font);
+        gridBagConstraints = GBL.createGridBagConstraints(2, 0);
+        browserPanel.add(lblStarsRight, gridBagConstraints);
 
         JTextField hobbiesBrowserTF = new RoundJTextField(HOBBY_DEFAULT_TEXT);
         hobbiesBrowserTF.addFocusListener(
-                BrowserFocusListener.builder()
-                        .defaultText(CONTACT_DEFAULT_TEXT)
-                        .browserTF(hobbiesBrowserTF)
-                        .build());
-        hobbiesBrowserTF.getDocument().addDocumentListener(
-                HobbiesBrowserDocumentListener.builder()
+                PlaceholderFocusListener.builder()
                         .defaultText(HOBBY_DEFAULT_TEXT)
-                        .hobbyBrowserTF(hobbiesBrowserTF)
-                        .hobbyTable(null)
-                        .contactHobbyTable(null)
+                        .inputTC(hobbiesBrowserTF)
                         .build());
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
         gridBagConstraints.insets = new Insets(0, 5, 0, 5);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         browserPanel.add(hobbiesBrowserTF, gridBagConstraints);
+
+        hobbyTable = new HobbyTable();
+        contactHobbyTable = new ContactHobbyTable();
+        hobbiesBrowserTF.getDocument().addDocumentListener(
+                HobbiesBrowserDocumentListener.builder()
+                        .defaultText(HOBBY_DEFAULT_TEXT)
+                        .hobbyBrowserTF(hobbiesBrowserTF)
+                        .hobbyTable(hobbyTable)
+                        .contactHobbyTable(contactHobbyTable)
+                        .build());
     }
 
     private void drawHobbiesViewCenter(JPanel hobbiesViewPanel) {
@@ -348,7 +346,8 @@ public class MainFrame extends JFrame {
         tablesPanel.setLayout(gridBagLayout);
 
         // Hobbies Table
-        hobbyTable = new HobbyTable();
+        // hobbyTable is pre-initialized for insertion in the
+        // HobbiesBrowserDocumentListener
         JScrollPane hobbyScrollPane = new JScrollPane(hobbyTable);
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -356,14 +355,14 @@ public class MainFrame extends JFrame {
 
         JTextField hobbyTF = new JTextField(HOBBY_TF_DEFAULT_TEXT);
         hobbyTF.addFocusListener(
-                BrowserFocusListener.builder()
+                PlaceholderFocusListener.builder()
                         .defaultText(HOBBY_TF_DEFAULT_TEXT)
-                        .browserTF(hobbyTF)
+                        .inputTC(hobbyTF)
                         .build());
         hobbyTF.addActionListener(e -> {
             String text = hobbyTF.getText();
             if (!text.equals("") && !text.equals(HOBBY_TF_DEFAULT_TEXT)) {
-                hobbyTable.addHobby(text);
+                hobbyTable.addNewHobby(text);
                 hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
             }
         });
@@ -382,7 +381,7 @@ public class MainFrame extends JFrame {
         btnCreate.addActionListener(e -> {
             String text = hobbyTF.getText();
             if (!text.equals("") && !text.equals(HOBBY_TF_DEFAULT_TEXT)) {
-                hobbyTable.addHobby(text);
+                hobbyTable.addNewHobby(text);
                 hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
             }
         });
@@ -407,7 +406,8 @@ public class MainFrame extends JFrame {
         buttonsPanel.add(btnDelete, gridBagConstraints);
 
         // Contacts Hobbies Table
-        contactHobbyTable = new ContactHobbyTable();
+        // contactHobbyTable is pre-initialized for insertion in the
+        // HobbiesBrowserDocumentListener
         JScrollPane contactHobbyScrollPane = new JScrollPane(contactHobbyTable);
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
         gridBagConstraints.gridheight = 3;
@@ -534,21 +534,20 @@ public class MainFrame extends JFrame {
     }
 
     public void updateTables() {
-        String selected = (String) contactTypeComboBox.getSelectedItem();
+        String selected = (String) contactTypeCB.getSelectedItem();
         contactTable.update(selected);
         System.out.println("=".repeat(50));
         System.out.println("TODO: Fix MainFrame updateTables() commented line");
         System.out.println("=".repeat(50));
-//		contactHobbyTable.update();
+        contactHobbyTable    .update();
         telephoneContactTable.update();
-        mailContactTable.update();
+        mailContactTable     .update();
     }
 
-//	// GETTERS
-//	public ContactTable getContactTable() {
-//		return cTable;
-//	}
-//
+    public ContactTable getContactTable() {
+        return contactTable;
+    }
+
 //	public HobbyTable getHobbyTable() {
 //		return hTable;
 //	}

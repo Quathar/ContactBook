@@ -23,6 +23,10 @@ public enum UnicodeIcon {
     STAR("\uE113"),
     ADD("\uE109"),
     DELETE("\uE108"),
+    PERSON("\uE13D"),
+    HOUSE("\uE1C3"),
+    CALENDAR("\uE163"),
+    GENDER("\u26A5"),
     GAME_CONTROL("\uE2D2"),
     KEYBOARD("\uE2F3"),
     FORMAT("\uE283");

@@ -53,9 +53,31 @@ public class ContactTable extends JTable {
 		removeColumn(columnModel.getColumn(0));
 	}
 
+	public void update(int selectedIndex) {
+		ContactType type = null;
+		switch (selectedIndex) {
+			case 1 -> type = ContactType.PERSON;
+			case 2 -> type = ContactType.COMPANY;
+			case 3 -> type = ContactType.PET;
+		}
+		_contactModel.createModelWithType(type);
+		removeColumn(columnModel.getColumn(0));
+	}
+
 	public void update(String contactType, String word) {
 		ContactType type = contactType.equalsIgnoreCase(ALL) ?
 							null : ContactType.valueOf(contactType);
+		_contactModel.createModelWithParams(type, word);
+		removeColumn(columnModel.getColumn(0));
+	}
+
+	public void update(int selectedIndex, String word) {
+		ContactType type = null;
+		switch (selectedIndex) {
+			case 1 -> type = ContactType.PERSON;
+			case 2 -> type = ContactType.COMPANY;
+			case 3 -> type = ContactType.PET;
+		}
 		_contactModel.createModelWithParams(type, word);
 		removeColumn(columnModel.getColumn(0));
 	}

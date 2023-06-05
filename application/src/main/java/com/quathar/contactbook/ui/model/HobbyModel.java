@@ -1,7 +1,11 @@
 package com.quathar.contactbook.ui.model;
 
-import com.google.inject.Inject;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
+import com.quathar.contactbook.data.service.ContactService;
 import com.quathar.contactbook.data.service.HobbyService;
 
 import javax.swing.table.DefaultTableModel;
@@ -31,21 +35,28 @@ public class HobbyModel extends DefaultTableModel {
 
     // <<-FIELDS->>
     private final HobbyService _hobbyService;
+    private final ContactService _contactService;
 
     // <<-CONSTRUCTORS->>
-    @Inject
-    public HobbyModel(HobbyService hobbyService) {
-        _hobbyService = hobbyService;
+    public HobbyModel() {
+        this(null);
+    }
+
+    public HobbyModel(Long id) {
+        Injector injector = Guice.createInjector(new AppConfiguration());
+        _hobbyService   = injector.getInstance(HobbyService.class);
+        _contactService = injector.getInstance(ContactService.class);
         setColumnIdentifiers(COLUMN_NAMES);
-        createModel(COLUMNS);
+        if (id == null)  createModel(COLUMNS);
+        else if (id > 0) createModelWithId(COLUMNS, id);
     }
 
     // <<-METHODS->>
     private void fillModel(List<Hobby> hobbies) {
         for (int i = 0; i < getRowCount(); i++) {
             Hobby hobby = hobbies.get(i);
-            super.setValueAt(hobby.getId(),      i, 0);
-            super.setValueAt(hobby.getName(),    i, 1);
+            super.setValueAt(hobby.getId(),   i, 0);
+            super.setValueAt(hobby.getName(), i, 1);
         }
     }
 
@@ -60,18 +71,28 @@ public class HobbyModel extends DefaultTableModel {
         create(hobbies, columnCount);
     }
 
-    public void addHobby(String newHobby) {
+    public void createModelWithId(int columnCount, Long id) {
+        Contact contact = _contactService.getById(id);
+        create(contact.getHobbies(), columnCount);
+    }
+
+    public void update(String name) {
+        List<Hobby> hobbies = _hobbyService.getAllByParams(name);
+        create(hobbies, COLUMNS);
+    }
+
+    public void addNewHobby(String newHobby) {
         Hobby hobby = new Hobby();
         hobby.setName(newHobby);
         _hobbyService.create(hobby);
         createModel(COLUMNS);
     }
 
-    public void removeRow(int[] selectedRows) {
+    public void removeRows(int[] selectedRows) {
         // We change the order of the selected rows
         // so that they are deleted from highest to lowest index
         // so that there is no error.
-        GeneralModel.flip(selectedRows);
+        if (selectedRows.length > 1) GeneralModel.flip(selectedRows);
         for (int selectedRow : selectedRows) {
             super.removeRow(selectedRow);
             Long id = (Long) getValueAt(selectedRow, 0);
@@ -95,16 +116,6 @@ public class HobbyModel extends DefaultTableModel {
 
     // CAMPOS
 
-//	public HobbyModel(DAO dao, boolean voidType) {
-//		super(dao);
-//		setColumnIdentifiers(ColumnNames);
-//	}
-//
-//	public HobbyModel(DAO dao, int id) {
-//		super(dao);
-//		setColumnIdentifiers(ColumnNames);
-//		createModelWhereIdC(TABLE, COLUMNAS, id);
-//	}
 //
 //	// M�TODOS
 //	public void insertHobby(String hobby) {
@@ -115,10 +126,6 @@ public class HobbyModel extends DefaultTableModel {
 //	public void addHobby(String hobby) {
 //		Object[] data = {0, hobby};
 //		insertRow(getRowCount(), data);
-//	}
-//
-//	public void searchWord(String word) {
-//		super.searchWord(TABLE, word, COLUMNAS);
 //	}
 //
 //	private void checkStops(int stop) {
@@ -161,24 +168,6 @@ public class HobbyModel extends DefaultTableModel {
 //			} else
 //				removeRow(selectedRows[i]);
 //		}
-//	}
-//
-//	@Override
-//	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//		super.setValueAt(aValue, rowIndex, columnIndex);
-//		int id = Integer.parseInt(getValueAt(rowIndex, 0).toString());
-//		String newName = aValue.toString();
-//		dao.modifyHobby(id, newName);
-//		frame.getContactHobbyTable().update();
-//	}
-
-    // OVERRIDE
-//	@Override
-//	public boolean isCellEditable(int rowIndex, int columnIndex) {
-//		if (getColumnName(columnIndex) == ColumnNames[0])
-//			return false;
-//		else
-//			return true;
 //	}
 //
 //	// SETTER

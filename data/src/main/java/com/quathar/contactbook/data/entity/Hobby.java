@@ -2,14 +2,19 @@ package com.quathar.contactbook.data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * <h1>Hobby</h1>
@@ -38,7 +43,7 @@ public class Hobby {
 
 	// Relations
 	@ToString.Exclude
-	@ManyToMany(mappedBy = "hobbies")
-	private Set<Contact> contacts;
+	@ManyToMany(mappedBy = "hobbies", fetch = FetchType.EAGER)
+	private List<Contact> contacts;
 
 }

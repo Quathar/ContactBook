@@ -1,53 +1,48 @@
 package com.quathar.contactbook.ui.table;
 
-import javax.swing.*;
+import com.quathar.contactbook.Application;
+import com.quathar.contactbook.ui.model.ContactHobbyModel;
+
+import java.io.Serial;
 
 /**
- * ContactHobbyTable.<br><br>
- * 
+ * <h1>ContactHobbyTable</h1>
+ *
  * Componente JTable de la tabla <b>contactos_aficiones</b> en la BBDD.
  *
  * @since 2022-05-04
  * @author Q
  */
-public class ContactHobbyTable extends JTable {
-//public class ContactHobbyTable extends GeneralTable {
+public class ContactHobbyTable extends GeneralTable {
 
-//	private static final long serialVersionUID = 1L;
-//
-//	// CAMPOS
-//	private ContactHobbyModel chModel;
-//
-//	// CONSTRUCTOR
-//	public ContactHobbyTable(DAO dao) {
-//		chModel = new ContactHobbyModel(dao);
-//		setModel(chModel);
-//		place(new int[] {0, 1, 2, 3}, new int[] {1, 2}, (int) (ContactBook.ScreenSize.width * 0.105));
-//	}
-//
-//	// M�TODOS
-//	/**
-//	 * Actualiza la vista de la tabla.
-//	 */
-//	public void update() {
-//		chModel.changeView();
-//		place(new int[] {0, 1, 2, 3}, new int[] {1, 2}, (int) (ContactBook.ScreenSize.width * 0.105));
-//	}
-//
-//	/**
-//	 * Actualiza la vista de la tabla a partir de una palabra.
-//	 *
-//	 * @param word the word to update the table
-//	 */
-//	public void update(String word) {
-//		chModel.searchWord(word);
-//		place(new int[] {0, 1, 2, 3}, new int[] {1, 2}, 200);
-//	}
-//
+    // <<-CONSTANTS->>
+	@Serial
+    private static final long serialVersionUID = 1L;
+
+    // <<-FIELDS->>
+    private final ContactHobbyModel _contactHobbyModel;
+
+    // <<-CONSTRUCTOR->>
+	public ContactHobbyTable() {
+        _contactHobbyModel = new ContactHobbyModel();
+		setModel(_contactHobbyModel);
+		place(new int[] {0, 1, 2, 3},
+              new int[] {1, 2},
+              (int) (Application.SCREEN_SIZE.width * 0.105));
+	}
+
+    // <<-METHODS->>
+    public void update() {
+        _contactHobbyModel.update();
+        place(new int[] {0, 1, 2, 3}, new int[] {1, 2}, (int) (Application.SCREEN_SIZE.width * 0.105));
+    }
+
+	public void update(String name) {
+        _contactHobbyModel.update(name);
+		place(new int[] {0, 1, 2, 3}, new int[] {1, 2}, 200);
+	}
+
 //	// GETTER
-//	/**
-//	 * @return the ContactHobbyModel
-//	 */
 //	public ContactHobbyModel getModel() {
 //		return chModel;
 //	}

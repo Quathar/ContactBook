@@ -16,63 +16,34 @@ import java.io.Serial;
  */
 public class MailTable extends GeneralTable {
 
+	// <<-CONSTANTS->>
 	@Serial
 	private static final long serialVersionUID = 1L;
-	
-	// CAMPOS
-//	private MailModel mModel;
-//
-//	// CONSTRUCTOR
-//	public MailTable(DAO dao) {
-//		mModel = new MailModel(dao);
-//		setModel(mModel);
-//		removeColumn(0);
-//	}
-//
-//	/**
-//	 * Constructor.<br><br>
-//	 *
-//	 * Crea una tabla con los correos de un contacto.
-//	 *
-//	 * @param dao the data access object
-//	 * @param id contact ID
-//	 */
-//	public MailTable(DAO dao, int id) {
-//		mModel = new MailModel(dao, id);
-//		setModel(mModel);
-//		removeColumn(0);
-//	}
-//
-//	// M�TODOS
-//	/**
-//	 * Inserta un nuevo correo en el modelo.
-//	 *
-//	 * @param data the data to insert
-//	 */
-//	public void insertRow(Object[] data) {
-//		mModel.insertRow(getRowCount(), data);
-//	}
-//
-//	/**
-//	 * Elimina las filas seleccionadas en el modelo o en el modelo y la BBDD, dependiendo de su ID.
-//	 */
-//	public void deleteSelectedRows() {
-//		mModel.deleteSelectedRows(getSelectedRows());
-//	}
-//
-//	/**
-//	 * Elimina todas las filas de la tabla.
-//	 */
-//	public void clean() {
-//		super.clean(mModel);
-//	}
-//
-//	// GETTER
-//	/**
-//	 * @return the MailModel
-//	 */
-//	public MailModel getModel() {
-//		return mModel;
-//	}
-	
+
+	// <<-FIELDS->>
+	private final MailModel _mailModel;
+
+	public MailTable() {
+		this(0L);
+	}
+
+	public MailTable(Long id) {
+		_mailModel = new MailModel(id);
+		setModel(_mailModel);
+		removeColumn(columnModel.getColumn(0));
+	}
+
+	// <<-METHODS->>
+	public void addNewRow(Object[] data) {
+		_mailModel.insertRow(getRowCount(), data);
+	}
+
+	public void deleteRows() {
+		_mailModel.removeRows(getSelectedRows());
+	}
+
+	public void clean() {
+		_mailModel.setRowCount(0);
+	}
+
 }

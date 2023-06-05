@@ -18,7 +18,7 @@ package com.quathar.contactbook.dao;
 //import com.quathar.contactbook.data.service.impl.ContactServiceImpl;
 //import com.quathar.contactbook.data.service.impl.HobbyServiceImpl;
 //import com.quathar.contactbook.io.RegexFilter;
-//import com.quathar.contactbook.model.ContactDTO;
+//import com.quathar.contactbook.model.dto.ContactDTO;
 //import com.quathar.contactbook.ui.model.HobbyModel;
 //import com.quathar.contactbook.ui.model.MailModel;
 //import com.quathar.contactbook.ui.model.TelephoneModel;

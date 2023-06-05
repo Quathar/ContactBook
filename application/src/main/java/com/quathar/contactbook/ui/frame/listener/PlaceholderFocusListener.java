@@ -1,8 +1,9 @@
 package com.quathar.contactbook.ui.frame.listener;
 
+import com.quathar.contactbook.ui.frame.helper.Placeholder;
 import lombok.Builder;
 
-import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -14,23 +15,23 @@ import java.awt.event.FocusListener;
  * @author Q
  */
 @Builder
-public class BrowserFocusListener implements FocusListener {
+public class PlaceholderFocusListener implements FocusListener {
 
     // <<-FIELDS->>
     private final String defaultText;
-    private final JTextField browserTF;
+    private final JTextComponent inputTC;
 
     // <<-METHODS->>
     @Override
     public void focusGained(FocusEvent e) {
-        if (browserTF.getText().equals(defaultText))
-            browserTF.setText("");
+        if (inputTC.getText().equals(defaultText))
+            inputTC.setText(Placeholder.BLANK.getText());
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (browserTF.getText().isBlank())
-            browserTF.setText(defaultText);
+        if (inputTC.getText().isBlank())
+            inputTC.setText(defaultText);
     }
 
 }

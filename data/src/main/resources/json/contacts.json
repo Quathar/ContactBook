@@ -6,7 +6,13 @@
     "surnames": "R",
     "gender": "M",
     "birth_date": "2345-06-01",
-    "type": "PERSON"
+    "type": "PERSON",
+    "telephones": [
+      {
+        "number": "+34 699 228 692",
+        "type": "M"
+      }
+    ]
   },
   {
     "name": "Contact02",
@@ -15,7 +21,13 @@
     "surnames": "Amenábar",
     "gender": "F",
     "birth_date": "2345-06-02",
-    "type": "PERSON"
+    "type": "PERSON",
+    "telephones": [
+      {
+        "number": "+34 922 995 223",
+        "type": "L"
+      }
+    ]
   },
   {
     "name": "Contact03",
@@ -24,7 +36,13 @@
     "surnames": "M",
     "gender": "M",
     "birth_date": "2910-04-20",
-    "type": "PERSON"
+    "type": "PERSON",
+    "telephones": [
+      {
+        "number": "+34 692 222 222",
+        "type": "M"
+      }
+    ]
   },
   {
     "name": "Coca Cola",
@@ -56,7 +74,8 @@
   {
     "name": "Oddy",
     "address": "Central Mediterranean Avenue, 192",
-    "notes": "Grumpy dog"
+    "notes": "Grumpy dog",
+    "type": "PET"
   },
   {
     "name": "Pacheco",
@@ -109,7 +128,8 @@
   {
     "name": "Rocket Raccoon",
     "address": "His spaceship",
-    "notes": "Groot best friend"
+    "notes": "Groot best friend",
+    "type": "PET"
   },
   {
     "name": "Al",

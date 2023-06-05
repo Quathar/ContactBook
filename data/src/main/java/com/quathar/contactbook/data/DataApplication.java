@@ -34,8 +34,8 @@ import java.util.List;
 public class DataApplication {
 
     // <<-CONSTANTS->>
-    private static final Path CONTACTS_JSON_PATH = Path.of(System.getProperty("user.dir"), "data", "src", "main", "resources", "contacts.json");
-    private static final Path HOBBIES_JSON_PATH = Path.of(System.getProperty("user.dir"), "data", "src", "main", "resources", "hobbies.json");
+    private static final Path CONTACTS_JSON_PATH = Path.of(System.getProperty("user.dir"), "data", "src", "main", "resources", "json", "contacts.json");
+    private static final Path HOBBIES_JSON_PATH = Path.of(System.getProperty("user.dir"), "data", "src", "main", "resources", "json", "hobbies.json");
 
     // <<-METHODS->>
     private static Configuration getConfiguration() {
@@ -97,12 +97,12 @@ public class DataApplication {
     }
 
     public static void main(String[] args) {
-        // Uncomment to store more test data (change ddl to create in hibernate.properties to reset ID)
+        // Uncomment to store more test data (change hibernate.hbm2ddl to 'create' in hibernate.properties to reset ID)
 //        loadContactsInitData();
 //        loadHobbiesInitData();
 
         // Test
-        test();
+//        test();
     }
 
     private static void test() {

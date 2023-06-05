@@ -25,7 +25,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <h1>Contact</h1>
@@ -73,12 +72,12 @@ public class Contact {
 
 	// Relations
 	@ToString.Exclude
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "contacts_hobbies",
 			joinColumns 	   = @JoinColumn(name = "contact_id"),
 			foreignKey 		   = @ForeignKey(name = "FK_contacts"),
 			inverseJoinColumns = @JoinColumn(name = "hobby_id"),
 			inverseForeignKey  = @ForeignKey(name = "FK_hobbies"))
-	private Set<Hobby> hobbies;
+	private List<Hobby> hobbies;
 	
 }

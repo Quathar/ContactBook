@@ -4,66 +4,70 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * <h1>RegexFilter</h1>
  * 
- * 
- *
- * @author Q
  * @since 2022-05-05
+ * @version 2.0
+ * @author Q
  */
-public class RegexFilter { // CLASE FINALIZADA
-	
+public class RegexFilter {
+
+	// <<-CONSTANTS->>
+	public static final String TELEPHONE_ERROR_MSG = String.format("INCORRECT FORMAT!%nIntroduce 9 numbers");
+	public static final String MAIL_ERROR_MSG = String.format("INCORRECT FORMAT!%nIntroduce: (name)@(mail).(ext)");
+
+	// <<-METHODS->>
 	/**
-	 * Comprueba los espacios en una cadena de texto.
+	 * Checks for spaces in a text string.
 	 * 
 	 * @param str the string to check
+	 *
 	 * @return str with 1 space between words
 	 */
 	public static String checkSpaces(String str) {
-		str = str.trim();
-		String[] p = str.split(" ");
-		str = "";
-		for (String parts : p) {
-			if (!parts.equals(""))
-				str += parts + " ";
-		}
-		return str;
+		String[] words = str.trim().split(" ");
+
+		StringBuilder newStr = new StringBuilder();
+		for (String word : words)
+			if (!word.isBlank())
+				newStr.append(word).append(" ");
+		return newStr.toString();
 	}
 
 	/**
-	 * Comprueba que el tel�fono tenga el formato adecuado.
+	 * Check that the phone is in the correct format.
 	 * 
 	 * @param telephone the telephone to check
-	 * @return telephone/ERROR - if the format is/isn't correct
+	 *
+	 * @return the correct formatted telephone
 	 */
 	public static String checkTelephone(String telephone) {
 		String regex = "^\\d{9,20}$";
-		Matcher m = Pattern.compile(regex).matcher(telephone);
+		Matcher matcher = Pattern.compile(regex).matcher(telephone);
 		
-		if (m.matches()) {
+		if (matcher.matches()) {
 			telephone = telephone.trim().replaceAll(" ", "");
 			if (telephone.length() > 9)
 				telephone = telephone.substring(0, 9);
 			String[] p = {telephone.substring(0, 3), telephone.substring(3, 6), telephone.substring(6, 9)};
 			return telephone = "+34   " + p[0] + " " + p[1] + " " + p[2];
-		} else {
-			return "ERROR";
-		}
+		} else throw new RuntimeException();
 	}
 	
 	/**
-	 * Comprueba que el correo tenga el formato adecuado.
+	 * Check that the mail is properly formatted.
 	 * 
 	 * @param mail the mail to check
-	 * @return mail/ERROR - if the format is/isn't correct
+	 *
+	 * @return the correct formatted mail
 	 */
-	public static String checkMail(String mail) {
+	public static String checkMail(String mail) throws RuntimeException {
 		String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-		Matcher m = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(mail);
+		Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(mail);
 		
-		if (m.matches())
+		if (matcher.matches())
 			return mail;
-		else
-			return "ERROR";
+		else throw new RuntimeException();
 	}
 	
 }

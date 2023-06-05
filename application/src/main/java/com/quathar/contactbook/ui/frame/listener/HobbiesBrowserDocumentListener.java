@@ -4,7 +4,7 @@ import com.quathar.contactbook.ui.table.ContactHobbyTable;
 import com.quathar.contactbook.ui.table.HobbyTable;
 import lombok.Builder;
 
-import javax.swing.*;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -25,25 +25,27 @@ public class HobbiesBrowserDocumentListener implements DocumentListener {
     private final ContactHobbyTable contactHobbyTable;
 
     // <<-METHODS->>
+    private void action() {
+        String hobbyName = hobbyBrowserTF.getText();
+        if (!hobbyName.equals(defaultText)) {
+            hobbyTable       .update(hobbyName);
+            contactHobbyTable.update(hobbyName);
+        }
+    }
+
     @Override
     public void insertUpdate(DocumentEvent e) {
-//        String hobbyWord = hobbyBrowserTF.getText();
-//        if (!hobbyWord.equals(defaultText)) {
-//            hobbyTable.update(hobbyWord);
-//            contactHobbyTable.update(hobbyWord);
-//        }
+        action();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-//        String hobbyWord = hobbyBrowserTF.getText();
-//        if (!hobbyWord.equals(defaultText)) {
-//            hobbyTable.update(hobbyWord);
-//            contactHobbyTable.update(hobbyWord);
-//        }
+        action();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+        action();
+    }
 
 }

@@ -48,8 +48,8 @@ public class HobbyDaoImpl implements HobbyDao {
     @Override
     public List<Hobby> findByParams(String name) {
         try (Session session = _sessionFactory.openSession()) {
-            String hql = "SELECT h FROM Hobby h WHERE " +
-                         "(:name IS NULL OR :name = '' OR h.name LIKE %:name%)";
+            String hql = "FROM Hobby h WHERE " +
+                         "(COALESCE(:name, '') = '' OR h.name LIKE CONCAT('%', :name, '%'))";
             Query<Hobby> query = session.createQuery(hql, Hobby.class);
             query.setParameter("name", name);
             return query.list();

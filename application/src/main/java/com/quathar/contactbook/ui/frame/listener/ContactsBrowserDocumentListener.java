@@ -25,25 +25,27 @@ public class ContactsBrowserDocumentListener implements DocumentListener {
     private final ContactTable contactTable;
 
     // <<-METHODS->>
-    @Override
-    public void insertUpdate(DocumentEvent e) {
+    private void action() {
         String contactWord = contactBrowserTF.getText();
         if (!contactWord.equals(defaultText)) {
-            String contactType = (String) contactTypeCB.getSelectedItem();
-            contactTable.update(contactType, contactWord);
+            int selectedIndex = contactTypeCB.getSelectedIndex();
+            contactTable.update(selectedIndex, contactWord);
         }
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        action();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        String contactWord = contactBrowserTF.getText();
-        if (!contactWord.equals(defaultText)) {
-            String contactType = (String) contactTypeCB.getSelectedItem();
-            contactTable.update(contactType, contactWord);
-        }
+        action();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+        action();
+    }
 
 }

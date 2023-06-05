@@ -7,53 +7,44 @@ import java.io.Serial;
 /**
  * <h1>TelephoneTable</h1>
  *
- * Componente JTable de la tabla <b>'telefonos'</b> en la BBDD.
+ * JTable component to display the telephones.
  *
  * @since 2022-05-04
- * @see GeneralTable
- * @see TelephoneModel
+ * @version 2.0
  * @author Q
  */
 public class TelephoneTable extends GeneralTable {
 
+	// <<-CONSTANTS->>
 	@Serial
 	private static final long serialVersionUID = 1L;
-	
-	// CAMPOS
-//	private TelephoneModel tModel;
-//
-//	// CONSTRUCTOR
-//	public TelephoneTable(DAO dao) {
-//		tModel = new TelephoneModel(dao);
-//		setModel(tModel);
-//		removeColumn(0);
-//		place(new int[] {0, 1}, new int[] {0}, 200);
-//	}
-//
-//	public TelephoneTable(DAO dao, int id) {
-//		tModel = new TelephoneModel(dao, id);
-//		setModel(tModel);
-//		removeColumn(0);
-//		place(new int[] {0, 1}, new int[] {0}, 200);
-//	}
-//
-//	// M�TODOS
-//	public void insertRow(Object[] data) {
-//		tModel.insertRow(getRowCount(), data);
-//		place(new int[] {0, 1}, new int[] {0}, 200);
-//	}
-//
-//	public void deleteSelectedRows() {
-//		tModel.deleteSelectedRows(getSelectedRows());
-//	}
-//
-//	public void clean() {
-//		super.clean(tModel);
-//	}
-//
-//	// GETTER
-//	public TelephoneModel getModel() {
-//		return tModel;
-//	}
-	
+
+	// <<-FIELDS->>
+	private final TelephoneModel _telephoneModel;
+
+	// <<-CONSTRUCTORS->>
+	public TelephoneTable() {
+		this(0L);
+	}
+
+	public TelephoneTable(Long id) {
+		_telephoneModel = new TelephoneModel(id);
+		setModel(_telephoneModel);
+		place(new int[] {0, 1}, new int[] {0}, 200);
+	}
+
+	// <<-METHODS->>
+	public void addNewRow(Object[] data) {
+		_telephoneModel.insertRow(getRowCount(), data);
+		place(new int[] {0, 1}, new int[] {0}, 200);
+	}
+
+	public void deleteRows() {
+		_telephoneModel.removeRows(getSelectedRows());
+	}
+
+	public void clean() {
+		_telephoneModel.setRowCount(0);
+	}
+
 }

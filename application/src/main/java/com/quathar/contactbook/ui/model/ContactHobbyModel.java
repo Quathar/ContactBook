@@ -1,5 +1,16 @@
 package com.quathar.contactbook.ui.model;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.data.entity.Contact;
+import com.quathar.contactbook.data.entity.Hobby;
+import com.quathar.contactbook.data.service.HobbyService;
+
+import javax.swing.table.DefaultTableModel;
+import java.io.Serial;
+import java.util.List;
+
 /**
  * <h1>ContactHobbyModel</h1>
  *
@@ -9,37 +20,72 @@ package com.quathar.contactbook.ui.model;
  * @see GeneralModel
  * @author Q
  */
-public class ContactHobbyModel {
-//public class ContactHobbyModel extends GeneralModel {
+public class ContactHobbyModel extends DefaultTableModel {
 
-//	private static final long serialVersionUID = 1L;
-	public static final String[] ColumnNames = {"ID_A", "AFIC�N", "NOMBRE", "ID_C"};
-	
-	// CAMPOS
-	/**
-	 * N�mero de columnas.
-	 */
-	private final int COLUMNAS = 4;
-//	private final String TABLE = DB.ContactsHobbiesTitle;
-	
-	// CONSTRUCTOR
-//	public ContactHobbyModel(DAO dao) {
-//		super(dao);
-//		setColumnIdentifiers(ColumnNames);
-//		createModel(TABLE, COLUMNAS);
-//	}
-	
-	// M�TODOS
-//	public void changeView() {
-//		super.changeView(TABLE, COLUMNAS);
-//	}
-	
-//	public void searchWord(String word) {
-//		super.searchWord(TABLE, word, COLUMNAS);
-//	}
-	
-//	public boolean isCellEditable(int rowIndex, int columnIndex) {
-//		return false;
-//	}
-	
+	// <<-CONSTANTS->>
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+	private static final int COLUMNS = 4;
+	private static final String[] COLUMN_NAMES = {
+			"ID_H",
+			"HOBBY",
+			"NAME",
+			"ID_C"
+	};
+
+	// <<-FIELDS->>
+	private final HobbyService _hobbyService;
+
+	// <<-CONSTRUCTOR->>
+	public ContactHobbyModel() {
+		Injector injector = Guice.createInjector(new AppConfiguration());
+		_hobbyService = injector.getInstance(HobbyService.class);
+		setColumnIdentifiers(COLUMN_NAMES);
+		createModel(COLUMNS);
+	}
+
+	// <<-METHODS->>
+	private void fillModel(List<Hobby> hobbies) {
+		int i = 0;
+		for (Hobby hobby : hobbies) {
+			List<Contact> contacts = hobby.getContacts();
+			for (Contact contact : contacts) {
+				super.setValueAt(hobby.getId(),     i, 0);
+				super.setValueAt(hobby.getName(),   i, 1);
+				super.setValueAt(contact.getName(), i, 2);
+				super.setValueAt(contact.getId(),   i, 3);
+				i++;
+			}
+		}
+	}
+
+	private void create(List<Hobby> hobbies, int columnCount) {
+		setColumnCount(columnCount);
+		int count = (int) hobbies.stream()
+								 .map(Hobby::getContacts)
+								 .count();
+		setRowCount(count);
+		fillModel(hobbies);
+	}
+
+	public void createModel(int columnCount) {
+		List<Hobby> hobbies = _hobbyService.getAll();
+		create(hobbies, columnCount);
+	}
+
+	public void update() {
+		createModel(COLUMNS);
+	}
+
+	public void update(String name) {
+		List<Hobby> hobbies = _hobbyService.getAllByParams(name);
+		create(hobbies, COLUMNS);
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
 }
