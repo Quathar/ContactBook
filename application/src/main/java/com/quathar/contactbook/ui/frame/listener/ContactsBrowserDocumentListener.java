@@ -1,6 +1,6 @@
 package com.quathar.contactbook.ui.frame.listener;
 
-import com.quathar.contactbook.ui.table.ContactTable;
+import com.quathar.contactbook.ui.component.table.ContactTable;
 import lombok.Builder;
 
 import javax.swing.JComboBox;

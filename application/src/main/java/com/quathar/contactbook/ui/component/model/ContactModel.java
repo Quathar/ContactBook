@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.model;
+package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -75,15 +75,16 @@ public class ContactModel extends DefaultTableModel {
 		create(contacts, COLUMNS);
 	}
 
-	public void removeRow(int[] selectedRows) {
+	public void removeRows(int[] selectedRows) {
 		// We change the order of the selected rows
 		// so that they are deleted from highest to lowest index
 		// so that there is no error.
-		GeneralModel.flip(selectedRows);
+		if (selectedRows.length > 1) GeneralModel.flip(selectedRows);
+
 		for (int selectedRow : selectedRows) {
-			super.removeRow(selectedRow);
 			Long id = (Long) getValueAt(selectedRow, 0);
 			_contactService.deleteById(id);
+			super.removeRow(selectedRow);
 		}
 	}
 

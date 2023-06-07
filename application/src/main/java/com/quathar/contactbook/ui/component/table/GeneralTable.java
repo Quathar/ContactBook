@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;

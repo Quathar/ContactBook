@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.model;
+package com.quathar.contactbook.ui.component.model;
 
 import com.quathar.contactbook.dao.DAO;
 import com.quathar.contactbook.data.service.GeneralService;

@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * <h1>HobbyDaoImpl</h1>
+ *
  * @since 2023-05-30
+ * @see HobbyDao
  * @version 1.0
  * @author Q
  */
@@ -61,14 +64,14 @@ public class HobbyDaoImpl implements HobbyDao {
         Transaction transaction = null;
         try (Session session = _sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.persist(hobby);
+            hobby = session.merge(hobby);
             transaction.commit();
+            return hobby;
         } catch (IllegalStateException | RollbackException ex) {
             if (transaction != null)
                 transaction.rollback();
             return null;
         }
-        return hobby;
     }
 
     @Override
@@ -97,6 +100,13 @@ public class HobbyDaoImpl implements HobbyDao {
         } catch (IllegalStateException | RollbackException ex) {
             if (transaction != null)
                 transaction.rollback();
+        }
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        try (Session session = _sessionFactory.openSession()) {
+            return session.get(Hobby.class, id) != null;
         }
     }
 

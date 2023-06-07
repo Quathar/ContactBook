@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.model;
+package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -10,6 +10,7 @@ import com.quathar.contactbook.data.service.HobbyService;
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <h1>ContactHobbyModel</h1>
@@ -63,7 +64,9 @@ public class ContactHobbyModel extends DefaultTableModel {
 	private void create(List<Hobby> hobbies, int columnCount) {
 		setColumnCount(columnCount);
 		int count = (int) hobbies.stream()
-								 .map(Hobby::getContacts)
+								 .flatMap(hobby -> hobby.getContacts()
+											   			.stream()) // Combines all contact lists into a single stream
+								 .filter(Objects::nonNull) // Filter null contacts
 								 .count();
 		setRowCount(count);
 		fillModel(hobbies);

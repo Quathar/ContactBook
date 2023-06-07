@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.model;
+package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Inject;
 import com.quathar.contactbook.data.embeddable.Mail;
@@ -8,9 +8,10 @@ import com.quathar.contactbook.data.service.ContactService;
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * MailContactModel.<br><br>
+ * <h1>MailContactModel</h1>
  *
  * @since 2022-05-15
  * @version 2.0
@@ -40,18 +41,28 @@ public class MailContactModel extends DefaultTableModel {
 
     // <<-METHODS->>
     private void fillModel(List<Contact> contacts) {
-        for (int i = 0; i < getRowCount(); i++) {
-            Contact contact = contacts.get(i);
-            for (Mail mail : contact.getMails()) {
-                super.setValueAt(contact.getName(), i, 0);
-                super.setValueAt(mail.getName(),    i, 1);
+        int rowIndex = 0;
+
+        for (Contact contact : contacts) {
+            List<Mail> telephones = contact.getMails();
+            if (telephones.isEmpty())
+                continue;
+            for (Mail mail : telephones) {
+                super.setValueAt(contact.getName(), rowIndex, 0);
+                super.setValueAt(mail.getName(),    rowIndex, 1);
+                rowIndex++;
             }
         }
     }
 
     private void create(List<Contact> contacts, int columnCount) {
         setColumnCount(columnCount);
-        setRowCount(contacts.size());
+        int count = (int) contacts.stream()
+                                  .flatMap(contact -> contact.getMails()
+                                                             .stream())
+                                  .filter(Objects::nonNull)
+                                  .count();
+        setRowCount(count);
         fillModel(contacts);
     }
 

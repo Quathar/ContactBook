@@ -1,10 +1,10 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.quathar.contactbook.Application;
 import com.quathar.contactbook.config.AppConfiguration;
-import com.quathar.contactbook.ui.model.MailContactModel;
+import com.quathar.contactbook.ui.component.model.MailContactModel;
 
 import java.io.Serial;
 

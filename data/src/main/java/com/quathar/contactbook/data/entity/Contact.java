@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * <h1>Contact</h1>
- *
+ * <br>
  * Class used to store the information of a contact.
  *
  * @since 2022-04-03

@@ -26,6 +26,9 @@ import java.awt.Toolkit;
 public class Application {
 
     // <<-CONSTANTS->>
+    /**
+     * Screen dimensions
+     */
     public  static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
     private static final String CONSOLE = "Console";
     private static final String GRAPHIC_USER_INTERFACE = "Graphic User Interface";
@@ -40,6 +43,14 @@ public class Application {
     public static void changeTheme(int themeIndex, String themeType) {
         IntelliJTheme.setup(Themes.getTheme(themeIndex, themeType));
         new MainFrame(themeIndex, themeType, ViewTitle.SETTINGS).setVisible(true);
+    }
+
+    /**
+     * Format the agenda and start it again.
+     */
+    public static void format() {
+        DataApplication.format();
+        init();
     }
 
     /**

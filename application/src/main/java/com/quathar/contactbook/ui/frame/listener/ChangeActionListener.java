@@ -2,7 +2,7 @@ package com.quathar.contactbook.ui.frame.listener;
 
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.enumerator.TelephoneType;
-import com.quathar.contactbook.model.dto.ContactDTO;
+import com.quathar.contactbook.model.dto.ContactInfoDTO;
 import com.quathar.contactbook.ui.frame.helper.Placeholder;
 import lombok.Builder;
 
@@ -23,8 +23,7 @@ import java.awt.event.ActionListener;
 public class ChangeActionListener implements ActionListener {
 
     // <<-FIELDS->>
-    private ContactDTO contactDTO;
-    private JComboBox<ContactType> contactTypeCB;
+    private ContactInfoDTO contactInfoDTO;
     private JComboBox<TelephoneType> telephoneTypeCB;
     private JTextField telephoneTF;
     private JTextField mailTF;
@@ -36,54 +35,56 @@ public class ChangeActionListener implements ActionListener {
     // <<-METHODS->>
     @Override
     public void actionPerformed(ActionEvent e) {
-        ContactType contactType = (ContactType) contactTypeCB.getSelectedItem();
+        ContactType contactType = (ContactType) contactInfoDTO.getContactTypeCB().getSelectedItem();
 
         switch (contactType) {
             case PERSON -> {
-                contactDTO.getSurnamesTF()
-                          .setText(Placeholder.SURNAMES.getText());
+                contactInfoDTO.getSurnamesTF()
+                              .setText(Placeholder.SURNAMES.getText());
                 enablePersonInputs(true);
                 enableTelephonesAndMails(true);
             }
             case COMPANY -> {
-                contactDTO.getSurnamesTF()
-                          .setText(Placeholder.BLANK.getText());
+                contactInfoDTO.getSurnamesTF()
+                              .setText(Placeholder.BLANK.getText());
                 enablePersonInputs(false);
-                contactDTO.getBirthDC()
-                          .cleanup();
-                contactDTO.getGenderCB()
-                          .setSelectedIndex(0);
+                contactInfoDTO.getBirthDC()
+                              .cleanup();
+                contactInfoDTO.getGenderCB()
+                              .setSelectedIndex(0);
                 enableTelephonesAndMails(true);
             }
             case PET -> {
-                contactDTO.getSurnamesTF()
-                          .setText(Placeholder.BLANK.getText());
+                contactInfoDTO.getSurnamesTF()
+                              .setText(Placeholder.BLANK.getText());
                 enablePersonInputs(false);
-                contactDTO.getBirthDC()
-                          .setEnabled(true);
-                contactDTO.getGenderCB()
-                          .setSelectedIndex(0);
+                contactInfoDTO.getBirthDC()
+                              .setEnabled(true);
+                contactInfoDTO.getGenderCB()
+                              .setSelectedIndex(0);
                 enableTelephonesAndMails(false);
-                contactDTO.getTelephoneTable()
-                          .clean();
-                contactDTO.getMailTable()
-                          .clean();
+                telephoneTF   .setText(Placeholder.BLANK.getText());
+                contactInfoDTO.getTelephoneTable()
+                              .clean();
+                mailTF        .setText(Placeholder.BLANK.getText());
+                contactInfoDTO.getMailTable()
+                              .clean();
             }
         }
     }
 
     private void enablePersonInputs(boolean enable) {
-        contactDTO.getSurnamesTF()
+        contactInfoDTO.getSurnamesTF()
                   .setEnabled(enable);
-        contactDTO.getBirthDC()
+        contactInfoDTO.getBirthDC()
                   .setEnabled(enable);
-        contactDTO.getGenderCB()
+        contactInfoDTO.getGenderCB()
                   .setEnabled(enable);
     }
 
     private void enableTelephonesAndMails(boolean enable) {
         // Related to telephones
-        contactDTO        .getTelephoneTable()
+        contactInfoDTO.getTelephoneTable()
                           .setEnabled(enable);
         telephoneTF       .setText(Placeholder.TELEPHONES.getText());
         telephoneTF       .setEnabled(enable);
@@ -92,7 +93,7 @@ public class ChangeActionListener implements ActionListener {
         btnDeleteTelephone.setEnabled(enable);
 
         // Related to mails
-        contactDTO   .getMailTable()
+        contactInfoDTO.getMailTable()
                      .setEnabled(enable);
         mailTF       .setText(Placeholder.MAILS.getText());
         mailTF       .setEnabled(enable);

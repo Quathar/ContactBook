@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.model;
+package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Inject;
 import com.quathar.contactbook.data.embeddable.Telephone;
@@ -8,6 +8,7 @@ import com.quathar.contactbook.data.service.ContactService;
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <h1>TelephoneContactModel</h1>
@@ -41,19 +42,29 @@ public class TelephoneContactModel extends DefaultTableModel {
 
     // <<-METHODS->>
     private void fillModel(List<Contact> contacts) {
-        for (int i = 0; i < getRowCount(); i++) {
-            Contact contact = contacts.get(i);
-            for (Telephone telephone : contact.getTelephones()) {
-                super.setValueAt(contact.getName(),     i, 0);
-                super.setValueAt(telephone.getNumber(), i, 1);
-                super.setValueAt(telephone.getType(),   i, 2);
+        int rowIndex = 0;
+
+        for (Contact contact : contacts) {
+            List<Telephone> telephones = contact.getTelephones();
+            if (telephones.isEmpty())
+                continue;
+            for (Telephone telephone : telephones) {
+                super.setValueAt(contact.getName(),     rowIndex, 0);
+                super.setValueAt(telephone.getNumber(), rowIndex, 1);
+                super.setValueAt(telephone.getType(),   rowIndex, 2);
+                rowIndex++;
             }
         }
     }
 
     private void create(List<Contact> contacts, int columnCount) {
         setColumnCount(columnCount);
-        setRowCount(contacts.size());
+        int count = (int) contacts.stream()
+                                  .flatMap(contact -> contact.getTelephones()
+                                                             .stream())
+                                  .filter(Objects::nonNull)
+                                  .count();
+        setRowCount(count);
         fillModel(contacts);
     }
 
@@ -67,8 +78,8 @@ public class TelephoneContactModel extends DefaultTableModel {
     }
 
     @Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
-	}
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return false;
+    }
 
 }

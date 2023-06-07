@@ -1,12 +1,12 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
-import com.quathar.contactbook.ui.model.TelephoneModel;
+import com.quathar.contactbook.ui.component.model.TelephoneModel;
 
 import java.io.Serial;
 
 /**
  * <h1>TelephoneTable</h1>
- *
+ * <br>
  * JTable component to display the telephones.
  *
  * @since 2022-05-04
@@ -30,13 +30,17 @@ public class TelephoneTable extends GeneralTable {
 	public TelephoneTable(Long id) {
 		_telephoneModel = new TelephoneModel(id);
 		setModel(_telephoneModel);
-		place(new int[] {0, 1}, new int[] {0}, 200);
+		place();
 	}
 
 	// <<-METHODS->>
+	private void place() {
+		place(new int[] {0, 1}, new int[] {0}, 200);
+	}
+
 	public void addNewRow(Object[] data) {
 		_telephoneModel.insertRow(getRowCount(), data);
-		place(new int[] {0, 1}, new int[] {0}, 200);
+		place();
 	}
 
 	public void deleteRows() {

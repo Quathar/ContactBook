@@ -1,7 +1,7 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
 import com.quathar.contactbook.Application;
-import com.quathar.contactbook.ui.model.ContactHobbyModel;
+import com.quathar.contactbook.ui.component.model.ContactHobbyModel;
 
 import java.io.Serial;
 

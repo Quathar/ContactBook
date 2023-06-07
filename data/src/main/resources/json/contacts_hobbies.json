@@ -1,0 +1,138 @@
+[
+  {
+    "contact_id": 1,
+    "hobby_id": 1
+  },
+  {
+    "contact_id": 1,
+    "hobby_id": 3
+  },
+  {
+    "contact_id": 1,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 1,
+    "hobby_id": 7
+  },
+  {
+    "contact_id": 1,
+    "hobby_id": 19
+  },
+  {
+    "contact_id": 2,
+    "hobby_id": 7
+  },
+  {
+    "contact_id": 2,
+    "hobby_id": 8
+  },
+  {
+    "contact_id": 2,
+    "hobby_id": 11
+  },
+  {
+    "contact_id": 3,
+    "hobby_id": 2
+  },
+  {
+    "contact_id": 3,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 3,
+    "hobby_id": 7
+  },
+  {
+    "contact_id": 3,
+    "hobby_id": 19
+  },
+  {
+    "contact_id": 3,
+    "hobby_id": 17
+  },
+  {
+    "contact_id": 4,
+    "hobby_id": 21
+  },
+  {
+    "contact_id": 7,
+    "hobby_id": 21
+  },
+  {
+    "contact_id": 10,
+    "hobby_id": 21
+  },
+  {
+    "contact_id": 29,
+    "hobby_id": 21
+  },
+  {
+    "contact_id": 4,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 7,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 10,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 29,
+    "hobby_id": 4
+  },
+  {
+    "contact_id": 5,
+    "hobby_id": 5
+  },
+  {
+    "contact_id": 8,
+    "hobby_id": 5
+  },
+  {
+    "contact_id": 11,
+    "hobby_id": 5
+  },
+  {
+    "contact_id": 30,
+    "hobby_id": 5
+  },
+  {
+    "contact_id": 24,
+    "hobby_id": 8
+  },
+  {
+    "contact_id": 26,
+    "hobby_id": 16
+  },
+  {
+    "contact_id": 23,
+    "hobby_id": 19
+  },
+  {
+    "contact_id": 27,
+    "hobby_id": 23
+  },
+  {
+    "contact_id": 28,
+    "hobby_id": 14
+  },
+  {
+    "contact_id": 25,
+    "hobby_id": 20
+  },
+  {
+    "contact_id": 25,
+    "hobby_id": 17
+  },
+  {
+    "contact_id": 23,
+    "hobby_id": 23
+  },
+  {
+    "contact_id": 18,
+    "hobby_id": 24
+  }
+]

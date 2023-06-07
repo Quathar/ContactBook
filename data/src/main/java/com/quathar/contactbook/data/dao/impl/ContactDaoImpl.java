@@ -15,7 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * <h1>ContactDaoImpl</h1>
+ *
  * @since 2023-05-30
+ * @see ContactDao
  * @version 1.0
  * @author Q
  */
@@ -50,7 +53,7 @@ public class ContactDaoImpl implements ContactDao {
     public List<Contact> findByParams(ContactType type, String name) {
         try (Session session = _sessionFactory.openSession()) {
             // COALESCE function is to check if the param is null
-            // if the param is null the param won't be taken into account
+            // if the param is null it won't be taken into consideration
             String hql = "FROM Contact c WHERE " +
                          "(COALESCE(:type, '') = '' OR c.type = :type) AND " +
                          "(COALESCE(:name, '') = '' OR c.name LIKE CONCAT('%', :name, '%'))";
@@ -67,14 +70,14 @@ public class ContactDaoImpl implements ContactDao {
         Transaction transaction = null;
         try (Session session = _sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.persist(contact);
+            contact = session.merge(contact);
             transaction.commit();
+            return contact;
         } catch (IllegalStateException | RollbackException ex) {
             if (transaction != null)
                 transaction.rollback();
             return null;
         }
-        return contact;
     }
 
     @Override
@@ -103,6 +106,13 @@ public class ContactDaoImpl implements ContactDao {
         } catch (IllegalStateException | RollbackException ex) {
             if (transaction != null)
                 transaction.rollback();
+        }
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        try (Session session = _sessionFactory.openSession()) {
+            return session.get(Contact.class, id) != null;
         }
     }
 

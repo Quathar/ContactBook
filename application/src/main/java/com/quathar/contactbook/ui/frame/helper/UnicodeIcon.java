@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * <h1>UnicodeIcon</h1>
+ * <h1>Unicode Icon</h1>
  *
  * @since 2022-04-07
  * @version 2.0

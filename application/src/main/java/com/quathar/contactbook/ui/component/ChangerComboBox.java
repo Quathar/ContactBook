@@ -1,45 +1,43 @@
 package com.quathar.contactbook.ui.component;
 
 import javax.swing.*;
+import java.io.Serial;
 
 /**
- * ThemeComboBox.<br><br>
- * 
- * Componente JComboBox del desplegable de temas.
+ * <h1>ChangerComboBox</h1>
+ * <br>
+ * JComboBox component that allows to change items in a simple way.
  * 
  * @since 2022-05-08
+ * @version 2.0
  * @author Q
  */
-public class ChangerComboBox extends JComboBox<String> { // CLASE FINALIZADA
+public class ChangerComboBox<T> extends JComboBox<T> {
 
+	// <<-CONSTANTS->>
+	@Serial
 	private static final long serialVersionUID = 1L;
-	
-	// CONSTRUCTOR
-	/**
-	 * Constructor.
-	 * 
-	 * @param items the items to set
-	 */
-	public ChangerComboBox(String[] items) {
+
+	// <<-CONSTRUCTOR->>
+	public ChangerComboBox(T[] items) {
 		newModel(items);
 	}
-	
-	// M�TODOS
-	/**
-	 * Crea y a�ade un nuevo modelo.
-	 * 
-	 * @param elements the items to set
-	 */
-	private void newModel(String[] elements) {
-		setModel(new DefaultComboBoxModel<String>(elements));
+
+	public ChangerComboBox(ComboBoxModel<T> model) {
+		super(model);
+	}
+
+	// <<-METHODS->>
+	private void newModel(T[] elements) {
+		setModel(new DefaultComboBoxModel<T>(elements));
 	}
 	
 	/**
-	 * Cambia el nombre de los items que hay en el desplegable.
+	 * Rename the items in the drop-down list.
 	 * 
 	 * @param elements the items to set
 	 */
-	public void changeList(String[] elements) {
+	public void changeList(T[] elements) {
 		newModel(elements);
 	}
 	

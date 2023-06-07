@@ -5,14 +5,15 @@ import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.component.ChangerComboBox;
 import com.quathar.contactbook.ui.component.RoundJTextField;
+import com.quathar.contactbook.ui.component.table.*;
+import com.quathar.contactbook.ui.frame.game.TicTacToe;
 import com.quathar.contactbook.ui.frame.helper.GBL;
+import com.quathar.contactbook.ui.frame.helper.Label;
 import com.quathar.contactbook.ui.frame.helper.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
 import com.quathar.contactbook.ui.frame.listener.ContactsBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.HobbiesBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
-import com.quathar.contactbook.ui.game.TicTacToe;
-import com.quathar.contactbook.ui.table.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -75,6 +76,7 @@ public class MainFrame extends JFrame {
     }
 
     // <<-METHODS->>
+
     // ========================
     // = = = Design Zone = = =
     // = = = Design Zone = = =
@@ -175,7 +177,7 @@ public class MainFrame extends JFrame {
         browserPanel.setLayout(gridBagLayout);
 
         JLabel browserLbl = new JLabel(UnicodeIcon.MAGNIFYING_GLASS.getCode());
-        browserLbl.setFont(new Font(FONT_NAME, Font.BOLD, 20));
+        browserLbl.setFont(new Font(FONT_NAME, Font.BOLD, 25));
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         browserPanel.add(browserLbl, gridBagConstraints);
 
@@ -239,13 +241,8 @@ public class MainFrame extends JFrame {
         contactsViewPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-        String REMOVE = "REMOVE";
-        String CONSULT = "CONSULT";
-        String ADD = "ADD";
-
         Dimension dimension = new Dimension((int) (Application.SCREEN_SIZE.width * 0.078125), 30);
-
-        JButton btnDelete = new JButton(REMOVE);
+        JButton btnDelete = new JButton(Label.BTN_REMOVE.getText());
         btnDelete.setPreferredSize(dimension);
         btnDelete.addActionListener(e -> {
             int selectedRowCount = contactTable.getSelectedRowCount();
@@ -261,7 +258,7 @@ public class MainFrame extends JFrame {
         });
         buttonsPanel.add(btnDelete);
 
-        JButton btnConsult = new JButton(CONSULT);
+        JButton btnConsult = new JButton(Label.BTN_CONSULT.getText());
         btnConsult.setPreferredSize(dimension);
         btnConsult.addActionListener(e -> {
             int selectedRowCount = contactTable.getSelectedRowCount();
@@ -273,7 +270,7 @@ public class MainFrame extends JFrame {
         });
         buttonsPanel.add(btnConsult);
 
-        JButton btnAdd = new JButton(ADD);
+        JButton btnAdd = new JButton(Label.BTN_ADD.getText());
         btnAdd.setPreferredSize(dimension);
         btnAdd.addActionListener(e -> {
             setVisible(false);
@@ -441,7 +438,7 @@ public class MainFrame extends JFrame {
         String[] items = themeTypeIcon == UnicodeIcon.SUN ?
                             Themes.LIGHT_THEMES:
                             Themes.DARK_THEMES;
-        ChangerComboBox themesComboBox = new ChangerComboBox(items);
+        ChangerComboBox<String> themesComboBox = new ChangerComboBox<>(items);
 
         themesButton.addActionListener(e -> {
             String icon = themesButton.getText();
@@ -499,14 +496,8 @@ public class MainFrame extends JFrame {
         formatButton.addActionListener(e -> {
             String msg = String.format("Are you sure you want to FORMAT the agenda?%nTHIS ACTION CANNOT BE REVERSED.");
             if (MSG.defaultOptionMessage(msg) == 0) {
-                // TODO: See the logic here
-                // TODO: See the logic here
-                // TODO: See the logic here
-                // TODO: See the logic here
-                // TODO: See the logic here
-                System.err.println("FORMATED");
-//                dispose();
-//                Application.format();
+                dispose();
+                Application.format();
             }
         });
         northPanel.add(formatButton, GBL.createGridBagConstraints(4, 0));
@@ -534,34 +525,11 @@ public class MainFrame extends JFrame {
     }
 
     public void updateTables() {
-        String selected = (String) contactTypeCB.getSelectedItem();
-        contactTable.update(selected);
-        System.out.println("=".repeat(50));
-        System.out.println("TODO: Fix MainFrame updateTables() commented line");
-        System.out.println("=".repeat(50));
+        String selectedItem = (String) contactTypeCB.getSelectedItem();
+        contactTable         .update(selectedItem);
         contactHobbyTable    .update();
         telephoneContactTable.update();
         mailContactTable     .update();
     }
-
-    public ContactTable getContactTable() {
-        return contactTable;
-    }
-
-//	public HobbyTable getHobbyTable() {
-//		return hTable;
-//	}
-//
-//	public ContactHobbyTable getContactHobbyTable() {
-//		return chTable;
-//	}
-//
-//	public TelephoneContactTable getTelephoneContactTable() {
-//		return tcTable;
-//	}
-//
-//	public MailContactTable getMailContactTable() {
-//		return mcTable;
-//	}
 
 }

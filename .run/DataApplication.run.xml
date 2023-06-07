@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DataApplication" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.quathar.contactbook.data.DataApplication" />
+    <option name="MAIN_CLASS_NAME" value="com.quathar.contactbook.DataApplication" />
     <module name="ContactBook.data.main" />
     <method v="2">
       <option name="Make" enabled="true" />

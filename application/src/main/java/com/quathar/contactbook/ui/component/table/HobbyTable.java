@@ -1,8 +1,7 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
-import com.quathar.contactbook.ui.model.HobbyModel;
+import com.quathar.contactbook.ui.component.model.HobbyModel;
 
-import javax.swing.*;
 import java.io.Serial;
 
 /**
@@ -41,10 +40,9 @@ public class HobbyTable extends GeneralTable {
         _hobbyModel.addNewHobby(hobby);
         removeColumn(columnModel.getColumn(0));
     }
-    
-    public void addToComboBox(JComboBox<String> comboBox) {
-        for (int selectedRow : getSelectedRows())
-            comboBox.addItem((String) _hobbyModel.getValueAt(selectedRow, 1));
+
+    public void addHobby(String hobby) {
+        _hobbyModel.addHobby(hobby);
     }
 
     public void update(String name) {
@@ -54,6 +52,10 @@ public class HobbyTable extends GeneralTable {
 
     public void deleteRows() {
         _hobbyModel.removeRows(getSelectedRows());
+    }
+
+    public void deleteRowsPermanently() {
+        _hobbyModel.removeRowsPermanently(getSelectedRows());
     }
 
     public void clean() {

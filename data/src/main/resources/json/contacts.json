@@ -1,46 +1,61 @@
 [
   {
-    "name": "Contact01",
+    "name": "Contact 01",
     "address": "Street 01",
     "notes": "Studies at Harvard",
     "surnames": "R",
     "gender": "M",
-    "birth_date": "2345-06-01",
+    "birth_date": "2000-06-01",
     "type": "PERSON",
     "telephones": [
       {
         "number": "+34 699 228 692",
         "type": "M"
       }
+    ],
+    "mails": [
+      {
+        "name": "contact01@mail.com"
+      }
     ]
   },
   {
-    "name": "Contact02",
+    "name": "Contact 02",
     "address": "Street 02",
     "notes": "Notes fot contact 02",
     "surnames": "Amenábar",
     "gender": "F",
-    "birth_date": "2345-06-02",
+    "birth_date": "2000-06-02",
     "type": "PERSON",
     "telephones": [
       {
         "number": "+34 922 995 223",
         "type": "L"
       }
+    ],
+    "mails": [
+      {
+        "name": "contact02@mail.com"
+      }
     ]
   },
   {
-    "name": "Contact03",
+    "name": "Contact 03",
     "address": "Street 03",
     "notes": "Studies at Harvard",
     "surnames": "M",
     "gender": "M",
-    "birth_date": "2910-04-20",
+    "birth_date": "2000-04-20",
     "type": "PERSON",
     "telephones": [
       {
         "number": "+34 692 222 222",
         "type": "M"
+      }
+    ],
+    "mails": [
+      {
+        "name": "contact03@mail.com"
       }
     ]
   },
@@ -63,7 +78,18 @@
     "surnames": "Porro",
     "gender": "M",
     "birth_date": "1999-10-14",
-    "type": "PERSON"
+    "type": "PERSON",
+    "telephones": [
+      {
+        "number": "+34 691 539 888",
+        "type": "M"
+      }
+    ],
+    "mails": [
+      {
+        "name": "pporro@sporting.pt"
+      }
+    ]
   },
   {
     "name": "7UP",
@@ -84,7 +110,13 @@
     "surnames": "Pacheco",
     "gender": "M",
     "birth_date": "1999-10-14",
-    "type": "PERSON"
+    "type": "PERSON",
+    "telephones": [
+      {
+        "number": "+34 991 121 555",
+        "type": "F"
+      }
+    ]
   },
   {
     "name": "TRUHKO MakeUp",

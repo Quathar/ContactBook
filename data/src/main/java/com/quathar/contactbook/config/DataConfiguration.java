@@ -1,4 +1,4 @@
-package com.quathar.contactbook.data.config;
+package com.quathar.contactbook.config;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -21,6 +21,8 @@ import java.util.Properties;
 
 /**
  * <h1>DataConfiguration</h1>
+ * <br>
+ * Guice configuration for 'data' module
  *
  * @since 2023-06-01
  * @version 1.0
@@ -29,9 +31,21 @@ import java.util.Properties;
 public class DataConfiguration extends AbstractModule {
 
     // <<-CONSTANT->>
-    private static final Path HIBERNATE_PROPERTIES_PATH = Path.of(System.getProperty("user.dir"), "data", "src", "main", "resources", "hibernate.properties");
+    /**
+     * hibernate configuration file (hibernate.properties) path
+     */
+    private static final Path HIBERNATE_PROPERTIES_PATH = Path.of(
+            System.getProperty("user.dir"),                      // Project directory
+            "data",                                              // 'data' module
+            "src", "main", "resources", "hibernate.properties"); // path from there
 
     // <<-METHODS->>
+
+    /**
+     * Configures hibernate.
+     *
+     * @return the hibernate configuration object
+     */
     @Provides
     public Configuration providesConfiguration() {
         try (FileInputStream fileInputStream = new FileInputStream(HIBERNATE_PROPERTIES_PATH.toString())) {
@@ -39,7 +53,7 @@ public class DataConfiguration extends AbstractModule {
             hibernateProperties.load(fileInputStream);
             return new Configuration()
                     .addProperties(hibernateProperties)
-                    .addPackage("com.quathar.contactbook.data")
+                    .addPackage("com.quathar.contactbook")
                     .addAnnotatedClass(Contact.class)
                     .addAnnotatedClass(Hobby.class);
         } catch (IOException ioE) {
@@ -51,16 +65,22 @@ public class DataConfiguration extends AbstractModule {
 
     @Override
     protected void configure() {
-        configureContact();
-        configureHobby();
+        configureContactImplementations();
+        configureHobbyImplementations();
     }
 
-    protected void configureContact() {
+    /**
+     * Configures the implementations of the Contact entity to the interfaces.
+     */
+    protected void configureContactImplementations() {
         bind(ContactDao.class)    .to(ContactDaoImpl.class);
         bind(ContactService.class).to(ContactServiceImpl.class);
     }
 
-    protected void configureHobby() {
+    /**
+     * Configures the implementations of the Hobby entity to the interfaces.
+     */
+    protected void configureHobbyImplementations() {
         bind(HobbyDao.class)    .to(HobbyDaoImpl.class);
         bind(HobbyService.class).to(HobbyServiceImpl.class);
     }

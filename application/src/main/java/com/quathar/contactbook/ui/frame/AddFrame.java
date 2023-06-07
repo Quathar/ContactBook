@@ -13,32 +13,24 @@ import com.quathar.contactbook.data.service.ContactService;
 import com.quathar.contactbook.data.service.HobbyService;
 import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.io.RegexFilter;
-import com.quathar.contactbook.model.dto.ContactDTO;
+import com.quathar.contactbook.model.dto.ContactInfoDTO;
+import com.quathar.contactbook.ui.component.table.HobbyTable;
+import com.quathar.contactbook.ui.component.table.MailTable;
+import com.quathar.contactbook.ui.component.table.TelephoneTable;
 import com.quathar.contactbook.ui.frame.helper.GBL;
+import com.quathar.contactbook.ui.frame.helper.Label;
 import com.quathar.contactbook.ui.frame.helper.Placeholder;
 import com.quathar.contactbook.ui.frame.helper.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.listener.ChangeActionListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
-import com.quathar.contactbook.ui.table.HobbyTable;
-import com.quathar.contactbook.ui.table.MailTable;
-import com.quathar.contactbook.ui.table.TelephoneTable;
 import com.toedter.calendar.JDateChooser;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.io.Serial;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <h1>AddContact</h1>
@@ -60,9 +52,10 @@ public class AddFrame extends JFrame {
     private final ContactService _contactService;
     private final HobbyService   _hobbyService;
     private final MainFrame      _mainFrame;
+    private final Map<String, JComponent> _bundle;
     private final Long _id;
-    private Contact contact;
-    private ContactDTO contactDTO;
+    private final Contact contact;
+    private ContactInfoDTO contactInfoDTO;
 
     // <<-CONSTRUCTORS->>
     public AddFrame(MainFrame mainFrame) {
@@ -75,6 +68,7 @@ public class AddFrame extends JFrame {
         _contactService   = injector.getInstance(ContactService.class);
         _hobbyService     = injector.getInstance(HobbyService.class);
         _mainFrame        = mainFrame;
+        _bundle           = new HashMap<>();
         _id = id;
         if (_id <= 0) {
             contact = new Contact();
@@ -103,9 +97,11 @@ public class AddFrame extends JFrame {
 
         contentPane.setLayout(new BorderLayout(0, 5));
 
+        contactInfoDTO = new ContactInfoDTO();
         drawNorth (contentPane);
         drawCenter(contentPane);
         drawSouth (contentPane);
+        addActionListeners();
     }
 
     private void drawNorth(JPanel contentPane) {
@@ -115,12 +111,9 @@ public class AddFrame extends JFrame {
 
         JComboBox<ContactType> contactTypeCB = new JComboBox<>(ContactType.values());
         contactTypeCB.setSelectedItem(contact.getType());
-        contactTypeCB.addActionListener(
-                ChangeActionListener.builder()
-                        .contactTypeCB(contactTypeCB)
-                        .contactDTO(contactDTO)
-                        .build());
+        // The action listener will be assigned later
         northPanel.add(contactTypeCB);
+        contactInfoDTO.setContactTypeCB(contactTypeCB);
     }
 
     private void drawCenter(JPanel contentPane) {
@@ -128,7 +121,6 @@ public class AddFrame extends JFrame {
         contentPane.add(dataPanel, BorderLayout.CENTER);
         dataPanel.setLayout(GBL.createGridBagLayoutFull(2, 2));
 
-        contactDTO = new ContactDTO();
         drawForm   (dataPanel);
         drawHobbies(dataPanel);
         drawTables (dataPanel);
@@ -146,8 +138,10 @@ public class AddFrame extends JFrame {
 
         Insets insets = new Insets(0, 5, 0, 5);
 
+        Font font = new Font("Segoe UI Symbol", Font.BOLD, 15);
         // Name
         JLabel lblName = new JLabel(UnicodeIcon.PERSON.getCode());
+        lblName.setFont(font);
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         gridBagConstraints.insets = insets;
         formPanel.add(lblName, gridBagConstraints);
@@ -163,10 +157,11 @@ public class AddFrame extends JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         formPanel.add(nameTF, gridBagConstraints);
-        contactDTO.setNameTF(nameTF);
+        contactInfoDTO.setNameTF(nameTF);
 
         // Surnames
         JLabel lblSurname = new JLabel(UnicodeIcon.PERSON.getCode());
+        lblSurname.setFont(font);
         gridBagConstraints = GBL.createGridBagConstraints(0, 1);
         gridBagConstraints.insets = insets;
         formPanel.add(lblSurname, gridBagConstraints);
@@ -183,11 +178,10 @@ public class AddFrame extends JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         formPanel.add(surnamesTF, gridBagConstraints);
-        contactDTO.setSurnamesTF(surnamesTF);
+        contactInfoDTO.setSurnamesTF(surnamesTF);
 
         // Birthdate
         JLabel lblBirthdate = new JLabel(UnicodeIcon.CALENDAR.getCode());
-//        lblBirthdate.setFont(new Font());
         gridBagConstraints = GBL.createGridBagConstraints(0, 2);
         gridBagConstraints.insets = new Insets(0, 5, 0, 0);
         formPanel.add(lblBirthdate, gridBagConstraints);
@@ -198,10 +192,11 @@ public class AddFrame extends JFrame {
         gridBagConstraints.insets = new Insets(0, 5, 0, 15);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         formPanel.add(birthDC, gridBagConstraints);
-        contactDTO.setBirthDC(birthDC);
+        contactInfoDTO.setBirthDC(birthDC);
 
         // Gender
         JLabel lblGender = new JLabel(UnicodeIcon.GENDER.getCode());
+        lblGender.setFont(font);
         gridBagConstraints = GBL.createGridBagConstraints(2, 2);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         formPanel.add(lblGender, gridBagConstraints);
@@ -212,10 +207,11 @@ public class AddFrame extends JFrame {
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(0, 5, 0, 0);
         formPanel.add(genderCB, gridBagConstraints);
-        contactDTO.setGenderCB(genderCB);
+        contactInfoDTO.setGenderCB(genderCB);
 
         // Address
         JLabel lblAddress = new JLabel(UnicodeIcon.HOUSE.getCode());
+        lblAddress.setFont(font);
         gridBagConstraints = GBL.createGridBagConstraints(0, 3);
         gridBagConstraints.insets = insets;
         formPanel.add(lblAddress, gridBagConstraints);
@@ -231,7 +227,7 @@ public class AddFrame extends JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         formPanel.add(addressTF, gridBagConstraints);
-        contactDTO.setAddressTF(addressTF);
+        contactInfoDTO.setAddressTF(addressTF);
 
         // Notes
         JTextArea notesTA = new JTextArea(Placeholder.NOTES.getText());
@@ -246,7 +242,7 @@ public class AddFrame extends JFrame {
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         formPanel.add(notesScrollPane, gridBagConstraints);
-        contactDTO.setNotesTA(notesTA);
+        contactInfoDTO.setNotesTA(notesTA);
     }
 
     private void drawHobbies(JPanel dataPanel) {
@@ -262,30 +258,47 @@ public class AddFrame extends JFrame {
         hobbiesPanel.setLayout(gridBagLayout);
 
         // Hobbies Table
-        HobbyTable hobbyTable = new HobbyTable(this._id);
+        HobbyTable hobbyTable = new HobbyTable(_id);
         JScrollPane hobbiesScrollPane = new JScrollPane(hobbyTable);
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         hobbiesPanel.add(hobbiesScrollPane, gridBagConstraints);
-        contactDTO.setHobbyTable(hobbyTable);
+        contactInfoDTO.setHobbyTable(hobbyTable);
 
-        // ComboBox
-        String[] names = _hobbyService.getAll()
-                                      .stream()
-                                      .map(Hobby::getName)
-                                      .toArray(String[]::new);
+        // [ ComboBox ]
+
+        // If the id is greater than 0,
+        // then we get all the hobbies and filter them
+        // to get the ones that the contact DOES NOT have
+        String[] names = _id > 0 ?
+                _hobbyService.getAll()
+                             .stream()
+                             .filter(hobby -> _contactService
+                                     .getById(_id)
+                                     .getHobbies()
+                                     .stream()
+                                     .noneMatch(contactHobby -> contactHobby
+                                             .getId()
+                                             .equals(hobby.getId())))
+                             .map(Hobby::getName)
+                             .toArray(String[]::new):
+                _hobbyService.getAll()
+                             .stream()
+                             .map(Hobby::getName)
+                             .toArray(String[]::new);
         JComboBox<String> hobbiesCB = new JComboBox<>(names);
         gridBagConstraints = GBL.createGridBagConstraints(0, 1);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         hobbiesPanel.add(hobbiesCB, gridBagConstraints);
 
-        // Buttons
+        // [ Buttons ]
         JButton btnAdd = new JButton(UnicodeIcon.ADD.getCode());
         btnAdd.addActionListener(e -> {
             String selected = (String) hobbiesCB.getSelectedItem();
+            // Add to the table and remove from the comboBox
             if (selected != null)
-                hobbyTable.addNewHobby(selected);
+                hobbyTable.addHobby(selected);
             if (hobbiesCB.getItemCount() > 0)
                 hobbiesCB.removeItemAt(hobbiesCB.getSelectedIndex());
         });
@@ -295,7 +308,10 @@ public class AddFrame extends JFrame {
 
         JButton btnDelete = new JButton(UnicodeIcon.DELETE.getCode());
         btnDelete.addActionListener(e -> {
-            hobbyTable.addToComboBox(hobbiesCB);
+            // First we add the selected rows to the comboBox
+            // then we delete the selected rows from the table
+            for (int selectedRow : hobbyTable.getSelectedRows())
+                hobbiesCB.addItem((String) hobbyTable.getValueAt(selectedRow, 0));
             hobbyTable.deleteRows();
         });
         gridBagConstraints = GBL.createGridBagConstraints(2, 1);
@@ -324,13 +340,13 @@ public class AddFrame extends JFrame {
     private void drawTelephoneTable(JPanel tablePanel) {
         GridBagConstraints gridBagConstraints;
 
-        TelephoneTable telephoneTable = new TelephoneTable(this._id);
+        TelephoneTable telephoneTable = new TelephoneTable(_id);
         JScrollPane telephoneScrollPane = new JScrollPane(telephoneTable);
         telephoneScrollPane.setEnabled(contact.getType() != ContactType.PET);
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         tablePanel.add(telephoneScrollPane, gridBagConstraints);
-        contactDTO.setTelephoneTable(telephoneTable);
+        contactInfoDTO.setTelephoneTable(telephoneTable);
 
         JPanel telephoneInputPanel = new JPanel();
         gridBagConstraints = GBL.createGridBagConstraints(0, 1);
@@ -373,7 +389,10 @@ public class AddFrame extends JFrame {
         btnAdd.addActionListener(e -> {
             try {
                 String telephone = RegexFilter.checkTelephone(telephoneTF.getText());
-                Object[] data = { 0, telephone, telephoneTypeCB.getSelectedItem() };
+                Object[] data = {
+                        telephone,
+                        telephoneTypeCB.getSelectedItem()
+                };
                 telephoneTable.addNewRow(data);
                 telephoneTF.setText(Placeholder.TELEPHONES.getText());
             } catch (RuntimeException ex) {
@@ -390,19 +409,24 @@ public class AddFrame extends JFrame {
         gridBagConstraints = GBL.createGridBagConstraints(3, 0);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         telephoneInputPanel.add(btnDelete, gridBagConstraints);
+
+        _bundle.put("telephoneTF",        telephoneTF);
+        _bundle.put("telephoneTypeCB",    telephoneTypeCB);
+        _bundle.put("btnAddTelephone",    btnAdd);
+        _bundle.put("btnDeleteTelephone", btnDelete);
     }
 
     private void drawMailTable(JPanel tablePanel) {
         GridBagConstraints gridBagConstraints;
 
-        MailTable mailTable = new MailTable(this._id);
+        MailTable mailTable = new MailTable(_id);
         JScrollPane mailScrollPane = new JScrollPane(mailTable);
         mailScrollPane.setEnabled(contact.getType() != ContactType.PET);
         gridBagConstraints = GBL.createGridBagConstraints(0, 2);
         gridBagConstraints.insets = new Insets(5, 0, 0, 0);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         tablePanel.add(mailScrollPane, gridBagConstraints);
-        contactDTO.setMailTable(mailTable);
+        contactInfoDTO.setMailTable(mailTable);
 
         JPanel mailInputPanel = new JPanel();
         gridBagConstraints = GBL.createGridBagConstraints(0, 3);
@@ -423,7 +447,7 @@ public class AddFrame extends JFrame {
         mailTF.addActionListener(e -> {
             try {
                 String mail = RegexFilter.checkMail(mailTF.getText());
-                Object[] data = {0, mail};
+                Object[] data = {mail};
                 mailTable.addNewRow(data);
                 mailTF.setText(Placeholder.BLANK.getText());
             } catch (RuntimeException ex) {
@@ -457,6 +481,10 @@ public class AddFrame extends JFrame {
         gridBagConstraints = GBL.createGridBagConstraints(4, 0);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         mailInputPanel.add(btnDelete, gridBagConstraints);
+
+        _bundle.put("mailTF",        mailTF);
+        _bundle.put("btnAddMail",    btnAdd);
+        _bundle.put("btnDeleteMail", btnDelete);
     }
 
     private void drawSouth(JPanel contentPane) {
@@ -464,38 +492,55 @@ public class AddFrame extends JFrame {
         contentPane.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-        JButton btnReturn = new JButton("RETURN");
+        JButton btnReturn = new JButton(Label.BTN_RETURN.getText());
         btnReturn.addActionListener(e -> {
             _mainFrame.setVisible(true);
             dispose();
         });
         buttonsPanel.add(btnReturn);
 
-        JButton btnAdd = new JButton("SAVE");
-        btnAdd.addActionListener(e -> {
-            String text = contactDTO.getNameTF()
-                                    .getText();
+        JButton btnSave = new JButton(Label.BTN_SAVE.getText());
+        btnSave.addActionListener(e -> {
+            String text = contactInfoDTO.getNameTF()
+                                        .getText();
             if (!text.equals(Placeholder.NAME.getText()) || text.isBlank()) {
-                _contactService.create(ContactDTO.toEntity(contactDTO));
+                if (_id > 0)
+                     _contactService.update(_id, contactInfoDTO.toEntity());
+                else _contactService.create(contactInfoDTO.toEntity());
                 cleanFields();
                 _mainFrame.updateTables();
             } else MSG.warningMessage("YOU NEED TO ADD A NAME");
         });
-        buttonsPanel.add(btnAdd);
+        buttonsPanel.add(btnSave);
+    }
+
+    private void addActionListeners() {
+        JComboBox<ContactType> contactTypeCB = contactInfoDTO.getContactTypeCB();
+        contactTypeCB.addActionListener(
+                ChangeActionListener.builder()
+                        .contactInfoDTO(contactInfoDTO)
+                        .telephoneTypeCB((JComboBox) _bundle.get("telephoneTypeCB"))
+                        .telephoneTF((JTextField) _bundle.get("telephoneTF"))
+                        .mailTF     ((JTextField) _bundle.get("mailTF"))
+                        .btnAddMail        ((JButton) _bundle.get("btnAddMail"))
+                        .btnAddTelephone   ((JButton) _bundle.get("btnAddTelephone"))
+                        .btnDeleteMail     ((JButton) _bundle.get("btnDeleteMail"))
+                        .btnDeleteTelephone((JButton) _bundle.get("btnDeleteTelephone"))
+                        .build());
     }
 
     private void cleanFields() {
-        contactDTO.getNameTF()
+        contactInfoDTO.getNameTF()
                   .setText(Placeholder.NAME.getText());
-        contactDTO.getSurnamesTF()
+        contactInfoDTO.getSurnamesTF()
                   .setText(Placeholder.SURNAMES.getText());
-        contactDTO.getBirthDC()
+        contactInfoDTO.getBirthDC()
                   .cleanup();
-        contactDTO.getGenderCB()
+        contactInfoDTO.getGenderCB()
                   .setSelectedIndex(0);
-        contactDTO.getAddressTF()
+        contactInfoDTO.getAddressTF()
                   .setText(Placeholder.ADDRESS.getText());
-        contactDTO.getNotesTA()
+        contactInfoDTO.getNotesTA()
                   .setText(Placeholder.NOTES.getText());
 //        contactDTO.getHobbyTable()
 //                  .clean();

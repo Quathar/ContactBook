@@ -1,6 +1,6 @@
-package com.quathar.contactbook.ui.table;
+package com.quathar.contactbook.ui.component.table;
 
-import com.quathar.contactbook.ui.model.MailModel;
+import com.quathar.contactbook.ui.component.model.MailModel;
 
 import java.io.Serial;
 
@@ -30,7 +30,6 @@ public class MailTable extends GeneralTable {
 	public MailTable(Long id) {
 		_mailModel = new MailModel(id);
 		setModel(_mailModel);
-		removeColumn(columnModel.getColumn(0));
 	}
 
 	// <<-METHODS->>

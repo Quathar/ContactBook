@@ -1,7 +1,7 @@
 package com.quathar.contactbook.ui.frame.listener;
 
-import com.quathar.contactbook.ui.table.ContactHobbyTable;
-import com.quathar.contactbook.ui.table.HobbyTable;
+import com.quathar.contactbook.ui.component.table.ContactHobbyTable;
+import com.quathar.contactbook.ui.component.table.HobbyTable;
 import lombok.Builder;
 
 import javax.swing.JTextField;

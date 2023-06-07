@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.game;
+package com.quathar.contactbook.ui.frame.game;
 
 import com.quathar.contactbook.Application;
 

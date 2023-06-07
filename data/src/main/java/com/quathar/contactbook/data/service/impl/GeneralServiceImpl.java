@@ -2,10 +2,12 @@ package com.quathar.contactbook.data.service.impl;
 
 import com.quathar.contactbook.data.dao.GeneralDao;
 import com.quathar.contactbook.data.service.GeneralService;
+import com.quathar.contactbook.exception.ResourceNotFoundException;
 
 import java.util.List;
 
 /**
+ * <h1>General Service Implementation</h1>
  *
  * @param <T>
  * @param <ID>
@@ -34,7 +36,7 @@ public class GeneralServiceImpl<T, ID> implements GeneralService<T, ID> {
     @Override
     public T getById(ID id) {
         return _generalDao.findById(id)
-                          .orElseThrow(RuntimeException::new);
+                          .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -46,11 +48,11 @@ public class GeneralServiceImpl<T, ID> implements GeneralService<T, ID> {
     public T update(ID id, T updatedEntity) {
         _generalDao.findById(id);
 
-        // TODO: CHANGE LATER
-        // TODO: CHANGE LATER
-        // TODO: CHANGE LATER
-        _generalDao.save(updatedEntity);
-        return null;
+        // Do the specific impl in other class (this is generic)
+        // Do the specific impl in other class (this is generic)
+        // Do the specific impl in other class (this is generic)
+
+        return _generalDao.save(updatedEntity);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class GeneralServiceImpl<T, ID> implements GeneralService<T, ID> {
 
     @Override
     public boolean exists(ID id) {
-        return false;
+        return _generalDao.existsById(id);
     }
 
 }

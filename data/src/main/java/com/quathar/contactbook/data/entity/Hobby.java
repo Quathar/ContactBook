@@ -18,6 +18,8 @@ import java.util.List;
 
 /**
  * <h1>Hobby</h1>
+ * <br>
+ * Class used to store the information of a hobby.
  * 
  * @since 2022-04-03
  * @version 2.0
@@ -38,7 +40,7 @@ public class Hobby {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "hobby")
+	@Column(name = "hobby", unique = true)
 	private String name;
 
 	// Relations
