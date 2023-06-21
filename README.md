@@ -16,7 +16,20 @@ You can access the contact book through the [graphic user interface (GUI)](#-gra
 
 ## 📖 Graphic User Interface (GUI)
 
-// GUI content
+<h3 id="create" align="center">Contacts View</h3>
+<img src="img/View_Contacts.png"    width="" alt="contacts view">
+
+<h3 id="create" align="center">Hobbies View</h3>
+<img src="img/View_Hobbies.png"     width="" alt="hobbies  view">
+
+<h3 id="create" align="center">Settings View</h3>
+<img src="img/View_Settings.png"    width="" alt="settings view">
+
+<h3 id="create" align="center">Add Contact View</h3>
+<img src="img/View_AddContact.png"  width="" alt="add contact view">
+
+<h3 id="create" align="center">Contact Info View</h3>
+<img src="img/View_ContactInfo.png" width="" alt="contact info view">
 
 ## 🕹️ Console
 
