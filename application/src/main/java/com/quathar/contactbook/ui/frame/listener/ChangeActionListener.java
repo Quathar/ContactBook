@@ -3,7 +3,7 @@ package com.quathar.contactbook.ui.frame.listener;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.enumerator.TelephoneType;
 import com.quathar.contactbook.model.dto.ContactInfoDTO;
-import com.quathar.contactbook.ui.frame.helper.Placeholder;
+import com.quathar.contactbook.ui.frame.i18n.Placeholder;
 
 import lombok.Builder;
 

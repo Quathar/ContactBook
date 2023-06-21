@@ -1,6 +1,6 @@
 package com.quathar.contactbook.ui.frame.listener;
 
-import com.quathar.contactbook.ui.frame.helper.Placeholder;
+import com.quathar.contactbook.ui.frame.i18n.Placeholder;
 
 import lombok.Builder;
 

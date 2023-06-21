@@ -1,6 +1,11 @@
 package com.quathar.contactbook.config;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Locale;
+import java.util.Properties;
 
 /**
  * <h1>AppConfiguration</h1>
@@ -13,6 +18,11 @@ import java.util.Locale;
 public class AppConfiguration extends DataConfiguration {
 
     // <<-CONSTANTS->>
+    private static final Path SETTINGS_PATH = Path.of(
+            System.getProperty("user.dir"),
+            "application",
+            "src", "main", "resources", "settings.properties");
+    private static final String EN = "en";
     private static final String ES = "es";
     private static final String DE = "de";
     private static final String PT = "pt";
@@ -32,9 +42,35 @@ public class AppConfiguration extends DataConfiguration {
      * @return the Locale object
      */
     public static Locale getLocale() {
-        // TODO: This has to be required in from a conf.properties or something like this
-        String locale = ES;
-        return new Locale(locale);
+        try (FileInputStream fileInputStream = new FileInputStream(SETTINGS_PATH.toString())) {
+            Properties settingsProperties = new Properties();
+            settingsProperties.load(fileInputStream);
+            String language = (String) settingsProperties.get("language");
+            return new Locale(language);
+        } catch (IOException e) {
+            return new Locale("en");
+        }
+    }
+
+    public static void setLocale(int index) {
+        try (
+                FileInputStream  fileInputStream  = new FileInputStream (SETTINGS_PATH.toString());
+                FileOutputStream fileOutputStream = new FileOutputStream(SETTINGS_PATH.toString())
+        ) {
+            Properties settingsProperties = new Properties();
+            settingsProperties.load(fileInputStream);
+            switch (index) {
+                case 0 -> settingsProperties.setProperty("language", EN);
+                case 1 -> settingsProperties.setProperty("language", ES);
+                case 2 -> settingsProperties.setProperty("language", DE);
+                case 3 -> settingsProperties.setProperty("language", PT);
+                case 4 -> settingsProperties.setProperty("language", FR);
+            }
+
+            // TODO: Look how to not remove other properties like 'theme'
+//            settingsProperties.setProperty("theme", settingsProperties.getProperty("theme"));
+            settingsProperties.store(fileOutputStream, null);
+        } catch (IOException ignored) {}
     }
 
     /**

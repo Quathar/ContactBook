@@ -19,11 +19,12 @@ import com.quathar.contactbook.ui.component.table.HobbyTable;
 import com.quathar.contactbook.ui.component.table.MailTable;
 import com.quathar.contactbook.ui.component.table.TelephoneTable;
 import com.quathar.contactbook.ui.frame.helper.GBL;
-import com.quathar.contactbook.ui.frame.helper.Label;
-import com.quathar.contactbook.ui.frame.helper.Placeholder;
-import com.quathar.contactbook.ui.frame.helper.UnicodeIcon;
+import com.quathar.contactbook.ui.frame.i18n.Label;
+import com.quathar.contactbook.ui.frame.i18n.Placeholder;
+import com.quathar.contactbook.ui.frame.i18n.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.listener.ChangeActionListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
+
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JButton;
@@ -63,7 +64,6 @@ public class AddFrame extends JFrame {
     // <<-CONSTANTS->>
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final String FRAME_TITLE = "Add a new contact";
 
     // <<-FIELDS->>
     private final ContactService _contactService;
@@ -75,18 +75,29 @@ public class AddFrame extends JFrame {
     private ContactInfoDTO contactInfoDTO;
 
     // <<-CONSTRUCTORS->>
+    /**
+     * Constructs a new AddFrame instance without specifying an ID.
+     *
+     * @param mainFrame the MainFrame instance associated with this AddFrame
+     */
     public AddFrame(MainFrame mainFrame) {
         this(mainFrame, 0L);
     }
 
+    /**
+     * Constructs a new AddFrame instance with the specified ID.<br>
+     * If the ID is 0 or negative, a new contact will be created.
+     *
+     * @param mainFrame the MainFrame instance associated with this AddFrame.
+     * @param id the ID of the contact to edit.
+     */
     public AddFrame(MainFrame mainFrame, Long id) {
-        super(FRAME_TITLE);
         Injector injector = Guice.createInjector(new AppConfiguration());
         _contactService   = injector.getInstance(ContactService.class);
         _hobbyService     = injector.getInstance(HobbyService.class);
         _mainFrame        = mainFrame;
         _bundle           = new HashMap<>();
-        _id = id;
+        _id               = id;
         if (_id <= 0) {
             contact = new Contact();
             contact.setType(ContactType.PERSON);
@@ -99,6 +110,9 @@ public class AddFrame extends JFrame {
      * Initializes the components of the application window.
      */
     private void initComponents() {
+        setTitle(_id > 0 ?
+                Label.INFO_FRAME_TITLE.getText():
+                Label.ADD_FRAME_TITLE.getText());
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setBounds((int) (Application.SCREEN_SIZE.width  * 0.30), // X position
                   (int) (Application.SCREEN_SIZE.height * 0.25), // Y position
@@ -512,6 +526,11 @@ public class AddFrame extends JFrame {
         _bundle.put("btnDeleteMail", btnDelete);
     }
 
+    /**
+     * Draws the south panel of the content pane.
+     *
+     * @param contentPane the panel to which the south section is added
+     */
     private void drawSouth(JPanel contentPane) {
         JPanel buttonsPanel = new JPanel();
         contentPane.add(buttonsPanel, BorderLayout.SOUTH);
@@ -529,16 +548,25 @@ public class AddFrame extends JFrame {
             String text = contactInfoDTO.getNameTF()
                                         .getText();
             if (!text.equals(Placeholder.NAME.getText()) || text.isBlank()) {
-                if (_id > 0)
-                     _contactService.update(_id, contactInfoDTO.toEntity());
-                else _contactService.create(contactInfoDTO.toEntity());
-                cleanFields();
+                if (_id <= 0) {
+                       _contactService.create(contactInfoDTO.toEntity());
+                       cleanFields();
+                } else _contactService.update(_id, contactInfoDTO.toEntity());
                 _mainFrame.updateTables();
             } else MSG.warningMessage("YOU NEED TO ADD A NAME");
         });
         buttonsPanel.add(btnSave);
     }
 
+    /**
+     * Adds action listeners to the components in the form.<br>
+     * <br>
+     * This method attaches an ActionListener to the contactTypeCB JComboBox,
+     * which listens for changes in the selected contact type.<br>
+     * <br>
+     * When a change occurs, the associated ChangeActionListener instance is invoked,
+     * which updates the form components based on the selected contact type.
+     */
     private void addActionListeners() {
         JComboBox<ContactType> contactTypeCB = contactInfoDTO.getContactTypeCB();
         contactTypeCB.addActionListener(
@@ -554,6 +582,11 @@ public class AddFrame extends JFrame {
                         .build());
     }
 
+    /**
+     * Clears the fields of the form, resetting them to their default values.
+     *
+     * @see ContactInfoDTO#cleanFields()
+     */
     private void cleanFields() {
         contactInfoDTO.cleanFields();
 
@@ -561,16 +594,16 @@ public class AddFrame extends JFrame {
 //        String[] aficiones = dao.getHobbies();
 //        for (int i = 0; i < aficiones.length; i++)
 //            hobbiesComboBox.addItem(aficiones[i]);
-//
-//        telephoneTextField.setText(PlaceHoldersTitles[5]);
-//        mailTextField.setText(PlaceHoldersTitles[6]);
+
+        ((JTextField) _bundle.get("telephoneTF")).setText(Placeholder.TELEPHONES.getText());
+        ((JTextField) _bundle.get("mailTF"))     .setText(Placeholder.MAILS.getText());
     }
 
     @Override
     protected void processWindowEvent(WindowEvent e) {
-        if (e.getID() == WindowEvent.WINDOW_CLOSING && _id > 0) {
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             dispose();
-            _mainFrame.setVisible(true);
+            if (_id > 0) _mainFrame.setVisible(true);
         }
         super.processWindowEvent(e);
     }

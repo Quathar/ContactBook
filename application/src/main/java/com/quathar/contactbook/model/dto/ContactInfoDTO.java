@@ -10,7 +10,7 @@ import com.quathar.contactbook.data.enumerator.TelephoneType;
 import com.quathar.contactbook.ui.component.table.HobbyTable;
 import com.quathar.contactbook.ui.component.table.MailTable;
 import com.quathar.contactbook.ui.component.table.TelephoneTable;
-import com.quathar.contactbook.ui.frame.helper.Placeholder;
+import com.quathar.contactbook.ui.frame.i18n.Placeholder;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -53,7 +53,7 @@ public class ContactInfoDTO {
     private MailTable mailTable;
 
     /**
-     * Transform the current instance of the DTO into an entity
+     * Transform the current instance of the DTO into a contact entity
      *
      * @return the contact entity
      */

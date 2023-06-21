@@ -1,44 +1,25 @@
 package com.quathar.contactbook.ui.frame;
 
 import com.quathar.contactbook.Application;
+import com.quathar.contactbook.config.AppConfiguration;
 import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.component.ChangerComboBox;
 import com.quathar.contactbook.ui.component.RoundJTextField;
-import com.quathar.contactbook.ui.component.table.ContactHobbyTable;
-import com.quathar.contactbook.ui.component.table.ContactTable;
-import com.quathar.contactbook.ui.component.table.HobbyTable;
-import com.quathar.contactbook.ui.component.table.MailContactTable;
-import com.quathar.contactbook.ui.component.table.TelephoneContactTable;
+import com.quathar.contactbook.ui.component.table.*;
 import com.quathar.contactbook.ui.frame.game.TicTacToe;
 import com.quathar.contactbook.ui.frame.helper.GBL;
-import com.quathar.contactbook.ui.frame.helper.Label;
-import com.quathar.contactbook.ui.frame.helper.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
+import com.quathar.contactbook.ui.frame.i18n.Label;
+import com.quathar.contactbook.ui.frame.i18n.Placeholder;
+import com.quathar.contactbook.ui.frame.i18n.UnicodeIcon;
 import com.quathar.contactbook.ui.frame.listener.ContactsBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.HobbiesBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Menu;
+import java.awt.*;
 import java.io.Serial;
 
 /**
@@ -59,11 +40,7 @@ public class MainFrame extends JFrame {
     // <<-CONSTANTS->>
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final String FRAME_TITLE = "Contact Book";
     private static final String FONT_NAME = "Segoe UI Symbol";
-    private static final String CONTACT_DEFAULT_TEXT  = "Search for a contact...";
-    private static final String HOBBY_DEFAULT_TEXT    = "Search for a hobby...";
-    private static final String HOBBY_TF_DEFAULT_TEXT = "Add a hobby...";
 
     // <<-FIELDS->>
     private UnicodeIcon themeTypeIcon;
@@ -93,7 +70,7 @@ public class MainFrame extends JFrame {
      * @param view the initial view to display.
      */
     public MainFrame(int themeIndex, String themeType, ViewTitle view) {
-        super(FRAME_TITLE);
+        super(Label.MAIN_FRAME_TITLE.getText());
         setTheme(themeIndex, themeType);
         initComponents();
         if (view != null) cardLayout.show(viewsPanel, view.toString());
@@ -233,10 +210,10 @@ public class MainFrame extends JFrame {
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
         browserPanel.add(browserLbl, gridBagConstraints);
 
-        JTextField contactsBrowserTF = new RoundJTextField(CONTACT_DEFAULT_TEXT);
+        JTextField contactsBrowserTF = new RoundJTextField(Placeholder.CONTACT_DEFAULT_TEXT.getText());
         contactsBrowserTF.addFocusListener(
                 PlaceholderFocusListener.builder()
-                        .defaultText(CONTACT_DEFAULT_TEXT)
+                        .defaultText(Placeholder.CONTACT_DEFAULT_TEXT.getText())
                         .inputTC(contactsBrowserTF)
                         .build());
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
@@ -254,7 +231,7 @@ public class MainFrame extends JFrame {
         contactTypeCB.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.0521), 30));
         contactTypeCB.addActionListener(e -> contactTable.update(
                 contactTypeCB.getSelectedIndex(),
-                contactsBrowserTF.getText().equals(CONTACT_DEFAULT_TEXT) ?
+                contactsBrowserTF.getText().equals(Placeholder.CONTACT_DEFAULT_TEXT.getText()) ?
                         "" : contactsBrowserTF.getText())
         );
         gridBagConstraints = GBL.createGridBagConstraints(2, 0);
@@ -269,7 +246,7 @@ public class MainFrame extends JFrame {
         contactTable = new ContactTable();
         contactsBrowserTF.getDocument().addDocumentListener(
                 ContactsBrowserDocumentListener.builder()
-                        .defaultText(CONTACT_DEFAULT_TEXT)
+                        .defaultText(Placeholder.CONTACT_DEFAULT_TEXT.getText())
                         .contactBrowserTF(contactsBrowserTF)
                         .contactTypeCB(contactTypeCB)
                         .contactTable(contactTable)
@@ -384,10 +361,10 @@ public class MainFrame extends JFrame {
         gridBagConstraints = GBL.createGridBagConstraints(2, 0);
         browserPanel.add(lblStarsRight, gridBagConstraints);
 
-        JTextField hobbiesBrowserTF = new RoundJTextField(HOBBY_DEFAULT_TEXT);
+        JTextField hobbiesBrowserTF = new RoundJTextField(Placeholder.HOBBY_DEFAULT_TEXT.getText());
         hobbiesBrowserTF.addFocusListener(
                 PlaceholderFocusListener.builder()
-                        .defaultText(HOBBY_DEFAULT_TEXT)
+                        .defaultText(Placeholder.HOBBY_DEFAULT_TEXT.getText())
                         .inputTC(hobbiesBrowserTF)
                         .build());
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
@@ -399,7 +376,7 @@ public class MainFrame extends JFrame {
         contactHobbyTable = new ContactHobbyTable();
         hobbiesBrowserTF.getDocument().addDocumentListener(
                 HobbiesBrowserDocumentListener.builder()
-                        .defaultText(HOBBY_DEFAULT_TEXT)
+                        .defaultText(Placeholder.HOBBY_DEFAULT_TEXT.getText())
                         .hobbyBrowserTF(hobbiesBrowserTF)
                         .hobbyTable(hobbyTable)
                         .contactHobbyTable(contactHobbyTable)
@@ -429,17 +406,17 @@ public class MainFrame extends JFrame {
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         tablesPanel.add(hobbyScrollPane, gridBagConstraints);
 
-        JTextField hobbyTF = new JTextField(HOBBY_TF_DEFAULT_TEXT);
+        JTextField hobbyTF = new JTextField(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
         hobbyTF.addFocusListener(
                 PlaceholderFocusListener.builder()
-                        .defaultText(HOBBY_TF_DEFAULT_TEXT)
+                        .defaultText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())
                         .inputTC(hobbyTF)
                         .build());
         hobbyTF.addActionListener(e -> {
             String text = hobbyTF.getText();
-            if (!text.equals("") && !text.equals(HOBBY_TF_DEFAULT_TEXT)) {
+            if (!text.equals("") && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
                 hobbyTable.addNewHobby(text);
-                hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
+                hobbyTF.setText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
             }
         });
         gridBagConstraints = GBL.createGridBagConstraints(0, 1);
@@ -456,9 +433,9 @@ public class MainFrame extends JFrame {
         JButton btnCreate = new JButton(UnicodeIcon.ADD.getCode());
         btnCreate.addActionListener(e -> {
             String text = hobbyTF.getText();
-            if (!text.equals("") && !text.equals(HOBBY_TF_DEFAULT_TEXT)) {
+            if (!text.equals("") && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
                 hobbyTable.addNewHobby(text);
-                hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
+                hobbyTF.setText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
             }
         });
         gridBagConstraints = GBL.createGridBagConstraints(0, 0);
@@ -474,8 +451,8 @@ public class MainFrame extends JFrame {
                         String.format("Are you sure you want to delete %d hobbies?", rowCount);
                 if (MSG.defaultOptionMessage(msg) == 0)
                     hobbyTable.deleteRowsPermanently();
-            } else if (!hobbyTF.getText().equals(HOBBY_TF_DEFAULT_TEXT))
-                hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
+            } else if (!hobbyTF.getText().equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText()))
+                hobbyTF.setText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
         });
         gridBagConstraints = GBL.createGridBagConstraints(1, 0);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -515,7 +492,7 @@ public class MainFrame extends JFrame {
 
         JPanel northPanel = new JPanel();
         settingsViewPanel.add(northPanel, BorderLayout.NORTH);
-        GridBagLayout gridBagLayout = GBL.createGridBagLayout(5, 1, new int[] {2}, null);
+        GridBagLayout gridBagLayout = GBL.createGridBagLayout(6, 1, new int[] {2}, null);
         northPanel.setLayout(gridBagLayout);
 
         // THEMES
@@ -549,6 +526,17 @@ public class MainFrame extends JFrame {
         });
         northPanel.add(themesComboBox, GBL.createGridBagConstraints(1, 0));
 
+
+        String[] lang = {"English", "Español"};
+        JComboBox<String> langComboBox = new JComboBox<>(lang);
+        gridBagConstraints = GBL.createGridBagConstraints(2, 0);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        langComboBox.addActionListener(e -> {
+            AppConfiguration.setLocale(langComboBox.getSelectedIndex());
+            MSG.warningMessage("Language will be updated the next time you open the app");
+        });
+        northPanel.add(langComboBox, gridBagConstraints);
+
         // GAMES
         // GAMES
         // GAMES
@@ -556,7 +544,7 @@ public class MainFrame extends JFrame {
         JButton gamesButton = new JButton(UnicodeIcon.GAME_CONTROL.getCode());
         gamesButton.setFont(font);
         gamesButton.addActionListener(e -> new TicTacToe("X", "O").setVisible(true));
-        gridBagConstraints = GBL.createGridBagConstraints(2, 0);
+        gridBagConstraints = GBL.createGridBagConstraints(3, 0);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         northPanel.add(gamesButton, gridBagConstraints);
 
@@ -571,7 +559,7 @@ public class MainFrame extends JFrame {
                 new Menu();
             }
         });
-        gridBagConstraints = GBL.createGridBagConstraints(3, 0);
+        gridBagConstraints = GBL.createGridBagConstraints(4, 0);
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         northPanel.add(consoleButton, gridBagConstraints);
 
@@ -587,7 +575,7 @@ public class MainFrame extends JFrame {
                 Application.format();
             }
         });
-        northPanel.add(formatButton, GBL.createGridBagConstraints(4, 0));
+        northPanel.add(formatButton, GBL.createGridBagConstraints(5, 0));
     }
 
     /**

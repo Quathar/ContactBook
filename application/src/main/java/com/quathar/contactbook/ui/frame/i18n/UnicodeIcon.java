@@ -1,4 +1,4 @@
-package com.quathar.contactbook.ui.frame.helper;
+package com.quathar.contactbook.ui.frame.i18n;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
