@@ -16,6 +16,12 @@ You can access the contact book through the [graphic user interface (GUI)](#-gra
 
 ## 📖 Graphic User Interface (GUI)
 
+[ Brief description ]
+
+[ Brief description ]
+
+[ Brief description ]
+
 <h3 id="create" align="center">Contacts View</h3>
 <img src="img/View_Contacts.png"    width="" alt="contacts view">
 
