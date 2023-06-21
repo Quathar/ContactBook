@@ -1,15 +1,27 @@
-# 📘 Contact Book
+<h1 id="title" align="center"><📘> Contact Book</h1>
 
-Interface designed with Java Swing
+<img src="img/ContactIcon.png" align="left" width="192" alt="Contact book Icon"/>
 
-## 🌆 Views
+This is a desktop application developed with **Java Swing**.
 
-// Views content
+In this application you will be able to manage your contacts and their related hobbies.
 
-### 📖 Graphic User Interface (GUI)
+[H2 Database][H2] is used to store the data in conjunction with [Hibernate ORM][ORM] for data persistence and [Guice][G] for dependency injection.
+
+You can access the contact book through the graphic user interface (GUI) or through the console.
+
+[H2]:  https://h2database.com/html/main.html
+[ORM]: https://hibernate.org/orm/
+[G]:   https://es.wikipedia.org/wiki/Google_Guice
+
+## 📖 Graphic User Interface (GUI)
 
 // GUI content
 
-### 🕹️ Console
+## 🕹️ Console
 
 // Console content
+
+<div align="center">
+    <a href="#title">Back to top</a>
+</div>
