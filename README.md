@@ -8,7 +8,7 @@ In this application you will be able to manage your contacts and their related h
 
 [H2 Database][H2] is used to store the data in conjunction with [Hibernate ORM][ORM] for data persistence and [Guice][G] for dependency injection.
 
-You can access the contact book through the graphic user interface (GUI) or through the console.
+You can access the contact book through the [graphic user interface (GUI)](#-graphic-user-interface-gui) or through the [console](#-console).
 
 [H2]:  https://h2database.com/html/main.html
 [ORM]: https://hibernate.org/orm/
