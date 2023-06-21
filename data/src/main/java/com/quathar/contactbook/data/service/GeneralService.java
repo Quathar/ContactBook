@@ -7,8 +7,8 @@ import java.util.List;
  * <br>
  * Interface for performing CRUD operations on entities.
  *
- * @param <T> The entity type
- * @param <ID> he ID type of the entity
+ * @param <T> the entity type
+ * @param <ID> the ID type of the entity
  *
  * @since 2023-05-30
  * @version 1.0

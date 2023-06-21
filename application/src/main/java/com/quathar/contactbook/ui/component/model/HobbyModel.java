@@ -2,6 +2,7 @@ package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import com.quathar.contactbook.config.AppConfiguration;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
@@ -14,11 +15,11 @@ import java.util.List;
 
 /**
  * <h1>HobbyModel</h1>
- *
- * Modelo que maneja informaci�n de la tabla <b>aficiones</b> en la BBDD.
+ * <br>
+ * Model that handles information from the <b>hobbies</b> table in the database.
  *
  * @since 2022-04-19
- * @see GeneralModel
+ * @version 2.0
  * @author Q
  */
 public class HobbyModel extends DefaultTableModel {
@@ -28,13 +29,10 @@ public class HobbyModel extends DefaultTableModel {
     private static final long serialVersionUID = 1L;
 
     private static final int COLUMNS = 2;
-    private static final String[] COLUMN_NAMES = {
-            "ID",
-            "HOBBY"
-    };
+    private static final String[] COLUMN_NAMES = { "ID", "HOBBY" };
 
     // <<-FIELDS->>
-    private final HobbyService _hobbyService;
+    private final HobbyService   _hobbyService;
     private final ContactService _contactService;
 
     // <<-CONSTRUCTORS->>
@@ -88,10 +86,10 @@ public class HobbyModel extends DefaultTableModel {
         createModel(COLUMNS);
     }
 
-	public void addHobby(String hobbyName) {
-		Object[] data = { null, hobbyName };
-		insertRow(getRowCount(), data);
-	}
+    public void addHobby(String hobbyName) {
+        Object[] data = { null, hobbyName };
+        insertRow(getRowCount(), data);
+    }
 
     public void removeRows(int[] selectedRows) {
         // We change the order of the selected rows
@@ -105,10 +103,9 @@ public class HobbyModel extends DefaultTableModel {
     public void removeRowsPermanently(int[] selectedRows) {
         if (selectedRows.length > 1) GeneralModel.flip(selectedRows);
         for (int selectedRow : selectedRows) {
-            super.removeRow(selectedRow);
             // Delete from the Database
-            Long id = (Long) getValueAt(selectedRow, 0);
-            _hobbyService.deleteById(id);
+            _hobbyService.deleteById((Long) getValueAt(selectedRow, 0));
+            super.removeRow(selectedRow);
         }
     }
 

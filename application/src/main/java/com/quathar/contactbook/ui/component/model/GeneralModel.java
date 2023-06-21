@@ -1,42 +1,37 @@
 package com.quathar.contactbook.ui.component.model;
 
-import com.quathar.contactbook.dao.DAO;
 import com.quathar.contactbook.data.service.GeneralService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
 
+
 /**
  * <h1>GeneralModel</h1>
- * 
- * Clase abstracta con m�todos comunes para los modelos:<br><br>
- * 
- *  - ContactModel<br>
- *  - HobbyModel<br>
- *  - ContactHobbyModel<br>
- *  - TelephoneModel<br>
- *  - MailModel
- * 
- * @see DAO
+ * <br>
+ * Abstract class with common methods for table models:
+ * <ul>
+ *     <li>ContactModel</li>
+ *     <li>HobbyModel</li>
+ *     <li>ContactHobbyModel</li>
+ *     <li>TelephoneModel</li>
+ *     <li>MailModel</li>
+ * </ul>
+ *
  * @since 2022-04-14
+ * @version 1.1
  * @author Q
  */
 public abstract class GeneralModel<T, ID> extends DefaultTableModel {
 
-	// <<-CONSTANTS->>
+	// <<-CONSTANT->>
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	// <<-FIELDS->>
-	protected DAO dao;
-	private GeneralService<T, ID> _generalService;
-//	private final GeneralService<T, ID> _generalService;
+	private final GeneralService<T, ID> _generalService;
 
-	// <<-CONSTRUCTORS->>
-	public GeneralModel(DAO dao) {
-		this.dao = dao;
-	}
-
+	// <<-CONSTRUCTOR->>
 	public GeneralModel(GeneralService<T, ID> generalService) {
 		_generalService = generalService;
 	}
@@ -53,27 +48,6 @@ public abstract class GeneralModel<T, ID> extends DefaultTableModel {
 		setRowCount(data.length);
 		fillModel(data);
 	}
-	
-//	protected void createModel(String table, int columnCount) {
-//		Object[][] data = dao.getData(table, columnCount);
-//		create(data, columnCount);
-//	}
-	
-//	protected void createModelWhereIdC(String table, int columnCount, int id) {
-//		table = table.toLowerCase().equals(DB.HobbiesTitle) ? DB.ContactsHobbiesTitle : table;
-//		Object[][] data = dao.getDataWhereIdC(table, columnCount, id);
-//		create(data, columnCount);
-//	}
-	
-//	protected void changeView(String table, int columnCount) {
-//		table = (table.equalsIgnoreCase("todos") ? "contactos" : table);
-//		createModel(table, columnCount);
-//	}
-	
-//	public void searchWord(String table, String word, int columnCount) {
-//		Object[][] data = dao.getDataWhereNombreOrAficionLike(table, word, columnCount);
-//		create(data, columnCount);
-//	}
 	
 	public static void flip(int[] selectedRows) {
 		for (int i = 0; i < selectedRows.length - 1; i++)

@@ -1,7 +1,7 @@
 package com.quathar.contactbook.exception;
 
 /**
- * <h1>ResourceNotFoundException</h1>
+ * <h1>Resource NOT FOUND Exception</h1>
  *
  * @since 2023-03-30
  * @version 1.0

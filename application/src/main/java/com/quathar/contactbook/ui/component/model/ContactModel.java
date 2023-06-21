@@ -75,7 +75,7 @@ public class ContactModel extends DefaultTableModel {
 		create(contacts, COLUMNS);
 	}
 
-	public void removeRows(int[] selectedRows) {
+	public void removeRowsPermanently(int[] selectedRows) {
 		// We change the order of the selected rows
 		// so that they are deleted from highest to lowest index
 		// so that there is no error.

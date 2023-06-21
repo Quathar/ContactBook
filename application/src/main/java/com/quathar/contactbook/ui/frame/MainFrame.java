@@ -15,17 +15,32 @@ import com.quathar.contactbook.ui.frame.listener.ContactsBrowserDocumentListener
 import com.quathar.contactbook.ui.frame.listener.HobbiesBrowserDocumentListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Menu;
 import java.io.Serial;
 
 /**
  * <h1>GUI: MainFrame</h1>
- * GUI = Graphic User Interface.
- *
+ * <br>
  * <p>
- *     Graphical user interface (main window).<br>
+ *     Graphic user interface main window.<br>
  *     Class used for the user to interact graphically with the contact book.
  * </p>
  *
@@ -57,10 +72,20 @@ public class MainFrame extends JFrame {
     private MailContactTable mailContactTable;
 
     // <<-CONSTRUCTORS->>
+    /**
+     * Constructs a new MainFrame with the default theme and no initial view.
+     */
     public MainFrame() {
         this(0, Themes.LIGHT, null);
     }
 
+    /**
+     * Constructs a new MainFrame with the specified theme and initial view.
+     *
+     * @param themeIndex the index of the theme to apply.
+     * @param themeType the type of the theme (light or dark).
+     * @param view the initial view to display.
+     */
     public MainFrame(int themeIndex, String themeType, ViewTitle view) {
         super(FRAME_TITLE);
         setTheme(themeIndex, themeType);
@@ -68,6 +93,12 @@ public class MainFrame extends JFrame {
         if (view != null) cardLayout.show(viewsPanel, view.toString());
     }
 
+    /**
+     * Sets the theme for the MainFrame.
+     *
+     * @param themeIndex the index of the theme to apply.
+     * @param themeType the type of the theme (light or dark).
+     */
     private void setTheme(int themeIndex, String themeType) {
         this.themeIndex    = themeIndex;
         this.themeTypeIcon = themeType.equals(Themes.LIGHT) ?
@@ -76,12 +107,9 @@ public class MainFrame extends JFrame {
     }
 
     // <<-METHODS->>
-
-    // ========================
-    // = = = Design Zone = = =
-    // = = = Design Zone = = =
-    // = = = Design Zone = = =
-    // ========================
+    /**
+     * Initializes the components of the application window.
+     */
     private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds((int) (Application.SCREEN_SIZE.width  * 0.20), // X position
@@ -102,6 +130,11 @@ public class MainFrame extends JFrame {
         drawViews(contentPane);
     }
 
+    /**
+     * Draws the side menu on the specified content pane.
+     *
+     * @param contentPane the panel to which the side menu is added
+     */
     private void drawSideMenu(JPanel contentPane) {
         GridBagConstraints gridBagConstraints;
 
@@ -143,6 +176,11 @@ public class MainFrame extends JFrame {
         menuPanel.add(btnSettings, gridBagConstraints);
     }
 
+    /**
+     * Draws the views panel on the specified content pane.
+     *
+     * @param contentPane the panel to which the views panel is added
+     */
     private void drawViews(JPanel contentPane) {
         viewsPanel = new JPanel();
         GridBagConstraints gridBagConstraints = GBL.createGridBagConstraints(1, 0);
@@ -157,6 +195,9 @@ public class MainFrame extends JFrame {
         drawSettingsView();
     }
 
+    /**
+     * Draws the contacts view panel.
+     */
     private void drawContactsView() {
         JPanel contactsViewPanel = new JPanel();
         contactsViewPanel.setBorder(new EmptyBorder(5, 5, 0, 5));
@@ -168,6 +209,11 @@ public class MainFrame extends JFrame {
         drawContactsViewSouth (contactsViewPanel);
     }
 
+    /**
+     * Draws the north section of the contacts view panel.
+     *
+     * @param contactsViewPanel the panel to which the north section is added
+     */
     private void drawContactsViewNorth(JPanel contactsViewPanel) {
         GridBagConstraints gridBagConstraints;
 
@@ -200,7 +246,11 @@ public class MainFrame extends JFrame {
         };
         contactTypeCB = new JComboBox<>(contactTypeTitle);
         contactTypeCB.setPreferredSize(new Dimension((int) (Application.SCREEN_SIZE.width * 0.0521), 30));
-        contactTypeCB.addActionListener(e -> contactTable.update(contactTypeCB.getSelectedIndex()));
+        contactTypeCB.addActionListener(e -> contactTable.update(
+                contactTypeCB.getSelectedIndex(),
+                contactsBrowserTF.getText().equals(CONTACT_DEFAULT_TEXT) ?
+                        "" : contactsBrowserTF.getText())
+        );
         gridBagConstraints = GBL.createGridBagConstraints(2, 0);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         browserPanel.add(contactTypeCB, gridBagConstraints);
@@ -220,6 +270,11 @@ public class MainFrame extends JFrame {
                         .build());
     }
 
+    /**
+     * Draws the center section of the contacts view panel.
+     *
+     * @param contactsViewPanel the panel to which the center section is added
+     */
     private void drawContactsViewCenter(JPanel contactsViewPanel) {
         GridBagConstraints gridBagConstraints;
 
@@ -236,6 +291,11 @@ public class MainFrame extends JFrame {
         tablePanel.add(contactScrollPane, gridBagConstraints);
     }
 
+    /**
+     * Draws the south section of the contacts view panel.
+     *
+     * @param contactsViewPanel the panel to which the south section is added
+     */
     private void drawContactsViewSouth(JPanel contactsViewPanel) {
         JPanel buttonsPanel = new JPanel();
         contactsViewPanel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -251,7 +311,7 @@ public class MainFrame extends JFrame {
                         "Delete this contact?":
                         String.format("Delete these %d contacts?", selectedRowCount);
                 if (MSG.questionMessage(msg) == 0) {
-                    contactTable.deleteRows();
+                    contactTable.removeRowsPermanently();
                     updateTables();
                 }
             }
@@ -279,6 +339,9 @@ public class MainFrame extends JFrame {
         buttonsPanel.add(btnAdd);
     }
 
+    /**
+     * Draws the hobbies view panel.
+     */
     private void drawHobbiesView() {
         JPanel hobbiesViewPanel = new JPanel();
         hobbiesViewPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -289,6 +352,11 @@ public class MainFrame extends JFrame {
         drawHobbiesViewCenter(hobbiesViewPanel);
     }
 
+    /**
+     * Draws the north section of the hobbies view panel.
+     *
+     * @param hobbiesViewPanel the panel to which the north section
+     */
     private void drawHobbiesViewNorth(JPanel hobbiesViewPanel) {
         GridBagConstraints gridBagConstraints;
 
@@ -332,6 +400,11 @@ public class MainFrame extends JFrame {
                         .build());
     }
 
+    /**
+     * Draws the center section of the hobbies view panel.
+     *
+     * @param hobbiesViewPanel the panel to which the center section is added
+     */
     private void drawHobbiesViewCenter(JPanel hobbiesViewPanel) {
         GridBagLayout gridBagLayout;
         GridBagConstraints gridBagConstraints;
@@ -394,7 +467,7 @@ public class MainFrame extends JFrame {
                         "Are you sure you want to delete this hobby?":
                         String.format("Are you sure you want to delete %d hobbies?", rowCount);
                 if (MSG.defaultOptionMessage(msg) == 0)
-                    hobbyTable.deleteRows();
+                    hobbyTable.deleteRowsPermanently();
             } else if (!hobbyTF.getText().equals(HOBBY_TF_DEFAULT_TEXT))
                 hobbyTF.setText(HOBBY_TF_DEFAULT_TEXT);
         });
@@ -413,6 +486,9 @@ public class MainFrame extends JFrame {
         tablesPanel.add(contactHobbyScrollPane, gridBagConstraints);
     }
 
+    /**
+     * Draws the settings view panel.
+     */
     private void drawSettingsView() {
         JPanel settingsViewPanel = new JPanel();
         settingsViewPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -423,6 +499,11 @@ public class MainFrame extends JFrame {
         drawSettingsViewCenter(settingsViewPanel);
     }
 
+    /**
+     * Draws the north section of the settings view panel.
+     *
+     * @param settingsViewPanel the panel to which the north section is added
+     */
     private void drawSettingsViewNorth(JPanel settingsViewPanel) {
         GridBagConstraints gridBagConstraints;
 
@@ -503,6 +584,11 @@ public class MainFrame extends JFrame {
         northPanel.add(formatButton, GBL.createGridBagConstraints(4, 0));
     }
 
+    /**
+     * Draws the center section of the settings view panel.
+     *
+     * @param settingsViewPanel the panel to which the center section is added
+     */
     private void drawSettingsViewCenter(JPanel settingsViewPanel) {
         GridBagConstraints gridBagConstraints;
 
@@ -524,6 +610,20 @@ public class MainFrame extends JFrame {
         centerPanel.add(mScroll, gridBagConstraints);
     }
 
+    /**
+     * Updates the tables in the application.<br>
+     * <br>
+     * This method should be called whenever there are
+     * changes in the data that require table updates.<br>
+     * <br>
+     * It updates the:
+     * <ul>
+     *     <li>contact table</li>
+     *     <li>contact-hobby table</li>
+     *     <li>telephone-contact table</li>
+     *     <li>mail-contact table</li>
+     * </ul>
+     */
     public void updateTables() {
         String selectedItem = (String) contactTypeCB.getSelectedItem();
         contactTable         .update(selectedItem);

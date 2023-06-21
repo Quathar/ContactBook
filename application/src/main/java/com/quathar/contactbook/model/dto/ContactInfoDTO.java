@@ -115,4 +115,23 @@ public class ContactInfoDTO {
         return contact;
     }
 
+    public void cleanFields() {
+        // Common fields
+        nameTF   .setText(Placeholder.NAME.getText());
+        addressTF.setText(Placeholder.ADDRESS.getText());
+        notesTA  .setText(Placeholder.NOTES.getText());
+
+        // Person fields
+        surnamesTF.setText(Placeholder.SURNAMES.getText());
+        genderCB  .setSelectedIndex(0);
+
+        // Person and Pet
+        birthDC.cleanup();
+
+        // S
+        hobbyTable    .clean();
+        telephoneTable.clean();
+        mailTable     .clean();
+    }
+
 }

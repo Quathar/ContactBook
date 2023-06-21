@@ -519,9 +519,9 @@ public class AddFrame extends JFrame {
         contactTypeCB.addActionListener(
                 ChangeActionListener.builder()
                         .contactInfoDTO(contactInfoDTO)
-                        .telephoneTypeCB((JComboBox) _bundle.get("telephoneTypeCB"))
-                        .telephoneTF((JTextField) _bundle.get("telephoneTF"))
-                        .mailTF     ((JTextField) _bundle.get("mailTF"))
+                        .telephoneTypeCB   ((JComboBox<TelephoneType>)  _bundle.get("telephoneTypeCB"))
+                        .telephoneTF       ((JTextField) _bundle.get("telephoneTF"))
+                        .mailTF            ((JTextField) _bundle.get("mailTF"))
                         .btnAddMail        ((JButton) _bundle.get("btnAddMail"))
                         .btnAddTelephone   ((JButton) _bundle.get("btnAddTelephone"))
                         .btnDeleteMail     ((JButton) _bundle.get("btnDeleteMail"))
@@ -530,30 +530,14 @@ public class AddFrame extends JFrame {
     }
 
     private void cleanFields() {
-        contactInfoDTO.getNameTF()
-                  .setText(Placeholder.NAME.getText());
-        contactInfoDTO.getSurnamesTF()
-                  .setText(Placeholder.SURNAMES.getText());
-        contactInfoDTO.getBirthDC()
-                  .cleanup();
-        contactInfoDTO.getGenderCB()
-                  .setSelectedIndex(0);
-        contactInfoDTO.getAddressTF()
-                  .setText(Placeholder.ADDRESS.getText());
-        contactInfoDTO.getNotesTA()
-                  .setText(Placeholder.NOTES.getText());
-//        contactDTO.getHobbyTable()
-//                  .clean();
+        contactInfoDTO.cleanFields();
+
 //        hobbiesComboBox.removeAllItems();
-//        hTable.clean();
 //        String[] aficiones = dao.getHobbies();
 //        for (int i = 0; i < aficiones.length; i++)
 //            hobbiesComboBox.addItem(aficiones[i]);
 //
-//        genderComboBox.setSelectedIndex(0);
-//        tTable.clean();
 //        telephoneTextField.setText(PlaceHoldersTitles[5]);
-//        mTable.clean();
 //        mailTextField.setText(PlaceHoldersTitles[6]);
     }
 
