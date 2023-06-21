@@ -15,18 +15,19 @@ subprojects {
         mavenCentral()
     }
 
-    val lombokVersion = "1.18.28"
     dependencies {
         // Lombok
-//        compileOnly("org.projectlombok:lombok:$lombokVersion")
+//        compileOnly("org.projectlombok:lombok:1.18.28")
         compileOnly("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
-        testCompileOnly("org.projectlombok:lombok")
-        testAnnotationProcessor("org.projectlombok:lombok")
 
         // Google Guice :: Dependency Injection
         // https://mvnrepository.com/artifact/com.google.inject/guice
         implementation("com.google.inject:guice:5.1.0")
+
+        // Test
+        testCompileOnly("org.projectlombok:lombok")
+        testAnnotationProcessor("org.projectlombok:lombok")
     }
 
 }

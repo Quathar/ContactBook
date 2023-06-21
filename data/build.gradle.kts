@@ -10,7 +10,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation("com.google.code.gson:gson:2.10.1")
 
-    // Hibernate
+    // Hibernate ORM
 //    implementation("org.hibernate:hibernate-core:5.6.15.Final")
 //    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
 }
