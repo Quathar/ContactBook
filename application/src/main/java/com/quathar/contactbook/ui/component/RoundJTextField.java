@@ -1,26 +1,33 @@
 package com.quathar.contactbook.ui.component;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JTextField;
+import java.awt.Graphics;
+import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.io.Serial;
 
 /**
- * Clase utilizada para crear JTextField redondeados.
- * 
+ * <h1>Round JTextField</h1>
+ * <br>
+ * Class used to create rounded JTextFields.
+ *
+ * @since 2011-12-15
  * @see JTextField
- * @since 15-12-2011
  * @author Harry Joy
  */
-public class RoundJTextField extends JTextField { // CLASE FINALIZADA
-	
-	private static final long serialVersionUID = 1L;
-	
+public class RoundJTextField extends JTextField {
+
+    // <<-CONSTANT->>
+	@Serial
+    private static final long serialVersionUID = 1L;
+
+    // <<-FIELD->>
 	/**
-	 * Forma del componente.
+	 * Component shape.
 	 */
 	private Shape shape;
-	
-	// CONSTRUCTORES
+
+    // <<-CONSTRUCTORS->>
 	/**
 	 * Constructor.
 	 */
@@ -47,8 +54,8 @@ public class RoundJTextField extends JTextField { // CLASE FINALIZADA
         super(text);
         setOpaque(false);
     }
-    
-    // OVERRIDE
+
+    // <<-METHODS->>
     @Override
     protected void paintComponent(Graphics g) {
          g.setColor(getBackground());

@@ -26,12 +26,22 @@ public class AppConfiguration extends DataConfiguration {
         super.configure();
     }
 
+    /**
+     * Returns the Locale object based on the configured locale.
+     *
+     * @return the Locale object
+     */
     public static Locale getLocale() {
         // TODO: This has to be required in from a conf.properties or something like this
         String locale = ES;
         return new Locale(locale);
     }
 
+    /**
+     * Returns the file name for the resource bundle based on the current locale.
+     *
+     * @return the file name for the resource bundle
+     */
     public static String getLocaleFileName() {
         return switch (getLocale().getLanguage()) {
             case ES   -> "messages_es.properties";

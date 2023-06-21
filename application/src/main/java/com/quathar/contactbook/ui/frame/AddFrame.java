@@ -2,6 +2,7 @@ package com.quathar.contactbook.ui.frame;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import com.quathar.contactbook.Application;
 import com.quathar.contactbook.config.AppConfiguration;
 import com.quathar.contactbook.data.entity.Contact;
@@ -25,19 +26,35 @@ import com.quathar.contactbook.ui.frame.listener.ChangeActionListener;
 import com.quathar.contactbook.ui.frame.listener.PlaceholderFocusListener;
 import com.toedter.calendar.JDateChooser;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.WindowEvent;
 import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * <h1>AddContact</h1>
- *
+ * <br>
  * Class used to add contacts in the graphic user interface.
  *
  * @since 2022-04-13
+ * @see JFrame
  * @version 2.0
  * @author Q
  */
@@ -50,8 +67,8 @@ public class AddFrame extends JFrame {
 
     // <<-FIELDS->>
     private final ContactService _contactService;
-    private final HobbyService   _hobbyService;
-    private final MainFrame      _mainFrame;
+    private final HobbyService _hobbyService;
+    private final MainFrame _mainFrame;
     private final Map<String, JComponent> _bundle;
     private final Long _id;
     private final Contact contact;
@@ -78,13 +95,11 @@ public class AddFrame extends JFrame {
     }
 
     // <<-METHODS->>
-    // ========================
-    // = = = Design Zone = = =
-    // = = = Design Zone = = =
-    // = = = Design Zone = = =
-    // ========================
+    /**
+     * Initializes the components of the application window.
+     */
     private void initComponents() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setBounds((int) (Application.SCREEN_SIZE.width  * 0.30), // X position
                   (int) (Application.SCREEN_SIZE.height * 0.25), // Y position
                   (int) (Application.SCREEN_SIZE.width  * 0.40), // Width
@@ -104,6 +119,11 @@ public class AddFrame extends JFrame {
         addActionListeners();
     }
 
+    /**
+     * Draws the north panel of the content pane.
+     *
+     * @param contentPane the panel to which the north section is added
+     */
     private void drawNorth(JPanel contentPane) {
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -116,6 +136,11 @@ public class AddFrame extends JFrame {
         contactInfoDTO.setContactTypeCB(contactTypeCB);
     }
 
+    /**
+     * Draws the center panel of the content pane.
+     *
+     * @param contentPane the panel to which the center section is added
+     */
     private void drawCenter(JPanel contentPane) {
         JPanel dataPanel = new JPanel();
         contentPane.add(dataPanel, BorderLayout.CENTER);
@@ -541,14 +566,13 @@ public class AddFrame extends JFrame {
 //        mailTextField.setText(PlaceHoldersTitles[6]);
     }
 
-    // TODO: CHECK
-    // TODO: CHECK
-    // TODO: CHECK
-    // TODO: CHECK
-//	public int getDefaultCloseOperation() {
-//		frame.setVisible(true);
-//		dispose();
-//		return 0;
-//	}
+    @Override
+    protected void processWindowEvent(WindowEvent e) {
+        if (e.getID() == WindowEvent.WINDOW_CLOSING && _id > 0) {
+            dispose();
+            _mainFrame.setVisible(true);
+        }
+        super.processWindowEvent(e);
+    }
 
 }

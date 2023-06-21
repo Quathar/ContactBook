@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 /**
- * <h1>To Be Specified</h1>
+ * <h1>Grid Bag Layout (GBL) Helper</h1>
  *
  * @since 2022-04-07
  * @version 1.1
@@ -36,7 +36,6 @@ public class GBL {
      * @param rows the layout's number of rows
      * @param columnsToOne the columns that will have weights 1
      * @param rowsToOne the rows that will have weights 1
-     *
      * @return a new grid bag layout configured
      */
     public static GridBagLayout createGridBagLayout(int columns, int rows, int[] columnsToOne, int[] rowsToOne) {
@@ -61,7 +60,6 @@ public class GBL {
      *
      * @param columns the layout's number of columns
      * @param rows the layout's number of rows
-     *
      * @return a new grid bag layout configured
      */
     public static GridBagLayout createGridBagLayoutFull(int columns, int rows) {
@@ -84,7 +82,6 @@ public class GBL {
      *
      * @param x the horizontal position
      * @param y the vertical position
-     *
      * @return the grid bag constraints with the specified position
      */
     public static GridBagConstraints createGridBagConstraints(int x, int y) {

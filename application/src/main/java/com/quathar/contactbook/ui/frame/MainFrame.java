@@ -5,7 +5,11 @@ import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.component.ChangerComboBox;
 import com.quathar.contactbook.ui.component.RoundJTextField;
-import com.quathar.contactbook.ui.component.table.*;
+import com.quathar.contactbook.ui.component.table.ContactHobbyTable;
+import com.quathar.contactbook.ui.component.table.ContactTable;
+import com.quathar.contactbook.ui.component.table.HobbyTable;
+import com.quathar.contactbook.ui.component.table.MailContactTable;
+import com.quathar.contactbook.ui.component.table.TelephoneContactTable;
 import com.quathar.contactbook.ui.frame.game.TicTacToe;
 import com.quathar.contactbook.ui.frame.helper.GBL;
 import com.quathar.contactbook.ui.frame.helper.Label;
@@ -24,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -45,6 +50,7 @@ import java.io.Serial;
  * </p>
  *
  * @since 2022-04-07
+ * @see JFrame
  * @version 3.0
  * @author Q
  */
@@ -111,7 +117,7 @@ public class MainFrame extends JFrame {
      * Initializes the components of the application window.
      */
     private void initComponents() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds((int) (Application.SCREEN_SIZE.width  * 0.20), // X position
                   (int) (Application.SCREEN_SIZE.height * 0.20), // Y position
                   (int) (Application.SCREEN_SIZE.width  * 0.60), // Width

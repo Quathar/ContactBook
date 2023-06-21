@@ -1,6 +1,7 @@
 package com.quathar.contactbook.ui.frame.listener;
 
 import com.quathar.contactbook.ui.frame.helper.Placeholder;
+
 import lombok.Builder;
 
 import javax.swing.text.JTextComponent;
@@ -8,7 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 /**
- * <h1>ContactsBrowserFocusListener</h1>
+ * <h1>Contacts Browser Focus Listener</h1>
  *
  * @since 2023-06-02
  * @version 1.0

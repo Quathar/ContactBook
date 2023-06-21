@@ -2,6 +2,7 @@ package com.quathar.contactbook.ui.frame.listener;
 
 import com.quathar.contactbook.ui.component.table.ContactHobbyTable;
 import com.quathar.contactbook.ui.component.table.HobbyTable;
+
 import lombok.Builder;
 
 import javax.swing.JTextField;
@@ -9,7 +10,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * <h1>HobbiesBrowserDocumentListener</h1>
+ * <h1>Hobbies Browser Document Listener</h1>
  *
  * @since 2023-06-02
  * @version 1.0

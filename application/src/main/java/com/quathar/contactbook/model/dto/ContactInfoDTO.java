@@ -11,7 +11,9 @@ import com.quathar.contactbook.ui.component.table.HobbyTable;
 import com.quathar.contactbook.ui.component.table.MailTable;
 import com.quathar.contactbook.ui.component.table.TelephoneTable;
 import com.quathar.contactbook.ui.frame.helper.Placeholder;
+
 import com.toedter.calendar.JDateChooser;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -115,6 +117,10 @@ public class ContactInfoDTO {
         return contact;
     }
 
+    /**
+     * Clears the input fields and resets them to their default values or placeholders.
+     * This method is used to clean the form fields and reset them to their initial state.
+     */
     public void cleanFields() {
         // Common fields
         nameTF   .setText(Placeholder.NAME.getText());
@@ -128,7 +134,7 @@ public class ContactInfoDTO {
         // Person and Pet
         birthDC.cleanup();
 
-        // S
+        // Tables
         hobbyTable    .clean();
         telephoneTable.clean();
         mailTable     .clean();

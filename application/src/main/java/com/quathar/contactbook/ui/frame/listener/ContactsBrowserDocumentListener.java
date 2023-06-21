@@ -1,6 +1,7 @@
 package com.quathar.contactbook.ui.frame.listener;
 
 import com.quathar.contactbook.ui.component.table.ContactTable;
+
 import lombok.Builder;
 
 import javax.swing.JComboBox;
@@ -9,7 +10,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * <h1>ContactsBrowserDocumentListener</h1>
+ * <h1>Contacts Browser Document Listener</h1>
  *
  * @since 2023-06-02
  * @version 1.0

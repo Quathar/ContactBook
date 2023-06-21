@@ -4,6 +4,7 @@ import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.enumerator.TelephoneType;
 import com.quathar.contactbook.model.dto.ContactInfoDTO;
 import com.quathar.contactbook.ui.frame.helper.Placeholder;
+
 import lombok.Builder;
 
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * <h1>ActionListener</h1>
+ * <h1>Change Contact Type Action Listener</h1>
  *
  * @since 2023-06-04
  * @version 2.0
@@ -75,16 +76,16 @@ public class ChangeActionListener implements ActionListener {
 
     private void enablePersonInputs(boolean enable) {
         contactInfoDTO.getSurnamesTF()
-                  .setEnabled(enable);
+                      .setEnabled(enable);
         contactInfoDTO.getBirthDC()
-                  .setEnabled(enable);
+                      .setEnabled(enable);
         contactInfoDTO.getGenderCB()
-                  .setEnabled(enable);
+                      .setEnabled(enable);
     }
 
     private void enableTelephonesAndMails(boolean enable) {
         // Related to telephones
-        contactInfoDTO.getTelephoneTable()
+        contactInfoDTO    .getTelephoneTable()
                           .setEnabled(enable);
         telephoneTF       .setText(Placeholder.TELEPHONES.getText());
         telephoneTF       .setEnabled(enable);
@@ -94,11 +95,11 @@ public class ChangeActionListener implements ActionListener {
 
         // Related to mails
         contactInfoDTO.getMailTable()
-                     .setEnabled(enable);
-        mailTF       .setText(Placeholder.MAILS.getText());
-        mailTF       .setEnabled(enable);
-        btnAddMail   .setEnabled(enable);
-        btnDeleteMail.setEnabled(enable);
+                      .setEnabled(enable);
+        mailTF        .setText(Placeholder.MAILS.getText());
+        mailTF        .setEnabled(enable);
+        btnAddMail    .setEnabled(enable);
+        btnDeleteMail .setEnabled(enable);
     }
 
 }
