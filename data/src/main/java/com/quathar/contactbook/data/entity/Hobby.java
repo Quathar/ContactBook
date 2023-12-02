@@ -8,13 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 /**
  * <h1>Hobby</h1>
@@ -26,7 +27,7 @@ import java.util.List;
  * @author Q
  */
 @Entity
-@Table(name = "hobbies")
+@Table(name = "Hobby")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -19,23 +19,23 @@ public class Themes {
 	// <<-CONSTANTS->>
 	/**
 	 * Themes PATH
-	 * */
+	 */
 	private static final String PATH = Path.of(
 			System.getProperty("user.dir"),
 			"application",
 			"src", "main", "resources", "json", "%s").toString();
 	/**
 	 * Light type.
-	 * */
+	 */
 	public static final String LIGHT = "Light";
 	/**
 	 * Dark type.
-	 * */
+	 */
 	public static final String DARK = "Dark";
 
 	/**
 	 * Themes names by alphabetical order.
-	 * */
+	 */
 	public static final String[] THEMES = {
 			"Carbon",
 			"Cyan",
@@ -63,7 +63,7 @@ public class Themes {
 	};
 	/**
 	 * Light Themes names.
-	 * */
+	 */
 	public static final String[] LIGHT_THEMES = {
 			"Cyan",
 			"Github",
@@ -75,7 +75,7 @@ public class Themes {
 	};
 	/**
 	 * Dark Themes names.
-	 * */
+	 */
 	public static final String[] DARK_THEMES = {
 			"Carbon",
 			"Dark Purple",

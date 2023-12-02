@@ -5,7 +5,6 @@ import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.frame.MainFrame;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
 
-import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -30,8 +29,6 @@ public class Application {
      * Screen dimensions
      */
     public  static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final String CONSOLE = "Console";
-    private static final String GRAPHIC_USER_INTERFACE = "Graphic User Interface";
 
     // <<-METHODS->>
     /**
@@ -50,46 +47,24 @@ public class Application {
      */
     public static void format() {
         DataApplication.format();
-        init();
-    }
-
-    /**
-     * Launch the application with an options panel.
-     */
-    private static void init() {
-        String title = "Access";
-        String msg = "How do you want to access the Contact Book?";
-        String[] options = {CONSOLE, GRAPHIC_USER_INTERFACE};
-
-        IntelliJTheme.setup(Themes.getTheme(0, Themes.LIGHT));
-        switch (JOptionPane.showOptionDialog(
-                null,
-                msg,
-                title,
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                GRAPHIC_USER_INTERFACE
-        )) {
-//			case 0  -> new Menu();
-            case 0  -> System.err.println("DEBUG: Accedió a la consola");
-            case 1  -> new MainFrame().setVisible(true);
-            default -> System.exit(0);
-        }
-    }
-
-    public static void main(String[] args) {
-//		init();
-        fastInit();
+        Application.execute();
     }
 
     /**
      * Launch the interface application with 'Dracula Contrast' Theme
      */
-    private static void fastInit() {
+    private static void execute() {
         IntelliJTheme.setup(Themes.getTheme(3, Themes.DARK));
         new MainFrame().setVisible(true);
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args nothing
+     */
+    public static void main(String[] args) {
+        Application.execute();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.quathar.contactbook.data.dao;
 
-
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
 
@@ -15,6 +14,13 @@ import java.util.List;
  */
 public interface ContactDao extends GeneralDao<Contact, Long> {
 
+    /**
+     * Finds contacts by specified parameters.
+     *
+     * @param type The type of contact to search for.
+     * @param name The name to match in contacts.
+     * @return A list of Contact entities that match the given parameters.
+     */
     List<Contact> findByParams(ContactType type, String name);
 
 }

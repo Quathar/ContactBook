@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * <h1>TelephoneType</h1>
+ * <h1>Telephone Type</h1>
  *
  * @since 2023-05-30
  * @version 1.0

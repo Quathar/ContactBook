@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface HobbyDao extends GeneralDao<Hobby, Long> {
 
+    /**
+     * Finds hobbies by the specified name.
+     *
+     * @param name The name to match in hobbies.
+     * @return A list of Hobby entities that match the given name.
+     */
     List<Hobby> findByParams(String name);
 
 }

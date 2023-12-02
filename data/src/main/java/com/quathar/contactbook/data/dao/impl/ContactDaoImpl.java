@@ -4,18 +4,20 @@ import com.google.inject.Inject;
 import com.quathar.contactbook.data.dao.ContactDao;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
+
 import jakarta.persistence.RollbackException;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
- * <h1>ContactDaoImpl</h1>
+ * <h1>Contact DAO Implementation</h1>
  *
  * @since 2023-05-30
  * @see ContactDao

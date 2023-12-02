@@ -4,6 +4,7 @@ import com.quathar.contactbook.data.embeddable.Mail;
 import com.quathar.contactbook.data.embeddable.Telephone;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.enumerator.Gender;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -18,13 +19,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 /**
  * <h1>Contact</h1>
@@ -36,7 +38,7 @@ import java.util.List;
  * @author Q
  */
 @Entity
-@Table(name = "contacts")
+@Table(name = "Contact")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -73,7 +75,7 @@ public class Contact {
 	// Relations
 	@ToString.Exclude
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "contacts_hobbies",
+	@JoinTable(name = "contact_hobby",
 			joinColumns 	   = @JoinColumn(name = "contact_id"),
 			foreignKey 		   = @ForeignKey(name = "FK_contacts"),
 			inverseJoinColumns = @JoinColumn(name = "hobby_id"),

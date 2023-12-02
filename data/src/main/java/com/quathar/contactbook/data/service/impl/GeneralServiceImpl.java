@@ -36,7 +36,7 @@ public class GeneralServiceImpl<T, ID> implements GeneralService<T, ID> {
     @Override
     public T getById(ID id) {
         return _generalDao.findById(id)
-                          .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
