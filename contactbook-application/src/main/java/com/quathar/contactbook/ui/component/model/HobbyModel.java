@@ -6,8 +6,8 @@ import com.google.inject.Injector;
 import com.quathar.contactbook.config.AppConfiguration;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
-import com.quathar.contactbook.data.service.ContactService;
-import com.quathar.contactbook.data.service.HobbyService;
+import com.quathar.contactbook.service.ContactService;
+import com.quathar.contactbook.service.HobbyService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;

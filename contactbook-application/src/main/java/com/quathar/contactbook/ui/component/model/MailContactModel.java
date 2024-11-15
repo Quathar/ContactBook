@@ -3,7 +3,7 @@ package com.quathar.contactbook.ui.component.model;
 import com.google.inject.Inject;
 import com.quathar.contactbook.data.embeddable.Mail;
 import com.quathar.contactbook.data.entity.Contact;
-import com.quathar.contactbook.data.service.ContactService;
+import com.quathar.contactbook.service.ContactService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;

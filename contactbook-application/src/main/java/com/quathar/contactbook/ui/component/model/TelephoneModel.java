@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import com.quathar.contactbook.config.AppConfiguration;
 import com.quathar.contactbook.data.embeddable.Telephone;
 import com.quathar.contactbook.data.entity.Contact;
-import com.quathar.contactbook.data.service.ContactService;
+import com.quathar.contactbook.service.ContactService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;

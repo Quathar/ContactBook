@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
-import com.quathar.contactbook.data.service.ContactService;
+import com.quathar.contactbook.service.ContactService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;

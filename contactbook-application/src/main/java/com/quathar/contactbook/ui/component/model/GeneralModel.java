@@ -1,6 +1,6 @@
 package com.quathar.contactbook.ui.component.model;
 
-import com.quathar.contactbook.data.service.GeneralService;
+import com.quathar.contactbook.service.GeneralService;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.Serial;
