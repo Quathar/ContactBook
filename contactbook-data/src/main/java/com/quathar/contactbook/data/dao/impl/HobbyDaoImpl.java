@@ -4,16 +4,16 @@ import com.google.inject.Inject;
 import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.entity.Hobby;
 
-import jakarta.persistence.RollbackException;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+
+import jakarta.persistence.RollbackException;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * <h1>Hobby DAO Implementation</h1>
