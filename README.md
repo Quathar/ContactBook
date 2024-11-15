@@ -1,6 +1,6 @@
 <h1 id="title" align="center"><📘> Contact Book</h1>
 
-<img src="img/ContactIcon.png" align="left" width="192" alt="Contact book Icon"/>
+<img src="docs/images/ContactIcon.png" align="left" width="192" alt="Contact book Icon"/>
 
 This is a desktop application developed with **Java Swing**.
 
@@ -23,24 +23,16 @@ You can access the contact book through the [graphic user interface (GUI)](#-gra
 [ Brief description ]
 
 <h3 id="create" align="center">Contacts View</h3>
-<img src="img/View_Contacts.png"    width="" alt="contacts view">
+<img src="docs/images/View_Contacts.png"    width="" alt="contacts view">
 
 <h3 id="create" align="center">Hobbies View</h3>
-<img src="img/View_Hobbies.png"     width="" alt="hobbies  view">
+<img src="docs/images/View_Hobbies.png"     width="" alt="hobbies  view">
 
 <h3 id="create" align="center">Settings View</h3>
-<img src="img/View_Settings.png"    width="" alt="settings view">
+<img src="docs/images/View_Settings.png"    width="" alt="settings view">
 
 <h3 id="create" align="center">Add Contact View</h3>
-<img src="img/View_AddContact.png"  width="" alt="add contact view">
+<img src="docs/images/View_AddContact.png"  width="" alt="add contact view">
 
 <h3 id="create" align="center">Contact Info View</h3>
-<img src="img/View_ContactInfo.png" width="" alt="contact info view">
-
-## 🕹️ Console
-
-// Console content
-
-<div align="center">
-    <a href="#title">Back to top</a>
-</div>
+<img src="docs/images/View_ContactInfo.png" width="" alt="contact info view">
