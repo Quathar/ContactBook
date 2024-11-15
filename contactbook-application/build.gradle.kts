@@ -2,7 +2,7 @@ group = "com.quathar"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":data"))
+    implementation(project(":contactbook-data"))
 
     // JetBrains Themes
     implementation("com.formdev:flatlaf:3.0")
