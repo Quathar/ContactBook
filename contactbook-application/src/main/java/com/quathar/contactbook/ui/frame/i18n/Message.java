@@ -44,9 +44,8 @@ public enum Message {
 
     // <<-CONSTANTS->>
     private static final Path PATH = Path.of(
-            System.getProperty("user.dir"),   // Project directory
-            "application",                    // 'application' module
-            "src", "main", "resources", "%s");// path from there
+            System.getProperty("user.dir"), "contactbook-application",
+            "src", "main", "resources", "%s");
 
     static {
         String localeFileName = AppConfiguration.getLocaleFileName();

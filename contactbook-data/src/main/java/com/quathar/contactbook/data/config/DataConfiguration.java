@@ -35,12 +35,10 @@ public class DataConfiguration extends AbstractModule {
      * hibernate configuration file (hibernate.properties) path
      */
     private static final Path HIBERNATE_PROPERTIES_PATH = Path.of(
-            System.getProperty("user.dir"),                      // Project directory
-            "data",                                              // 'data' module
-            "src", "main", "resources", "hibernate.properties"); // path from there
+            System.getProperty("user.dir"), "contactbook-data",
+            "src", "main", "resources", "hibernate.properties");
 
     // <<-METHODS->>
-
     /**
      * Configures hibernate.
      *

@@ -21,8 +21,7 @@ public class AppConfiguration extends DataConfiguration {
 
     // <<-CONSTANTS->>
     private static final Path SETTINGS_PATH = Path.of(
-            System.getProperty("user.dir"),
-            "application",
+            System.getProperty("user.dir"), "contactbook-application",
             "src", "main", "resources", "settings.properties");
     private static final String EN = "en";
     private static final String ES = "es";

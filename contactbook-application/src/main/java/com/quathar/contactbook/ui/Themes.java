@@ -21,8 +21,7 @@ public class Themes {
 	 * Themes PATH
 	 */
 	private static final String PATH = Path.of(
-			System.getProperty("user.dir"),
-			"application",
+			System.getProperty("user.dir"), "contactbook-application",
 			"src", "main", "resources", "json", "%s").toString();
 	/**
 	 * Light type.
