@@ -7,12 +7,13 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import com.quathar.contactbook.data.config.DaoInjector;
 import com.quathar.contactbook.data.config.DataConfiguration;
+import com.quathar.contactbook.data.dao.ContactDao;
+import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
 import com.quathar.contactbook.data.enumerator.ContactType;
-import com.quathar.contactbook.data.service.ContactService;
-import com.quathar.contactbook.data.service.HobbyService;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -149,10 +150,10 @@ public class DataApplication {
      * Delete all the info from the database
      */
     public static void format() {
-        Injector injector = Guice.createInjector(new DataConfiguration());
-        injector.getInstance(ContactService.class)
+        Injector injector = Guice.createInjector(new DaoInjector());
+        injector.getInstance(ContactDao.class)
                 .deleteAll();
-        injector.getInstance(HobbyService.class)
+        injector.getInstance(HobbyDao.class)
                 .deleteAll();
     }
 
@@ -172,34 +173,34 @@ public class DataApplication {
     }
 
     private static void test() {
-        Injector injector = Guice.createInjector(new DataConfiguration());
-        ContactService contactService = injector.getInstance(ContactService.class);
+        Injector injector = Guice.createInjector(new DaoInjector());
+        ContactDao contactService = injector.getInstance(ContactDao.class);
 
         int num = 25;
         // GET ALL
         System.out.println("=".repeat(num));
         System.out.println("ALL CONTACTS");
         System.out.println("=".repeat(num));
-        contactService.getAll()
+        contactService.findAll()
                       .forEach(System.out::println);
 
         // GET BY ID
         System.out.println("=".repeat(num));
         System.out.println("CONTACT WITH ID 4");
         System.out.println("=".repeat(num));
-        System.out.println(contactService.getById(4L));
+        System.out.println(contactService.findById(4L));
 
         // GET ALL BY PARAMS (type, name)
         System.out.println("=".repeat(num));
         System.out.println("ALL PET CONTACTS");
         System.out.println("=".repeat(num));
-        contactService.getAllByParams(ContactType.PET, null)
+        contactService.findByParams(ContactType.PET, null)
                       .forEach(System.out::println);
     }
 
     /**
      * <h1>Relation</h1>
-     * <br>
+     * 
      * Nested class to insert the contacts_hobbies relations to initial test data.
      *
      * @since 2023-06-06
@@ -209,11 +210,11 @@ public class DataApplication {
     @AllArgsConstructor
     @Getter
     @ToString
-    class Relation {
+    static class Relation {
 
-        // <<-FIELDS->>
         @SerializedName("contact_id")
         private Long contactId;
+
         @SerializedName("hobby_id")
         private Long hobbyId;
 
