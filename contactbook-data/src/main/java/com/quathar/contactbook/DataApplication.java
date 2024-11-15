@@ -6,20 +6,24 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import com.quathar.contactbook.config.DataConfiguration;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.service.ContactService;
 import com.quathar.contactbook.data.service.HobbyService;
-import jakarta.persistence.RollbackException;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+
+import jakarta.persistence.RollbackException;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -44,16 +48,13 @@ public class DataApplication {
 
     // <<-CONSTANTS->>
     private static final Path CONTACTS_JSON_PATH = Path.of(
-            System.getProperty("user.dir"),                      // Project directory
-            "data",                                              // 'data' module
-            "src", "main", "resources", "json", "contacts.json");// path from there
+            System.getProperty("user.dir"), "data",
+            "src", "main", "resources", "json", "contacts.json");
     private static final Path HOBBIES_JSON_PATH = Path.of(
-            System.getProperty("user.dir"),
-            "data",
+            System.getProperty("user.dir"), "data",
             "src", "main", "resources", "json", "hobbies.json");
     private static final Path RELATIONS_JSON_PATH = Path.of(
-            System.getProperty("user.dir"),
-            "data",
+            System.getProperty("user.dir"), "data",
             "src", "main", "resources", "json", "contacts_hobbies.json");
 
     // <<-METHODS->>
