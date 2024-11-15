@@ -155,12 +155,16 @@ public class DataApplication {
                 .deleteAll();
     }
 
-    public static void main(String[] args) {
-        // Uncomment to store more test data
-        // (change hibernate.hbm2ddl to 'create' in hibernate.properties to reset ID)
+    private static void loadData() {
         loadContactsInitData();
         loadHobbiesInitData();
         loadContactsHobbiesRelations();
+    }
+
+    public static void main(String[] args) {
+        // Uncomment to store more test data
+        // (change hibernate.hbm2ddl to 'create' in hibernate.properties to reset ID)
+        loadData();
 
         // Testing
 //        test();
