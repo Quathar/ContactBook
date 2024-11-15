@@ -9,6 +9,7 @@ import com.quathar.contactbook.ui.frame.helper.ViewTitle;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.InputStream;
 
 /**
  * <h1>Application</h1>
@@ -40,7 +41,8 @@ public class Application {
      * @param themeType the theme's type
      */
     public static void changeTheme(int themeIndex, String themeType) {
-        IntelliJTheme.setup(Themes.getTheme(themeIndex, themeType));
+        InputStream newTheme = Themes.getTheme(themeIndex, themeType);
+        IntelliJTheme.setup(newTheme);
         new MainFrame(themeIndex, themeType, ViewTitle.SETTINGS).setVisible(true);
     }
 
@@ -56,16 +58,12 @@ public class Application {
      * Launch the interface application with 'Dracula Contrast' Theme
      */
     private static void execute() {
-        IntelliJTheme.setup(Themes.getTheme(3, Themes.DARK));
+        InputStream defaultTheme = Themes.getTheme(3, Themes.DARK);
+        IntelliJTheme.setup(defaultTheme);
         new MainFrame().setVisible(true);
     }
 
-    /**
-     * Main method.
-     *
-     * @param args nothing
-     */
-    public static void main(String[] args) {
+    public static void main(String[] quathar) {
         Application.execute();
     }
 
