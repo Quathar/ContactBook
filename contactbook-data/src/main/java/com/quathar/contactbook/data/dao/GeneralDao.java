@@ -5,11 +5,12 @@ import java.util.Optional;
 
 /**
  * <h1>General DAO (Data Access Object)</h1>
- * <br>
+ *
  * Interface with common methods of all DAOs
  *
  * @param <T> The entity type handled by this DAO.
  * @param <ID> The type of the entity's identifier.
+ *
  * @since 2023-05-30
  * @version 1.0
  * @author Q
