@@ -1,10 +1,10 @@
-package com.quathar.contactbook.data.service.impl;
+package com.quathar.contactbook.service.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.entity.Hobby;
-import com.quathar.contactbook.data.service.HobbyService;
+import com.quathar.contactbook.service.HobbyService;
 
 import java.util.List;
 

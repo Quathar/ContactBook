@@ -1,7 +1,7 @@
-package com.quathar.contactbook.data.service.impl;
+package com.quathar.contactbook.service.impl;
 
 import com.quathar.contactbook.data.dao.GeneralDao;
-import com.quathar.contactbook.data.service.GeneralService;
+import com.quathar.contactbook.service.GeneralService;
 import com.quathar.contactbook.data.exception.ResourceNotFoundException;
 
 import java.util.List;

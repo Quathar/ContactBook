@@ -1,4 +1,4 @@
-package com.quathar.contactbook.data.service;
+package com.quathar.contactbook.service;
 
 import java.util.List;
 

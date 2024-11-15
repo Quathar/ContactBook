@@ -1,4 +1,4 @@
-package com.quathar.contactbook.data.service;
+package com.quathar.contactbook.service;
 
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;

@@ -1,11 +1,11 @@
-package com.quathar.contactbook.data.service.impl;
+package com.quathar.contactbook.service.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.quathar.contactbook.data.dao.ContactDao;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
-import com.quathar.contactbook.data.service.ContactService;
+import com.quathar.contactbook.service.ContactService;
 import com.quathar.contactbook.data.exception.ResourceNotFoundException;
 
 import java.util.List;
