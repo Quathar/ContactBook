@@ -1,5 +1,7 @@
 package com.quathar.contactbook.config;
 
+import com.quathar.contactbook.data.config.DataConfiguration;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

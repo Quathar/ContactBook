@@ -1,4 +1,4 @@
-package com.quathar.contactbook.config;
+package com.quathar.contactbook.data.config;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

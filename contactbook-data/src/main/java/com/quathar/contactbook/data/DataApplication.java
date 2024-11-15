@@ -1,4 +1,4 @@
-package com.quathar.contactbook;
+package com.quathar.contactbook.data;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import com.quathar.contactbook.config.DataConfiguration;
+import com.quathar.contactbook.data.config.DataConfiguration;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
 import com.quathar.contactbook.data.enumerator.ContactType;

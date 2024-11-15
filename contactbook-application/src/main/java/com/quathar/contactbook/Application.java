@@ -1,6 +1,8 @@
 package com.quathar.contactbook;
 
 import com.formdev.flatlaf.IntelliJTheme;
+
+import com.quathar.contactbook.data.DataApplication;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.frame.MainFrame;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;

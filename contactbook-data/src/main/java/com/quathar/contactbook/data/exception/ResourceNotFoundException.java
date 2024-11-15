@@ -1,4 +1,4 @@
-package com.quathar.contactbook.exception;
+package com.quathar.contactbook.data.exception;
 
 /**
  * <h1>Resource NOT FOUND Exception</h1>

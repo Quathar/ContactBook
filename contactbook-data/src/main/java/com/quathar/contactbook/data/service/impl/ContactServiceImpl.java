@@ -6,7 +6,7 @@ import com.quathar.contactbook.data.dao.ContactDao;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.data.service.ContactService;
-import com.quathar.contactbook.exception.ResourceNotFoundException;
+import com.quathar.contactbook.data.exception.ResourceNotFoundException;
 
 import java.util.List;
 
