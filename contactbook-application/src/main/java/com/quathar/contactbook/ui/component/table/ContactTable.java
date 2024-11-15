@@ -3,7 +3,7 @@ package com.quathar.contactbook.ui.component.table;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.config.ServiceInjector;
 import com.quathar.contactbook.data.enumerator.ContactType;
 import com.quathar.contactbook.ui.component.model.ContactModel;
 
@@ -31,7 +31,7 @@ public class ContactTable extends JTable {
 
     // <<-CONSTRUCTORS->>
     public ContactTable() {
-        Injector injector = Guice.createInjector(new AppConfiguration());
+        Injector injector = Guice.createInjector(new ServiceInjector());
         _contactModel = injector.getInstance(ContactModel.class);
         setModel(_contactModel);
         removeColumn(columnModel.getColumn(0));

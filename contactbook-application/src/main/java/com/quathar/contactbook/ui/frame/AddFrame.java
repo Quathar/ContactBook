@@ -4,7 +4,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import com.quathar.contactbook.Application;
-import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.config.LocaleConfig;
+import com.quathar.contactbook.config.ServiceInjector;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
 import com.quathar.contactbook.data.enumerator.ContactType;
@@ -92,7 +93,7 @@ public class AddFrame extends JFrame {
      * @param id the ID of the contact to edit.
      */
     public AddFrame(MainFrame mainFrame, Long id) {
-        Injector injector = Guice.createInjector(new AppConfiguration());
+        Injector injector = Guice.createInjector(new ServiceInjector());
         _contactService   = injector.getInstance(ContactService.class);
         _hobbyService     = injector.getInstance(HobbyService.class);
         _mainFrame        = mainFrame;

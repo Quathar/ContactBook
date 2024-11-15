@@ -2,7 +2,8 @@ package com.quathar.contactbook.ui.component.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.quathar.contactbook.config.AppConfiguration;
+
+import com.quathar.contactbook.config.ServiceInjector;
 import com.quathar.contactbook.data.embeddable.Mail;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.service.ContactService;
@@ -38,7 +39,7 @@ public class MailModel extends DefaultTableModel {
     }
 
     public MailModel(Long id) {
-        Injector injector = Guice.createInjector(new AppConfiguration());
+        Injector injector = Guice.createInjector(new ServiceInjector());
         _contactService = injector.getInstance(ContactService.class);
         setColumnIdentifiers(COLUMN_NAMES);
         createModel(COLUMNS, id);

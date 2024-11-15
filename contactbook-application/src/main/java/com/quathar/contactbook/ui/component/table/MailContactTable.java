@@ -3,7 +3,7 @@ package com.quathar.contactbook.ui.component.table;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.quathar.contactbook.Application;
-import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.config.ServiceInjector;
 import com.quathar.contactbook.ui.component.model.MailContactModel;
 
 import java.io.Serial;
@@ -28,7 +28,7 @@ public class MailContactTable extends GeneralTable {
 
     // <<-CONSTRUCTOR->>
 	public MailContactTable() {
-        Injector injector = Guice.createInjector(new AppConfiguration());
+        Injector injector = Guice.createInjector(new ServiceInjector());
 		mailContactModel = injector.getInstance(MailContactModel.class);
 		setModel(mailContactModel);
 		resize(new int[] {1}, (int) (Application.SCREEN_SIZE.width * 0.1));

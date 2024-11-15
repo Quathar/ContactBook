@@ -1,6 +1,6 @@
 package com.quathar.contactbook.ui.frame.i18n;
 
-import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.config.LocaleConfig;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,7 +48,7 @@ public enum Message {
             "src", "main", "resources", "%s");
 
     static {
-        String localeFileName = AppConfiguration.getLocaleFileName();
+        String localeFileName = LocaleConfig.getLocaleFileName();
         try (FileInputStream fileInputStream = new FileInputStream(String.format(PATH.toString(), localeFileName))) {
             Properties messagesProperties = new Properties();
             messagesProperties.load(fileInputStream);

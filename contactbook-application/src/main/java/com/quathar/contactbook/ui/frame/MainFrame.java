@@ -1,7 +1,7 @@
 package com.quathar.contactbook.ui.frame;
 
 import com.quathar.contactbook.Application;
-import com.quathar.contactbook.config.AppConfiguration;
+import com.quathar.contactbook.config.LocaleConfig;
 import com.quathar.contactbook.io.MSG;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.component.ChangerComboBox;
@@ -532,7 +532,7 @@ public class MainFrame extends JFrame {
         gridBagConstraints = GBL.createGridBagConstraints(2, 0);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         langComboBox.addActionListener(e -> {
-            AppConfiguration.setLocale(langComboBox.getSelectedIndex());
+            LocaleConfig.setLocale(langComboBox.getSelectedIndex());
             MSG.warningMessage("Language will be updated the next time you open the app");
         });
         northPanel.add(langComboBox, gridBagConstraints);
