@@ -9,13 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 /**
  * <h1>Hobby</h1>
@@ -35,12 +35,11 @@ import lombok.ToString;
 @ToString
 public class Hobby {
 
-	// <<-FIELDS->>
-
 	// Basics
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(name = "hobby", unique = true)
 	private String name;
 
