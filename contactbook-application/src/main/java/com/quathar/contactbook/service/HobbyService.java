@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * <h1>Hobby Service</h1>
  *
+ * @see GeneralService
  * @since 2023-05-30
  * @version 1.0
  * @author Q
