@@ -1,7 +1,6 @@
 package com.quathar.contactbook.data;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Guice;
@@ -13,14 +12,11 @@ import com.quathar.contactbook.data.dao.ContactDao;
 import com.quathar.contactbook.data.dao.HobbyDao;
 import com.quathar.contactbook.data.entity.Contact;
 import com.quathar.contactbook.data.entity.Hobby;
-import com.quathar.contactbook.data.enumerator.ContactType;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
-import jakarta.persistence.RollbackException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +28,7 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <h1>DataApplication</h1>
@@ -59,90 +56,47 @@ public class DataApplication {
             "src", "main", "resources", "json", "contacts_hobbies.json");
 
     // <<-METHODS->>
-    private static Configuration getConfiguration() {
-        Injector injector = Guice.createInjector(new DataConfiguration());
-        return injector.getInstance(Configuration.class);
-    }
-
-    private static void loadContactsInitData() {
-        try (
-                SessionFactory sessionFactory = getConfiguration().buildSessionFactory();
-                Session        session        = sessionFactory.openSession();
-                Reader         reader         = new FileReader(CONTACTS_JSON_PATH.toString())
-        ) {
+    private static void loadContactsData(Session session) throws IOException {
+        try (Reader reader = new FileReader(CONTACTS_JSON_PATH.toString())) {
             Type listType = new TypeToken<List<Contact>>(){}.getType();
-
             List<Contact> contacts = new Gson().fromJson(reader, listType);
-
-            Transaction transaction = session.beginTransaction();
             contacts.forEach(session::persist);
-            transaction.commit();
-        } catch (IOException ioE) {
-            System.err.println("ERROR: IOException");
-            System.exit(1);
-        } catch (RollbackException rbE) {
-            System.err.println("ERROR: RollbackException");
-            System.exit(2);
-        } catch (JsonSyntaxException jsE) {
-            System.err.println("ERROR: JsonSyntaxException");
-            System.exit(3);
+            session.flush();
         }
     }
 
-    private static void loadHobbiesInitData() {
-        try (
-                SessionFactory sessionFactory = getConfiguration().buildSessionFactory();
-                Session        session        = sessionFactory.openSession();
-                Reader         reader         = new FileReader(HOBBIES_JSON_PATH.toString())
-        ) {
+    private static void loadHobbiesData(Session session) throws IOException {
+        try (Reader reader = new FileReader(HOBBIES_JSON_PATH.toString())) {
             Type listType = new TypeToken<List<Hobby>>(){}.getType();
-
             List<Hobby> hobbies = new Gson().fromJson(reader, listType);
-
-            Transaction transaction = session.beginTransaction();
             for (Hobby hobby : hobbies)
                 session.persist(hobby);
-            transaction.commit();
-        } catch (IOException ioE) {
-            System.err.println("ERROR: IOException");
-            System.exit(1);
-        } catch (RollbackException jsE) {
-            System.err.println("ERROR: RollbackException");
-            System.exit(2);
-        } catch (JsonSyntaxException rbE) {
-            System.err.println("ERROR: JsonSyntaxException");
-            System.exit(3);
         }
     }
 
-    private static void loadContactsHobbiesRelations() {
-        try (
-                SessionFactory sessionFactory = getConfiguration().buildSessionFactory();
-                Session        session        = sessionFactory.openSession();
-                Reader         reader         = new FileReader(RELATIONS_JSON_PATH.toString())
-        ) {
+    private static void loadContactsHobbiesRelations(Session session) throws IOException {
+        try (Reader reader = new FileReader(RELATIONS_JSON_PATH.toString())) {
             Type listType = new TypeToken<List<Relation>>(){}.getType();
-
             List<Relation> relations = new Gson().fromJson(reader, listType);
 
-            for (Relation relation : relations) {
-                session.beginTransaction();
-                Contact contact = session.get(Contact.class, relation.getContactId());
-                List<Hobby> hobbies = contact.getHobbies();
-                hobbies.add(session.get(Hobby.class, relation.getHobbyId()));
-                session.persist(contact);
-                session.getTransaction()
-                       .commit();
-            }
-        } catch (IOException ioE) {
-            System.err.println("ERROR: IOException");
-            System.exit(1);
-        } catch (RollbackException jsE) {
-            System.err.println("ERROR: RollbackException");
-            System.exit(2);
-        } catch (JsonSyntaxException rbE) {
-            System.err.println("ERROR: JsonSyntaxException");
-            System.exit(3);
+            relations.stream()
+                     .collect(Collectors.groupingBy(Relation::getContactId))
+                     .entrySet()
+                     .parallelStream()
+                     .forEach(entry -> {
+                         var contactId = entry.getKey();
+                         Contact contact = session.get(Contact.class, contactId);
+                         if (contact == null) {
+                             return;
+                         }
+
+                         List<Hobby> hobbyList = entry.getValue()
+                                                      .parallelStream()
+                                                      .map(e -> session.get(Hobby.class, e.getHobbyId()))
+                                                      .collect(Collectors.toList());
+                         contact.setHobbies(hobbyList);
+                         session.merge(contact);
+                     });
         }
     }
 
@@ -157,45 +111,26 @@ public class DataApplication {
                 .deleteAll();
     }
 
-    private static void loadData() {
-        loadContactsInitData();
-        loadHobbiesInitData();
-        loadContactsHobbiesRelations();
-    }
-
     public static void main(String[] args) {
-        // Uncomment to store more test data
-        // (change hibernate.hbm2ddl to 'create' in hibernate.properties to reset ID)
-        loadData();
+        Injector injector = Guice.createInjector(new DataConfiguration());
+        Configuration configuration = injector.getInstance(Configuration.class);
+        try (
+                SessionFactory sessionFactory = configuration.buildSessionFactory();
+                Session session = sessionFactory.openSession()
+        ) {
+            Transaction transaction = session.beginTransaction();
 
-        // Testing
-//        test();
-    }
+            // Uncomment to store more test data
+            // (change hibernate.hbm2ddl to 'create' in hibernate.properties to reset ID)
+            loadContactsData(session);
+            loadHobbiesData(session);
+            loadContactsHobbiesRelations(session);
 
-    private static void test() {
-        Injector injector = Guice.createInjector(new DaoInjector());
-        ContactDao contactService = injector.getInstance(ContactDao.class);
-
-        int num = 25;
-        // GET ALL
-        System.out.println("=".repeat(num));
-        System.out.println("ALL CONTACTS");
-        System.out.println("=".repeat(num));
-        contactService.findAll()
-                      .forEach(System.out::println);
-
-        // GET BY ID
-        System.out.println("=".repeat(num));
-        System.out.println("CONTACT WITH ID 4");
-        System.out.println("=".repeat(num));
-        System.out.println(contactService.findById(4L));
-
-        // GET ALL BY PARAMS (type, name)
-        System.out.println("=".repeat(num));
-        System.out.println("ALL PET CONTACTS");
-        System.out.println("=".repeat(num));
-        contactService.findByParams(ContactType.PET, null)
-                      .forEach(System.out::println);
+            transaction.commit();
+        } catch (IOException e) {
+            System.err.println("ERROR: IOException");
+            System.exit(1);
+        }
     }
 
     /**
