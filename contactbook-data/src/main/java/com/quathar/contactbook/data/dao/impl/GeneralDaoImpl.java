@@ -46,7 +46,7 @@ public abstract class GeneralDaoImpl<T, ID> implements GeneralDao<T, ID> {
     public Optional<T> findById(ID id) {
         try (Session session = _sessionFactory.openSession()) {
             T entity = session.get(_entityClass, id);
-            return Optional.of(entity);
+            return Optional.ofNullable(entity);
         }
     }
 
