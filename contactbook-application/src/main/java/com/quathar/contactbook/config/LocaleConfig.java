@@ -29,7 +29,7 @@ public class LocaleConfig {
             Properties settingsProperties = new Properties();
             settingsProperties.load(fileInputStream);
             String language = (String) settingsProperties.get("language");
-            return LangEnum.valueOf(language);
+            return LangEnum.valueOf(language.toUpperCase());
         } catch (IOException e) {
             return LangEnum.valueOf("en");
         }
