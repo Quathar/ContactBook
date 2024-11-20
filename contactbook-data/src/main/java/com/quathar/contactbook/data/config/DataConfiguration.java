@@ -47,7 +47,7 @@ public class DataConfiguration extends AbstractModule {
                     .addPackage("com.quathar.contactbook.data")
                     .addAnnotatedClass(Contact.class)
                     .addAnnotatedClass(Hobby.class);
-        } catch (IOException ioE) {
+        } catch (IOException e) {
             System.err.println("ERROR: IOException :: File not found");
             System.exit(1);
             return null;
