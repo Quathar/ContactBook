@@ -61,7 +61,6 @@ public class DataLoader {
             Type listType = new TypeToken<List<Contact>>(){}.getType();
             List<Contact> contacts = new Gson().fromJson(reader, listType);
             contacts.forEach(session::persist);
-            session.flush();
         }
     }
 
