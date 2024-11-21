@@ -27,9 +27,20 @@ public class DataConfiguration extends AbstractModule {
     /**
      * hibernate configuration file (hibernate.properties) path
      */
-    private static final Path HIBERNATE_PROPERTIES_PATH = Path.of(
-            System.getProperty("project.rootDir"), "contactbook-data",
-            "src", "main", "resources", "hibernate.properties");
+    private static final String HIBERNATE_PROPERTIES_PATH = Path.of(
+            System.getProperty("project.rootDir"),
+            "contactbook-data",
+            "src", "main", "resources", "hibernate.properties"
+    ).toString();
+
+    /**
+     * The path to the database
+     */
+    private static final String DATABASE_PATH = Path.of(
+            System.getProperty("project.rootDir"),
+            "contactbook-data",
+            "src", "main", "resources", "contactbook"
+    ).toString();
 
     /**
      * Configures hibernate.
@@ -38,10 +49,11 @@ public class DataConfiguration extends AbstractModule {
      */
     @Provides
     public Configuration providesConfiguration() {
-        String path = HIBERNATE_PROPERTIES_PATH.toString();
-        try (FileInputStream fileInputStream = new FileInputStream(path)) {
+        try (FileInputStream fileInputStream = new FileInputStream(HIBERNATE_PROPERTIES_PATH)) {
             Properties hibernateProperties = new Properties();
             hibernateProperties.load(fileInputStream);
+            String jdbc = hibernateProperties.get("hibernate.connection.url").toString();
+            hibernateProperties.put("hibernate.connection.url", jdbc.replace("{path}", DATABASE_PATH));
             return new Configuration()
                     .addProperties(hibernateProperties)
                     .addPackage("com.quathar.contactbook.data")
