@@ -2,7 +2,7 @@ package com.quathar.contactbook;
 
 import com.formdev.flatlaf.IntelliJTheme;
 
-import com.quathar.contactbook.data.DataApplication;
+import com.quathar.contactbook.data.DataLoader;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.frame.MainFrame;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
@@ -50,7 +50,7 @@ public class Application {
      * Format the agenda and start it again.
      */
     public static void format() {
-        DataApplication.format();
+        DataLoader.format();
         Application.execute();
     }
 
@@ -63,8 +63,10 @@ public class Application {
         new MainFrame().setVisible(true);
     }
 
-    public static void main(String[] quathar) {
-        Application.execute();
+    public static void main(String... quathar) {
+        if (quathar.length > 0 && "data".equals(quathar[0]))
+            DataLoader.load();
+        else Application.execute();
     }
 
 }
