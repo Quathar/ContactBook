@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @author Q
  */
-public class DataApplication {
+public class DataLoader {
 
     // <<-CONSTANTS->>
     private static final Path CONTACTS_JSON_PATH = Path.of(
@@ -111,7 +111,7 @@ public class DataApplication {
                 .deleteAll();
     }
 
-    public static void main(String[] args) {
+    public static void load() {
         Injector injector = Guice.createInjector(new DataConfiguration());
         Configuration configuration = injector.getInstance(Configuration.class);
         try (
