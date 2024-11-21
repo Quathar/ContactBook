@@ -16,7 +16,7 @@ import java.util.Properties;
 public class LocaleConfig {
 
     private static final Path SETTINGS_PATH = Path.of(
-            System.getProperty("user.dir"), "contactbook-application",
+            System.getProperty("project.rootDir"), "contactbook-application",
             "src", "main", "resources", "settings.properties");
 
     /**
@@ -31,7 +31,7 @@ public class LocaleConfig {
             String language = (String) settingsProperties.get("language");
             return LangEnum.valueOf(language.toUpperCase());
         } catch (IOException e) {
-            return LangEnum.valueOf("en");
+            return LangEnum.valueOf("EN");
         }
     }
 

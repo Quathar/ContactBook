@@ -44,7 +44,7 @@ public enum Message {
 
     // <<-CONSTANTS->>
     private static final Path PATH = Path.of(
-            System.getProperty("user.dir"), "contactbook-application",
+            System.getProperty("project.rootDir"), "contactbook-application",
             "src", "main", "resources", "%s");
 
     static {
