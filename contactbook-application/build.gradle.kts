@@ -12,6 +12,16 @@ dependencies {
     implementation(rootProject.libs.jcalendar)
 }
 
-tasks.withType<JavaExec> {
-    systemProperty("project.rootDir", rootDir.absolutePath)
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.quathar.contactbook.Application"
+    }
+
+    from({
+        configurations.runtimeClasspath
+            .get()
+            .map { if (it.isDirectory) it else zipTree(it) }
+    })
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
