@@ -3,6 +3,7 @@ package com.quathar.contactbook;
 import com.formdev.flatlaf.IntelliJTheme;
 
 import com.quathar.contactbook.data.DataLoader;
+import com.quathar.contactbook.ui.Theme;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.frame.MainFrame;
 import com.quathar.contactbook.ui.frame.helper.ViewTitle;
@@ -40,7 +41,7 @@ public class Application {
      * @param themeIndex the new theme's index
      * @param themeType the theme's type
      */
-    public static void changeTheme(int themeIndex, String themeType) {
+    public static void changeTheme(int themeIndex, Theme.Type themeType) {
         InputStream newTheme = Themes.getTheme(themeIndex, themeType);
         IntelliJTheme.setup(newTheme);
         new MainFrame(themeIndex, themeType, ViewTitle.SETTINGS).setVisible(true);
@@ -58,7 +59,7 @@ public class Application {
      * Launch the interface application with 'Dracula Contrast' Theme
      */
     private static void execute() {
-        InputStream defaultTheme = Themes.getTheme(3, Themes.DARK);
+        InputStream defaultTheme = Themes.getTheme(3, Theme.Type.DARK);
         IntelliJTheme.setup(defaultTheme);
         new MainFrame().setVisible(true);
     }
