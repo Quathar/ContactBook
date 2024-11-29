@@ -3,6 +3,7 @@ package com.quathar.contactbook.ui.frame;
 import com.quathar.contactbook.Application;
 import com.quathar.contactbook.config.LocaleConfig;
 import com.quathar.contactbook.io.MSG;
+import com.quathar.contactbook.ui.Theme;
 import com.quathar.contactbook.ui.Themes;
 import com.quathar.contactbook.ui.component.ChangerComboBox;
 import com.quathar.contactbook.ui.component.RoundJTextField;
@@ -21,6 +22,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.Serial;
+import java.util.Arrays;
 
 /**
  * <h1>GUI: MainFrame</h1>
@@ -59,7 +61,7 @@ public class MainFrame extends JFrame {
      * Constructs a new MainFrame with the default theme and no initial view.
      */
     public MainFrame() {
-        this(0, Themes.LIGHT, null);
+        this(0, Theme.Type.LIGHT, null);
     }
 
     /**
@@ -69,7 +71,7 @@ public class MainFrame extends JFrame {
      * @param themeType the type of the theme (light or dark).
      * @param view the initial view to display.
      */
-    public MainFrame(int themeIndex, String themeType, ViewTitle view) {
+    public MainFrame(int themeIndex, Theme.Type themeType, ViewTitle view) {
         super(Label.MAIN_FRAME_TITLE.getText());
         setTheme(themeIndex, themeType);
         initComponents();
@@ -82,11 +84,11 @@ public class MainFrame extends JFrame {
      * @param themeIndex the index of the theme to apply.
      * @param themeType the type of the theme (light or dark).
      */
-    private void setTheme(int themeIndex, String themeType) {
+    private void setTheme(int themeIndex, Theme.Type themeType) {
         this.themeIndex    = themeIndex;
-        this.themeTypeIcon = themeType.equals(Themes.LIGHT) ?
-                                UnicodeIcon.SUN:
-                                UnicodeIcon.MOON;
+        this.themeTypeIcon = themeType.equals(Theme.Type.LIGHT)
+                             ? UnicodeIcon.SUN
+                             : UnicodeIcon.MOON;
     }
 
     // <<-METHODS->>
@@ -414,7 +416,7 @@ public class MainFrame extends JFrame {
                         .build());
         hobbyTF.addActionListener(e -> {
             String text = hobbyTF.getText();
-            if (!text.equals("") && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
+            if (!text.isEmpty() && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
                 hobbyTable.addNewHobby(text);
                 hobbyTF.setText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
             }
@@ -433,7 +435,7 @@ public class MainFrame extends JFrame {
         JButton btnCreate = new JButton(UnicodeIcon.ADD.getCode());
         btnCreate.addActionListener(e -> {
             String text = hobbyTF.getText();
-            if (!text.equals("") && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
+            if (!text.isEmpty() && !text.equals(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText())) {
                 hobbyTable.addNewHobby(text);
                 hobbyTF.setText(Placeholder.HOBBY_TF_DEFAULT_TEXT.getText());
             }
@@ -499,28 +501,29 @@ public class MainFrame extends JFrame {
         // THEMES
         // THEMES
         JButton themesButton = new JButton(themeTypeIcon.getCode());
-        String[] items = themeTypeIcon == UnicodeIcon.SUN ?
-                            Themes.LIGHT_THEMES:
-                            Themes.DARK_THEMES;
+        String[] items = themeTypeIcon == UnicodeIcon.SUN
+                         ? Theme.getThemeNamesByType(Theme.Type.LIGHT)
+                         : Theme.getThemeNamesByType(Theme.Type.DARK);
         ChangerComboBox<String> themesComboBox = new ChangerComboBox<>(items);
 
         themesButton.addActionListener(e -> {
             String icon = themesButton.getText();
             if (icon.equals(UnicodeIcon.SUN.getCode())) {
                 themesButton.setText(UnicodeIcon.MOON.getCode());
-                themesComboBox.changeList(Themes.DARK_THEMES);
+                themesComboBox.changeList(Theme.getThemeNamesByType(Theme.Type.DARK));
             } else if (icon.equals(UnicodeIcon.MOON.getCode())) {
                 themesButton.setText(UnicodeIcon.SUN.getCode());
-                themesComboBox.changeList(Themes.LIGHT_THEMES);
+                themesComboBox.changeList(Theme.getThemeNamesByType(Theme.Type.LIGHT));
             }
         });
         northPanel.add(themesButton, GBL.createGridBagConstraints(0, 0));
 
         themesComboBox.setSelectedIndex(themeIndex);
         themesComboBox.addActionListener(e -> {
-            String themeType = themesButton.getText().equals(UnicodeIcon.SUN.getCode()) ?
-                    Themes.LIGHT:
-                    Themes.DARK;
+            Theme.Type themeType = themesButton.getText()
+                                           .equals(UnicodeIcon.SUN.getCode())
+                               ? Theme.Type.LIGHT
+                               : Theme.Type.DARK;
             dispose();
             Application.changeTheme(themesComboBox.getSelectedIndex(), themeType);
         });
