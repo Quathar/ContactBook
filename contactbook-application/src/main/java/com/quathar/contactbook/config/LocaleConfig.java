@@ -16,7 +16,7 @@ import java.util.Properties;
 public class LocaleConfig {
 
     private static final Path SETTINGS_PATH = Path.of(
-            System.getProperty("project.rootDir"), "contactbook-application",
+            System.getProperty("user.dir"), "contactbook-application",
             "src", "main", "resources", "settings.properties");
 
     /**

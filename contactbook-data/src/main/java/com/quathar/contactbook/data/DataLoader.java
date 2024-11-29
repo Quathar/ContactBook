@@ -46,13 +46,13 @@ public class DataLoader {
 
     // <<-CONSTANTS->>
     private static final Path CONTACTS_JSON_PATH = Path.of(
-            System.getProperty("project.rootDir"), "contactbook-data",
+            System.getProperty("user.dir"), "contactbook-data",
             "src", "main", "resources", "json", "contacts.json");
     private static final Path HOBBIES_JSON_PATH = Path.of(
-            System.getProperty("project.rootDir"), "contactbook-data",
+            System.getProperty("user.dir"), "contactbook-data",
             "src", "main", "resources", "json", "hobbies.json");
     private static final Path RELATIONS_JSON_PATH = Path.of(
-            System.getProperty("project.rootDir"), "contactbook-data",
+            System.getProperty("user.dir"), "contactbook-data",
             "src", "main", "resources", "json", "contacts_hobbies.json");
 
     // <<-METHODS->>

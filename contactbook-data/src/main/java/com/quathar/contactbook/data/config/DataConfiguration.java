@@ -28,7 +28,7 @@ public class DataConfiguration extends AbstractModule {
      * hibernate configuration file (hibernate.properties) path
      */
     private static final String HIBERNATE_PROPERTIES_PATH = Path.of(
-            System.getProperty("project.rootDir"),
+            System.getProperty("user.dir"),
             "contactbook-data",
             "src", "main", "resources", "hibernate.properties"
     ).toString();
@@ -37,7 +37,7 @@ public class DataConfiguration extends AbstractModule {
      * The path to the database
      */
     private static final String DATABASE_PATH = Path.of(
-            System.getProperty("project.rootDir"),
+            System.getProperty("user.dir"),
             "contactbook-data",
             "src", "main", "resources", "contactbook"
     ).toString();
